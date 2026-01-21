@@ -1,5 +1,34 @@
 {
-  "@@locale": "fr",
-  "hello": "Bonjour",
-  "welcome": "Bienvenue dans l'application"
+    "@@locale": "fr",
+    "app_name": "Hydrogrow",
+
+    "login_title": "Connexion",
+    "login_email": "Mail",
+    "login_password": "Mot de passe",
+    "login_forgot_password": "Mot de passe oublié ?",
+    "login_no_account": "Pas de compte ? ",
+    "login_sign_up": "S'inscrire",
+    "login_send": "Se connecter",
+
+    "create_account_title": "Créer un compte",
+    "create_account_username": "Nom d'utilisateur",
+    "create_account_send": "Créer le compte",
+    "create_account_have_account": "Déjà un compte ? ",
+    "create_account_login": "Se connecter",
+
+    "dashboard_welcome": "Bonjour",
+    "dashboard_block_1_title": "Dashboard",
+    "dashboard_block_2_title": "Communauté",
+    "dashboard_block_2_subtitle": "Ajoutez un post en favori dans l'onglet Communauté pour le faire apparaître ici.",
+    "dashboard_block_3_title": "Dépenses",
+    "dashboard_block_3_admin_title": "Finances",
+    "dashboard_block_4_title": "Communauté",
+    "dashboard_premium": "Accédez à notre version PREMIUM pour une meilleure expérience !",
+
+    "menu_dashboard": "Tableau de bord",
+    "menu_community": "Communauté",
+    "menu_expenses": "Suivi des dépenses",
+    "menu_stock": "Suivi des stocks",
+    "menu_parcels": "Gestion des parcelles",
+    "menu_account": "Mon compte"
 }
