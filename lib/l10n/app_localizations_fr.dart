@@ -24,10 +24,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get login_password => 'Mot de passe';
 
   @override
-  String get login_password_helper =>
-      'Votre mot de passe doit contenir au moins 6 caractères.';
-
-  @override
   String get login_forgot_password => 'Mot de passe oublié ?';
 
   @override
@@ -49,10 +45,34 @@ class AppLocalizationsFr extends AppLocalizations {
   String get create_account_send => 'Créer le compte';
 
   @override
-  String get create_account_have_account => 'Déjà un compte ? ';
+  String get create_account_have_account => 'Déjà un compte ?';
 
   @override
   String get create_account_login => 'Se connecter';
+
+  @override
+  String get connexion_error_create_password =>
+      'Votre mot de passe doit contenir au moins 6 caractères.';
+
+  @override
+  String get connexion_error_invalid_email => 'Adresse mail invalide.';
+
+  @override
+  String get connexion_error_user_not_found => 'Utilisateur non trouvé.';
+
+  @override
+  String get connexion_error_wrong_password => 'Mot de passe incorrect.';
+
+  @override
+  String get connexion_error_generic =>
+      'Une erreur est survenue. Veuillez réessayer.';
+
+  @override
+  String get connexion_error_email_in_use =>
+      'Cette adresse mail est déjà utilisée.';
+
+  @override
+  String get connexion_error_mandatory => 'Champ obligatoire.';
 
   @override
   String get dashboard_welcome => 'Bonjour';

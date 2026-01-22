@@ -128,12 +128,6 @@ abstract class AppLocalizations {
   /// **'Password'**
   String get login_password;
 
-  /// No description provided for @login_password_helper.
-  ///
-  /// In en, this message translates to:
-  /// **'Your password must contain at least 6 characters.'**
-  String get login_password_helper;
-
   /// No description provided for @login_forgot_password.
   ///
   /// In en, this message translates to:
@@ -187,6 +181,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Log in'**
   String get create_account_login;
+
+  /// No description provided for @connexion_error_create_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password must be at least 6 characters long.'**
+  String get connexion_error_create_password;
+
+  /// No description provided for @connexion_error_invalid_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email address.'**
+  String get connexion_error_invalid_email;
+
+  /// No description provided for @connexion_error_user_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'User not found.'**
+  String get connexion_error_user_not_found;
+
+  /// No description provided for @connexion_error_wrong_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password.'**
+  String get connexion_error_wrong_password;
+
+  /// No description provided for @connexion_error_generic.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred. Please try again.'**
+  String get connexion_error_generic;
+
+  /// No description provided for @connexion_error_email_in_use.
+  ///
+  /// In en, this message translates to:
+  /// **'This email address is already in use.'**
+  String get connexion_error_email_in_use;
+
+  /// No description provided for @connexion_error_mandatory.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required.'**
+  String get connexion_error_mandatory;
 
   /// No description provided for @dashboard_welcome.
   ///

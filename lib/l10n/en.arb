@@ -6,7 +6,6 @@
     "login_title": "Login",
     "login_email": "Email",
     "login_password": "Password",
-    "login_password_helper": "Your password must contain at least 6 characters.",
     "login_forgot_password": "Forgot your password?",
     "login_no_account": "Don't have an account? ",
     "login_sign_up": "Sign up",
@@ -17,6 +16,14 @@
     "create_account_send": "Create account",
     "create_account_have_account": "Already have an account? ",
     "create_account_login": "Log in",
+
+    "connexion_error_create_password": "Your password must be at least 6 characters long.",
+    "connexion_error_invalid_email": "Invalid email address.",
+    "connexion_error_user_not_found": "User not found.",
+    "connexion_error_wrong_password": "Incorrect password.",
+    "connexion_error_generic": "An error occurred. Please try again.",
+    "connexion_error_email_in_use": "This email address is already in use.",
+    "connexion_error_mandatory": "This field is required.",
 
     "dashboard_welcome": "Hello",
     "dashboard_block_1_title": "Dashboard",

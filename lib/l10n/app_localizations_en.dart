@@ -24,10 +24,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login_password => 'Password';
 
   @override
-  String get login_password_helper =>
-      'Your password must contain at least 6 characters.';
-
-  @override
   String get login_forgot_password => 'Forgot your password?';
 
   @override
@@ -53,6 +49,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get create_account_login => 'Log in';
+
+  @override
+  String get connexion_error_create_password =>
+      'Your password must be at least 6 characters long.';
+
+  @override
+  String get connexion_error_invalid_email => 'Invalid email address.';
+
+  @override
+  String get connexion_error_user_not_found => 'User not found.';
+
+  @override
+  String get connexion_error_wrong_password => 'Incorrect password.';
+
+  @override
+  String get connexion_error_generic => 'An error occurred. Please try again.';
+
+  @override
+  String get connexion_error_email_in_use =>
+      'This email address is already in use.';
+
+  @override
+  String get connexion_error_mandatory => 'This field is required.';
 
   @override
   String get dashboard_welcome => 'Hello';
