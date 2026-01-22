@@ -27,8 +27,9 @@ class AppTheme {
 
     textTheme: const TextTheme(
       titleLarge: TextStyle(
-        color: AppColors.textPrimary,
-        fontWeight: FontWeight.bold,
+        color: AppColors.titleText,
+        fontWeight: FontWeight.w500,
+        fontSize: 36,
       ),
       titleMedium: TextStyle(
         color: AppColors.textSecondary,
@@ -36,8 +37,19 @@ class AppTheme {
         fontSize: 36,
       ),
       titleSmall: TextStyle(
+        color: AppColors.textPrimary,
+        fontWeight: FontWeight.w500,
+        fontSize: 10,
+      ),
+      labelLarge: TextStyle(
         color: AppColors.titleText,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w500,
+        fontSize: 36,
+      ),
+      labelMedium: TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
       ),
       labelSmall: TextStyle(
         color: Colors.grey,
@@ -46,14 +58,7 @@ class AppTheme {
       ),
       bodyLarge: TextStyle(color: AppColors.textPrimary),
       bodyMedium: TextStyle(color: AppColors.textSecondary),
-      labelLarge: TextStyle(
-        color: AppColors.titleText,
-        fontWeight: FontWeight.w500,
-        fontSize: 36,
-      ),
     ),
-
-    iconTheme: const IconThemeData(color: AppColors.icon),
 
     dividerColor: AppColors.divider,
 

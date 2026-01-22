@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
+import 'package:hydrogrow/presentation/widgets/divider.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -10,10 +11,17 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
+  bool _isLogin = false;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _loginController = TextEditingController();
+
+  void _toggleAuthMode() {
+    setState(() {
+      _isLogin = !_isLogin;
+    });
+  }
 
   @override
   void dispose() {
@@ -40,25 +48,37 @@ class _LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: Column(
         children: [
-          TextFormField(
-            controller: _loginController,
-            decoration: InputDecoration(
-              icon: Icon(Icons.login),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+          Row(
+            children: [
+              Text(
+                _isLogin
+                    ? translate.login_title
+                    : translate.create_account_title,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-              filled: true,
-              fillColor: Colors.white,
-              labelText: translate.login,
-            ),
-            keyboardType: TextInputType.emailAddress,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Login requis";
-              }
-              return null;
-            },
+            ],
           ),
+          SizedBox(height: 20),
+          if (!_isLogin)
+            TextFormField(
+              controller: _loginController,
+              decoration: InputDecoration(
+                icon: Icon(Icons.login),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                labelText: translate.login,
+              ),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Login requis";
+                }
+                return null;
+              },
+            ),
           const SizedBox(height: 16),
           TextFormField(
             style: Theme.of(context).textTheme.labelSmall,
@@ -88,7 +108,7 @@ class _LoginFormState extends State<LoginForm> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              helperText: "Mot de passe oublié ?",
+              helperText: translate.login_forgot_password,
               filled: true,
               fillColor: Colors.white,
               labelText: translate.login_password,
@@ -96,7 +116,7 @@ class _LoginFormState extends State<LoginForm> {
             obscureText: true,
             validator: (value) {
               if (value == null || value.length < 6) {
-                return translate.login_password_helper;
+                return translate.connexion_error_create_password;
               }
               return null;
             },
@@ -107,9 +127,18 @@ class _LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               onPressed: _submit,
               child: Text(
-                translate.create_account_send,
-                style: Theme.of(context).textTheme.titleSmall,
+                _isLogin ? translate.login_send : translate.create_account_send,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
+            ),
+          ),
+          SizedBox(height: 20),
+          GestureDetector(
+            onTap: _toggleAuthMode,
+            child: DividerWithText(
+              text: _isLogin
+                  ? translate.login_no_account
+                  : translate.create_account_have_account,
             ),
           ),
         ],

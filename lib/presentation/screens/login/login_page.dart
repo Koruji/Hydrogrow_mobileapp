@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
+import 'package:hydrogrow/presentation/widgets/divider.dart';
 import 'package:hydrogrow/presentation/widgets/login_form.dart';
 
 class LoginPage extends StatefulWidget {
@@ -78,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                       bottom: 0,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0xFFDDFEF0),
+                          color: AppColors.background,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20),
@@ -86,18 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 10),
-                              Text(
-                                translate.create_account_title,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                              SizedBox(height: 20),
-                              LoginForm(),
-                            ],
-                          ),
+                          child: Column(children: [LoginForm()]),
                         ),
                       ),
                     ),

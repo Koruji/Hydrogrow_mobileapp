@@ -27,10 +27,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get login_forgot_password => 'Mot de passe oublié ?';
 
   @override
-  String get login_no_account => 'Pas de compte ? ';
+  String get login_no_account => 'Pas de compte ? S\'inscrire';
 
   @override
-  String get login_sign_up => 'S\'inscrire';
+  String get login_sign_up => 'Sign up';
 
   @override
   String get login_send => 'Se connecter';
@@ -45,10 +45,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get create_account_send => 'Créer le compte';
 
   @override
-  String get create_account_have_account => 'Déjà un compte ?';
+  String get create_account_have_account => 'Déjà un compte ? Se connecter';
 
   @override
-  String get create_account_login => 'Se connecter';
+  String get create_account_login => 'Log in';
 
   @override
   String get connexion_error_create_password =>
