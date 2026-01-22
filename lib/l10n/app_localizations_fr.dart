@@ -9,7 +9,10 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get app_name => 'Hydrogrow';
+  String get app_name => 'HydroGrow';
+
+  @override
+  String get login => 'Pseudo/Identifiant';
 
   @override
   String get login_title => 'Connexion';
@@ -19,6 +22,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get login_password => 'Mot de passe';
+
+  @override
+  String get login_password_helper =>
+      'Votre mot de passe doit contenir au moins 6 caractères.';
 
   @override
   String get login_forgot_password => 'Mot de passe oublié ?';
@@ -33,7 +40,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get login_send => 'Se connecter';
 
   @override
-  String get create_account_title => 'Créer un compte';
+  String get create_account_title => 'Login';
 
   @override
   String get create_account_username => 'Nom d\'utilisateur';

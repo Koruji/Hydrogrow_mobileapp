@@ -101,8 +101,14 @@ abstract class AppLocalizations {
   /// No description provided for @app_name.
   ///
   /// In en, this message translates to:
-  /// **'Hydrogrow'**
+  /// **'HydroGrow'**
   String get app_name;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
 
   /// No description provided for @login_title.
   ///
@@ -121,6 +127,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password'**
   String get login_password;
+
+  /// No description provided for @login_password_helper.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password must contain at least 6 characters.'**
+  String get login_password_helper;
 
   /// No description provided for @login_forgot_password.
   ///

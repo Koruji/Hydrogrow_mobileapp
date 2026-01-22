@@ -9,7 +9,10 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get app_name => 'Hydrogrow';
+  String get app_name => 'HydroGrow';
+
+  @override
+  String get login => 'Login';
 
   @override
   String get login_title => 'Login';
@@ -19,6 +22,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get login_password => 'Password';
+
+  @override
+  String get login_password_helper =>
+      'Your password must contain at least 6 characters.';
 
   @override
   String get login_forgot_password => 'Forgot your password?';

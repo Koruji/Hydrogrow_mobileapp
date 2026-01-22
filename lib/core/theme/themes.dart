@@ -10,7 +10,6 @@ class AppTheme {
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.menu,
       brightness: Brightness.light,
-
       primary: AppColors.menu,
       secondary: AppColors.textSecondary,
       surface: AppColors.background,
@@ -32,14 +31,25 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
       titleMedium: TextStyle(
-        color: AppColors.textPrimary,
-        fontWeight: FontWeight.w600,
+        color: AppColors.textSecondary,
+        fontWeight: FontWeight.w500,
+        fontSize: 36,
+      ),
+      titleSmall: TextStyle(
+        color: AppColors.titleText,
+        fontWeight: FontWeight.w300,
+      ),
+      labelSmall: TextStyle(
+        color: Colors.grey,
+        fontWeight: FontWeight.w300,
+        fontSize: 10,
       ),
       bodyLarge: TextStyle(color: AppColors.textPrimary),
       bodyMedium: TextStyle(color: AppColors.textSecondary),
       labelLarge: TextStyle(
         color: AppColors.titleText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w500,
+        fontSize: 36,
       ),
     ),
 
