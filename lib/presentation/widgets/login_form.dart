@@ -74,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return "Login requis";
+                  return translate.connexion_error_mandatory;
                 }
                 return null;
               },
@@ -95,7 +95,7 @@ class _LoginFormState extends State<LoginForm> {
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "Email requis";
+                return translate.connexion_error_mandatory;
               }
               return null;
             },
@@ -115,7 +115,9 @@ class _LoginFormState extends State<LoginForm> {
             ),
             obscureText: true,
             validator: (value) {
-              if (value == null || value.length < 6) {
+              if (value == null) {
+                return translate.connexion_error_mandatory;
+              } else if (value.length < 6) {
                 return translate.connexion_error_create_password;
               }
               return null;

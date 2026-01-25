@@ -36,7 +36,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get login_send => 'Se connecter';
 
   @override
-  String get create_account_title => 'Login';
+  String get create_account_title => 'Créer un compte';
 
   @override
   String get create_account_username => 'Nom d\'utilisateur';
