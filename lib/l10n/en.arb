@@ -1,0 +1,45 @@
+{
+    "@@locale": "en",
+    "app_name": "HydroGrow",
+
+    "login": "Login",
+    "login_title": "Login",
+    "login_email": "Email",
+    "login_password": "Password",
+    "login_forgot_password": "Forgot your password?",
+    "login_no_account": "Don't have an account? ",
+    "login_sign_up": "Sign up",
+    "login_send": "Log in",
+
+    "create_account_title": "Create an account",
+    "create_account_username": "Username",
+    "create_account_send": "Create account",
+    "create_account_have_account": "Already have an account? ",
+    "create_account_login": "Log in",
+
+    "connexion_error_create_password": "Your password must be at least 6 characters long.",
+    "connexion_error_invalid_email": "Invalid email address.",
+    "connexion_error_user_not_found": "User not found.",
+    "connexion_error_wrong_password": "Incorrect password.",
+    "connexion_error_generic": "An error occurred. Please try again.",
+    "connexion_error_email_in_use": "This email address is already in use.",
+    "connexion_error_mandatory": "This field is required.",
+
+    "dashboard_welcome": "Hello",
+    "dashboard_block_1_title": "Dashboard",
+    "dashboard_block_2_title": "Community",
+    "dashboard_block_2_subtitle": "Add a post to your favorites in the Community tab to see it here.",
+    "dashboard_block_3_title": "Expenses",
+    "dashboard_block_3_admin_title": "Finances",
+    "dashboard_block_4_title": "Community",
+    "dashboard_premium": "Access our PREMIUM version for a better experience!",
+
+    "menu_dashboard": "Dashboard",
+    "menu_community": "Community",
+    "menu_expenses": "Expense Tracking",
+    "menu_stock": "Stock Tracking",
+    "menu_parcels": "Parcel Management",
+    "menu_account": "My Account"
+}
+
+
