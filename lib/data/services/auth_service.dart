@@ -29,7 +29,7 @@ class AuthService {
   Future<bool> login(String email, String password) async {
     try {
       final response = await _dio.post(
-        '/login', // Remplacez par votre endpoint
+        '/auth/login',
         data: {
           'email': email,
           'password': password,
