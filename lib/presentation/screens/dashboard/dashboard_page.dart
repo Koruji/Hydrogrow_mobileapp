@@ -4,6 +4,7 @@ import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/widgets/alert_message.dart';
 import 'package:hydrogrow/presentation/widgets/app_bar.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
+import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
 import 'package:hydrogrow/presentation/widgets/side_bar.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -18,15 +19,6 @@ class _DashboardPageState extends State<DashboardPage> {
   bool isEditMode = false;
   bool isPremium = false;
 
-  List<String> get containersTitle {
-    final translate = AppLocalizations.of(context)!;
-    return [
-      translate.dashboard_block_1_title,
-      translate.dashboard_block_2_title,
-      translate.dashboard_block_3_title,
-    ];
-  }
-
   void _openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
   }
@@ -34,10 +26,18 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
+
+    final containersTitle = [
+      translate.dashboard_block_1_title,
+      translate.dashboard_block_2_title,
+      translate.dashboard_block_3_title,
+    ];
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.background,
       appBar: AppBarComponent(
+        isEditMode: isEditMode,
         onMenuPressed: () {
           _openDrawer();
         },
@@ -63,11 +63,14 @@ class _DashboardPageState extends State<DashboardPage> {
               message: translate.dashboard_alert_message,
             ),
           Expanded(
-            child: ListView(
-              children: List.generate(
-                3,
-                (index) => DashboardContainer(title: containersTitle[index]),
-              ),
+            child: ReorderableContainerList(
+              titles: containersTitle,
+              storageKey: 'dashboard_container_order',
+              isEditMode: isEditMode,
+              headerWidget: null,
+              itemBuilder: (title) {
+                return DashboardContainer(key: ValueKey(title), title: title);
+              },
             ),
           ),
           if (!isPremium)

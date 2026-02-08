@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 
 class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
-  //quand on appel ce composant on peut définir les actions via ces 2 paramètres
   final VoidCallback? onMenuPressed;
   final VoidCallback? onEditPressed;
+  final bool isEditMode;
 
-  const AppBarComponent({Key? key, this.onMenuPressed, this.onEditPressed})
-    : super(key: key);
+  const AppBarComponent({
+    super.key,
+    this.onMenuPressed,
+    this.onEditPressed,
+    this.isEditMode = false,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final translate = AppLocalizations.of(context)!;
+
     return AppBar(
       backgroundColor: AppColors.menu,
       leading: IconButton(
@@ -28,7 +35,7 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
           ),
           SizedBox(width: 8),
           Text(
-            'HydroGrow',
+            translate.app_name,
             style: TextStyle(
               color: AppColors.titleText,
               fontSize: 20,
@@ -40,7 +47,10 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         IconButton(
-          icon: Icon(Icons.edit_outlined, color: AppColors.icon),
+          icon: Icon(
+            isEditMode ? Icons.edit_off_outlined : Icons.edit_outlined,
+            color: AppColors.icon,
+          ),
           onPressed: onEditPressed ?? () {},
         ),
       ],

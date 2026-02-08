@@ -4,10 +4,13 @@ import 'package:hydrogrow/core/theme/colors.dart';
 class DashboardContainer extends StatefulWidget {
   final String title;
   final String defaultContent;
+  final bool isEditMode;
+
   const DashboardContainer({
     super.key,
     this.title = '',
     this.defaultContent = '',
+    this.isEditMode = false,
   });
 
   @override
