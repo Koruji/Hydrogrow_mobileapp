@@ -16,6 +16,8 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isEditMode = false;
+  bool isPremium = false;
+
   List<String> get containersTitle {
     final translate = AppLocalizations.of(context)!;
     return [
@@ -68,6 +70,12 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           ),
+          if (!isPremium)
+            AlertMessage(
+              icon: Icons.star_rounded,
+              color: AppColors.notification,
+              message: translate.dashboard_premium,
+            ),
         ],
       ),
     );
