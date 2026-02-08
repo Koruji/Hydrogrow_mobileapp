@@ -101,6 +101,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Accédez à notre version PREMIUM pour une meilleure expérience !';
 
   @override
+  String get dashboard_alert_message =>
+      'Le mode édition du dashboard est activé !';
+
+  @override
   String get menu_dashboard => 'Tableau de bord';
 
   @override

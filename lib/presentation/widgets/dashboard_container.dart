@@ -22,7 +22,6 @@ class _DashboardContainerState extends State<DashboardContainer> {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // Container principal
           Container(
             margin: const EdgeInsets.only(top: 12),
             padding: const EdgeInsets.all(24),

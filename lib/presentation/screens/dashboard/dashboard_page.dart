@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
+import 'package:hydrogrow/presentation/widgets/alert_message.dart';
 import 'package:hydrogrow/presentation/widgets/app_bar.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/side_bar.dart';
@@ -14,7 +15,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  bool isEditMode = false;
   List<String> get containersTitle {
     final translate = AppLocalizations.of(context)!;
     return [
@@ -30,6 +31,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translate = AppLocalizations.of(context)!;
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.background,
@@ -38,7 +40,9 @@ class _DashboardPageState extends State<DashboardPage> {
           _openDrawer();
         },
         onEditPressed: () {
-          // Action pour le bouton d'édition
+          setState(() {
+            isEditMode = !isEditMode;
+          });
         },
       ),
       drawer: ClipRRect(
@@ -48,11 +52,23 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         child: SideBarComponent(currentRoute: '/dashboard'),
       ),
-      body: ListView(
-        children: List.generate(
-          3,
-          (index) => DashboardContainer(title: containersTitle[index]),
-        ),
+      body: Column(
+        children: [
+          if (isEditMode)
+            AlertMessage(
+              icon: Icons.warning_amber_rounded,
+              color: AppColors.warning,
+              message: translate.dashboard_alert_message,
+            ),
+          Expanded(
+            child: ListView(
+              children: List.generate(
+                3,
+                (index) => DashboardContainer(title: containersTitle[index]),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
