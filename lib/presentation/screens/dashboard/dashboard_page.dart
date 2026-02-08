@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/widgets/app_bar.dart';
+import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/side_bar.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -12,6 +14,15 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  List<String> get containersTitle {
+    final translate = AppLocalizations.of(context)!;
+    return [
+      translate.dashboard_block_1_title,
+      translate.dashboard_block_2_title,
+      translate.dashboard_block_3_title,
+    ];
+  }
 
   void _openDrawer() {
     _scaffoldKey.currentState?.openDrawer();
@@ -37,8 +48,11 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         child: SideBarComponent(currentRoute: '/dashboard'),
       ),
-      body: Center(
-        child: Text('Votre contenu ici'),
+      body: ListView(
+        children: List.generate(
+          3,
+          (index) => DashboardContainer(title: containersTitle[index]),
+        ),
       ),
     );
   }

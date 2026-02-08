@@ -6,21 +6,17 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onMenuPressed;
   final VoidCallback? onEditPressed;
 
-  const AppBarComponent({
-    Key? key,
-    this.onMenuPressed, 
-    this.onEditPressed,
-  }) : super(key: key);
+  const AppBarComponent({Key? key, this.onMenuPressed, this.onEditPressed})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.menu,
-      elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.menu, color: AppColors.icon),
         onPressed: onMenuPressed ?? () {},
-      ), 
+      ),
       title: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -44,12 +40,9 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         IconButton(
-          icon: Icon(
-            Icons.edit_outlined,
-            color: AppColors.icon,
-          ),
+          icon: Icon(Icons.edit_outlined, color: AppColors.icon),
           onPressed: onEditPressed ?? () {},
-        )
+        ),
       ],
     );
   }
