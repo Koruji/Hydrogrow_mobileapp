@@ -12,13 +12,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get app_name => 'HydroGrow';
 
   @override
-  String get login => 'Pseudo/Identifiant';
+  String get login => 'Connexion';
 
   @override
   String get login_title => 'Connexion';
 
   @override
-  String get login_email => 'Mail';
+  String get login_email => 'Email';
 
   @override
   String get login_password => 'Mot de passe';
@@ -27,10 +27,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get login_forgot_password => 'Mot de passe oublié ?';
 
   @override
-  String get login_no_account => 'Pas de compte ? S\'inscrire';
+  String get login_no_account => 'Vous n\'avez pas de compte ? ';
 
   @override
-  String get login_sign_up => 'Sign up';
+  String get login_sign_up => 'S\'inscrire';
 
   @override
   String get login_send => 'Se connecter';
@@ -42,50 +42,50 @@ class AppLocalizationsFr extends AppLocalizations {
   String get create_account_username => 'Nom d\'utilisateur';
 
   @override
-  String get create_account_send => 'Créer le compte';
+  String get create_account_send => 'Créer un compte';
 
   @override
-  String get create_account_have_account => 'Déjà un compte ? Se connecter';
+  String get create_account_have_account => 'Vous avez déjà un compte ? ';
 
   @override
-  String get create_account_login => 'Log in';
+  String get create_account_login => 'Se connecter';
 
   @override
   String get connexion_error_create_password =>
       'Votre mot de passe doit contenir au moins 6 caractères.';
 
   @override
-  String get connexion_error_invalid_email => 'Adresse mail invalide.';
+  String get connexion_error_invalid_email => 'Adresse email invalide.';
 
   @override
-  String get connexion_error_user_not_found => 'Utilisateur non trouvé.';
+  String get connexion_error_user_not_found => 'Utilisateur introuvable.';
 
   @override
   String get connexion_error_wrong_password => 'Mot de passe incorrect.';
 
   @override
   String get connexion_error_generic =>
-      'Une erreur est survenue. Veuillez réessayer.';
+      'Une erreur s\'est produite. Veuillez réessayer.';
 
   @override
   String get connexion_error_email_in_use =>
-      'Cette adresse mail est déjà utilisée.';
+      'Cette adresse email est déjà utilisée.';
 
   @override
-  String get connexion_error_mandatory => 'Champ obligatoire.';
+  String get connexion_error_mandatory => 'Ce champ est obligatoire.';
 
   @override
   String get dashboard_welcome => 'Bonjour';
 
   @override
-  String get dashboard_block_1_title => 'Dashboard';
+  String get dashboard_block_1_title => 'Tableau de bord';
 
   @override
   String get dashboard_block_2_title => 'Communauté';
 
   @override
   String get dashboard_block_2_subtitle =>
-      'Ajoutez un post en favori dans l\'onglet Communauté pour le faire apparaître ici.';
+      'Ajoutez une publication à vos favoris dans l\'onglet Communauté pour la voir ici.';
 
   @override
   String get dashboard_block_3_title => 'Dépenses';
@@ -99,6 +99,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get dashboard_premium =>
       'Accédez à notre version PREMIUM pour une meilleure expérience !';
+
+  @override
+  String get dashboard_alert_message =>
+      'Le mode édition du dashboard est activé !';
 
   @override
   String get menu_dashboard => 'Tableau de bord';

@@ -100,6 +100,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Access our PREMIUM version for a better experience!';
 
   @override
+  String get dashboard_alert_message => 'Dashboard edit mode is enabled!';
+
+  @override
   String get menu_dashboard => 'Dashboard';
 
   @override

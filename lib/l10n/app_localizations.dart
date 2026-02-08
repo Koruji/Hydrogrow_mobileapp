@@ -272,6 +272,12 @@ abstract class AppLocalizations {
   /// **'Access our PREMIUM version for a better experience!'**
   String get dashboard_premium;
 
+  /// No description provided for @dashboard_alert_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard edit mode is enabled!'**
+  String get dashboard_alert_message;
+
   /// No description provided for @menu_dashboard.
   ///
   /// In en, this message translates to:
