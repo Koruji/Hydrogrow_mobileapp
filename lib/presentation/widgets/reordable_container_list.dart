@@ -60,29 +60,48 @@ class _ReorderableContainerListState extends State<ReorderableContainerList> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.isEditMode
-        ? ReorderableListView.builder(
-            itemCount: containerOrder.length,
-            onReorder: (oldIndex, newIndex) {
-              setState(() {
-                if (newIndex > oldIndex) {
-                  newIndex -= 1;
-                }
-                final item = containerOrder.removeAt(oldIndex);
-                containerOrder.insert(newIndex, item);
-              });
-              _saveOrder();
-            },
-            itemBuilder: (context, index) {
-              return widget.itemBuilder(widget.titles[containerOrder[index]]);
-            },
-          )
-        : ListView(
-            children: [
-              if (widget.headerWidget != null) widget.headerWidget!,
-              for (int i = 0; i < containerOrder.length; i++)
-                widget.itemBuilder(widget.titles[containerOrder[i]]),
-            ],
+    if (widget.isEditMode) {
+      return ReorderableListView(
+        onReorder: (oldIndex, newIndex) {
+          setState(() {
+            if (newIndex > oldIndex) {
+              newIndex -= 1;
+            }
+            final item = containerOrder.removeAt(oldIndex);
+            containerOrder.insert(newIndex, item);
+          });
+          _saveOrder();
+        },
+        children: List.generate(containerOrder.length, (index) {
+          final originalIndex = containerOrder[index];
+          return Container(
+            key: ValueKey(originalIndex),
+            margin: const EdgeInsets.symmetric(vertical: 4.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: widget.itemBuilder(widget.titles[originalIndex]),
+                ),
+                ReorderableDragStartListener(
+                  index: index,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 12.0),
+                    child: Icon(Icons.drag_handle, size: 12),
+                  ),
+                ),
+              ],
+            ),
           );
+        }),
+      );
+    } else {
+      return ListView(
+        children: [
+          if (widget.headerWidget != null) widget.headerWidget!,
+          for (int i = 0; i < containerOrder.length; i++)
+            widget.itemBuilder(widget.titles[containerOrder[i]]),
+        ],
+      );
+    }
   }
 }
