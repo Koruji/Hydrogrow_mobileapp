@@ -56,6 +56,17 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: EdgeInsets.only(top: 16),
+            child: Text(
+              '${translate.dashboard_welcome} Koruji !',
+              style: TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
           if (isEditMode)
             AlertMessage(
               icon: Icons.warning_amber_rounded,
