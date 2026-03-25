@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
+import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 import 'package:hydrogrow/presentation/widgets/alert_message.dart';
-import 'package:hydrogrow/presentation/widgets/app_bar.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
-import 'package:hydrogrow/presentation/widgets/side_bar.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -15,13 +14,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isEditMode = false;
   bool isPremium = false;
-
-  void _openDrawer() {
-    _scaffoldKey.currentState?.openDrawer();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,27 +27,14 @@ class _DashboardPageState extends State<DashboardPage> {
       translate.dashboard_block_3_title,
     ];
 
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: AppColors.background,
-      appBar: AppBarComponent(
-        isEditMode: isEditMode,
-        onMenuPressed: () {
-          _openDrawer();
-        },
-        onEditPressed: () {
-          setState(() {
-            isEditMode = !isEditMode;
-          });
-        },
-      ),
-      drawer: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-        child: SideBarComponent(currentRoute: '/dashboard'),
-      ),
+    return AppScaffold(
+      currentRoute: '/dashboard',
+      isEditMode: isEditMode,
+      onEditPressed: () {
+        setState(() {
+          isEditMode = !isEditMode;
+        });
+      },
       body: Column(
         children: [
           Padding(
