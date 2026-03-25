@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
-import 'package:hydrogrow/presentation/widgets/divider.dart';
 import 'package:hydrogrow/presentation/widgets/login_form.dart';
 
 class LoginPage extends StatefulWidget {

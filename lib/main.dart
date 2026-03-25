@@ -3,6 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/core/theme/themes.dart';
 import 'package:hydrogrow/presentation/screens/dashboard/dashboard_page.dart';
+import 'package:hydrogrow/presentation/screens/login/login_page.dart';
+import 'package:hydrogrow/presentation/screens/stock/stock_page.dart';
 // import 'package:hydrogrow/presentation/screens/login/login_page.dart';
 
 void main() {
@@ -28,6 +30,19 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
       home: DashboardPage(),
+      routes: {
+        '/dashboard': (context) => DashboardPage(),
+        '/login': (context) => LoginPage(),
+        '/stock': (context) => StockPage(),
+        '/expenses': (context) =>
+            Scaffold(body: Center(child: Text('Expenses Page'))),
+        '/community': (context) =>
+            Scaffold(body: Center(child: Text('Community Page'))),
+        '/parcels': (context) =>
+            Scaffold(body: Center(child: Text('Parcels Page'))),
+        '/account': (context) =>
+            Scaffold(body: Center(child: Text('Account Page'))),
+      },
     );
   }
 }

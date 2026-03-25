@@ -5,10 +5,8 @@ class SideBarComponent extends StatefulWidget {
   //pour récupérer la route actuelle et mettre en surbrillance l'item correspondant dans le menu
   final String currentRoute;
 
-  const SideBarComponent({
-    Key? key,
-    this.currentRoute = '/dashboard',
-  }) : super(key: key);
+  const SideBarComponent({Key? key, this.currentRoute = '/dashboard'})
+    : super(key: key);
 
   @override
   State<SideBarComponent> createState() => _SideBarComponentState();
@@ -119,14 +117,12 @@ class _SideBarComponentState extends State<SideBarComponent> {
         leading: Container(
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: isSelected ? AppColors.textPrimary: Colors.black.withOpacity(0.3),
+            color: isSelected
+                ? AppColors.textPrimary
+                : Colors.black.withOpacity(0.3),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            icon,
-            color: Colors.white,
-            size: 24,
-          ),
+          child: Icon(icon, color: Colors.white, size: 24),
         ),
         title: Text(
           title,
@@ -137,9 +133,7 @@ class _SideBarComponentState extends State<SideBarComponent> {
           ),
         ),
         onTap: onTap,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     );
