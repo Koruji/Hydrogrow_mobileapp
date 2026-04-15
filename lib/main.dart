@@ -3,9 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/core/theme/themes.dart';
 import 'package:hydrogrow/presentation/screens/account/account_page.dart';
+import 'package:hydrogrow/presentation/screens/account/subscription_page.dart';
 import 'package:hydrogrow/presentation/screens/dashboard/dashboard_page.dart';
 import 'package:hydrogrow/presentation/screens/login/login_page.dart';
-import 'package:hydrogrow/presentation/screens/rgpd/rgpd_page.dart';
+import 'package:hydrogrow/presentation/screens/account/rgpd_page.dart';
 import 'package:hydrogrow/presentation/screens/stock/stock_page.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
             Scaffold(body: Center(child: Text('Parcels Page'))),
         '/account': (context) => AccountPage(),
         '/account/rgpd': (context) => RGPDPage(),
+        '/account/subscription': (context) => SubscriptionPage(),
       },
     );
   }

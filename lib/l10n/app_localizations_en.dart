@@ -204,8 +204,188 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account_page_rgpd_button => 'View GDPR Policy';
 
   @override
-  String get rgpd_page_title => 'Privacy Policy and GDPR';
+  String get rgpd_page_title => 'Privacy Policy & GDPR';
 
   @override
   String get rgpd_page_back_button => 'Back';
+
+  @override
+  String get subscription_page_title => 'License & Subscription Management';
+
+  @override
+  String get subscription_page_current_subscription =>
+      'Your Current Subscription';
+
+  @override
+  String get subscription_page_status => 'STATUS: ';
+
+  @override
+  String get subscription_page_active_status => 'Active';
+
+  @override
+  String get subscription_page_next_due => 'NEXT DUE DATE: ';
+
+  @override
+  String get subscription_page_not_applicable => 'N/A';
+
+  @override
+  String get subscription_page_activate_code => 'Activate a Code';
+
+  @override
+  String get subscription_page_activate_code_description =>
+      'Enter your license or subscription key to upgrade your account.';
+
+  @override
+  String get subscription_page_activate_button => 'Activate';
+
+  @override
+  String get subscription_page_premium_title => 'Premium';
+
+  @override
+  String get subscription_page_premium_description =>
+      'For individuals & enthusiasts';
+
+  @override
+  String get subscription_page_pro_title => 'Professional';
+
+  @override
+  String get subscription_page_pro_description =>
+      'For businesses & professional growers';
+
+  @override
+  String get subscription_page_monthly => 'Monthly';
+
+  @override
+  String get subscription_page_yearly => 'Yearly';
+
+  @override
+  String get subscription_page_lifetime => 'Lifetime';
+
+  @override
+  String get subscription_page_choose_button => 'Choose';
+
+  @override
+  String get subscription_page_feature_unlimited_sensors =>
+      'Unlimited access to sensors';
+
+  @override
+  String get subscription_page_feature_history_30_days =>
+      'Full history (30 days)';
+
+  @override
+  String get subscription_page_feature_priority_support => 'Priority support';
+
+  @override
+  String get subscription_page_feature_custom_alerts => 'Custom alerts';
+
+  @override
+  String get subscription_page_feature_multi_installations =>
+      'Multi-installation management';
+
+  @override
+  String get subscription_page_feature_advanced_ai => 'Advanced AI analysis';
+
+  @override
+  String get subscription_page_feature_data_export => 'Data export (CSV/Excel)';
+
+  @override
+  String get subscription_page_feature_technical_support_24_7 =>
+      '24/7 technical support';
+
+  @override
+  String get subscription_page_offer_free_trial => '2 months free';
+
+  @override
+  String get subscription_page_offer_discount => '15% OFF';
+
+  @override
+  String get subscription_page_hardware_title => 'Our IoT Hardware Packs';
+
+  @override
+  String get subscription_page_hardware_description =>
+      'Ready-to-use solutions, pre-assembled and calibrated, including 1 year of Cultivateur subscription.';
+
+  @override
+  String get subscription_page_essential_pack => 'Essential Pack';
+
+  @override
+  String get subscription_page_essential_pack_description =>
+      'The survival kit (pH/EC/Temp Monitoring)';
+
+  @override
+  String get subscription_page_comfort_pack => 'Comfort Pack';
+
+  @override
+  String get subscription_page_comfort_pack_description =>
+      'Full autonomy with pH management.';
+
+  @override
+  String get subscription_page_total_ia_pack => 'Total AI Pack';
+
+  @override
+  String get subscription_page_total_ia_pack_description =>
+      'High performance and computer vision.';
+
+  @override
+  String get subscription_page_order_button => 'Order';
+
+  @override
+  String get subscription_page_feature_ph_ec_probe =>
+      'Industrial pH & EC Probe';
+
+  @override
+  String get subscription_page_feature_water_temp_sensor =>
+      'Water Temperature Sensor';
+
+  @override
+  String get subscription_page_feature_water_level_sensor =>
+      'Water Level Sensor (Anti-dry)';
+
+  @override
+  String get subscription_page_feature_irrigation_control =>
+      'Irrigation Pump Control';
+
+  @override
+  String get subscription_page_feature_waterproof_case =>
+      'Waterproof IP65 Case';
+
+  @override
+  String get subscription_page_feature_auto_dosing => 'Automatic Dosing';
+
+  @override
+  String get subscription_page_feature_air_sensors =>
+      'Air Sensors (Temp/Humidity/Light)';
+
+  @override
+  String get subscription_page_feature_ph_regulation_pumps =>
+      'pH Regulation Pumps';
+
+  @override
+  String get subscription_page_feature_auto_nutrient_doser =>
+      'Automatic Nutrient Doser';
+
+  @override
+  String get subscription_page_feature_led_relay => 'LED Lighting Relay';
+
+  @override
+  String get subscription_page_feature_plug_and_play =>
+      'Plug & Play Installation';
+
+  @override
+  String get subscription_page_feature_co2_camera => 'CO2 Camera & Flowmeter';
+
+  @override
+  String get subscription_page_feature_ai_camera =>
+      'AI Camera (Time-lapse/Health)';
+
+  @override
+  String get subscription_page_feature_galvanic_isolation =>
+      'Galvanic Isolation Pro';
+
+  @override
+  String get subscription_page_feature_agronomist_subscription =>
+      'Agronomist Subscription (1 year)';
+
+  @override
+  String get subscription_page_feature_three_year_warranty => '3-Year Warranty';
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/presentation/components/app_user_avatar.dart';
-import 'package:hydrogrow/presentation/screens/rgpd/rgpd_page.dart';
+import 'package:hydrogrow/presentation/screens/account/rgpd_page.dart';
 import 'package:provider/provider.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
@@ -251,9 +251,9 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.pushReplacementNamed(
+                                Navigator.pushNamed(
                                   context,
-                                  '/subscription',
+                                  '/account/subscription',
                                 );
                               },
                               child: Text(
