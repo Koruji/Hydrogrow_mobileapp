@@ -135,10 +135,19 @@ class AppLocalizationsFr extends AppLocalizations {
   String get account_page_light_mode => 'Mode clair';
 
   @override
+  String get account_page_language_french => 'Français';
+
+  @override
+  String get account_page_language_english => 'Anglais';
+
+  @override
   String get account_page_parameters => 'Paramètres';
 
   @override
   String get account_page_subscription => 'Abonnement';
+
+  @override
+  String get account_page_subscription_state => 'Statut actuel';
 
   @override
   String get account_page_subscription_state_1 => 'Gratuit';
@@ -170,4 +179,36 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get account_page_logout_confirm => 'Se déconnecter';
+
+  @override
+  String get account_page_rgpd_title => 'Nos Engagements et Principes';
+
+  @override
+  String get account_page_rgpd_data_minimization =>
+      'Minimisation des données\nNous appliquons une politique stricte de minimisation : nous ne collectons que ce qui est strictement nécessaire pour le traitement et le bon fonctionnement de vos cultures. Aucune donnée superflue n\'est demandée.';
+
+  @override
+  String get account_page_rgpd_purpose_limitation =>
+      'Limitation des finalités\nNous définissons clairement l\'objectif de la collecte pour chaque donnée. Vos informations servent uniquement à la gestion de votre compte et au monitoring de vos installations, sans détournement d\'usage.';
+
+  @override
+  String get account_page_rgpd_retention =>
+      'Durée de conservation\nNous avons mis en place des mécanismes de purge automatique. Vos données ne sont conservées que le temps nécessaire à la fourniture du service, et sont supprimées définitivement lors de la clôture de votre compte.';
+
+  @override
+  String get account_page_rgpd_security =>
+      'Sécurité\nNous assurons la protection de vos informations via des technologies de chiffrement robustes et l\'anonymisation des données lorsque cela est possible, garantissant leur intégrité et confidentialité.';
+
+  @override
+  String get account_page_rgpd_transparency =>
+      'Transparence\nNous nous engageons à documenter le traitement des données de manière claire. Vous disposez d\'une visibilité totale sur l\'usage de vos informations personnelles via cette page et notre documentation.';
+
+  @override
+  String get account_page_rgpd_button => 'Consulter la RGPD';
+
+  @override
+  String get rgpd_page_title => 'Politique de Confidentialité et RGPD';
+
+  @override
+  String get rgpd_page_back_button => 'Retour';
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hydrogrow/presentation/components/app_user_avatar.dart';
+import 'package:hydrogrow/presentation/screens/rgpd/rgpd_page.dart';
 import 'package:provider/provider.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
@@ -18,12 +20,12 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   String _selectedTheme = 'Sombre';
   String _selectedLanguage = 'Français';
-  bool _isPremium = false;
 
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
-    final user = Provider.of<AuthProvider>(context).user;
+    final userProvider = Provider.of<AuthProvider>(context);
+    bool _isPremium = userProvider.subscription == 'premium';
 
     return AppScaffold(
       currentRoute: '/account',
@@ -36,24 +38,19 @@ class _AccountPageState extends State<AccountPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // En-tête avec avatar et infos utilisateur
+                /*--------- Section Profil ---------*/
                 AppCard(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        const CircleAvatar(
-                          radius: 30,
-                          backgroundImage: AssetImage(
-                            'assets/images/login_picture.png',
-                          ),
-                        ),
+                        UserAvatar(),
                         const SizedBox(width: 16),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              user?['login'] ?? '',
+                              userProvider.login,
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -62,7 +59,7 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              user?['email'] ?? '',
+                              userProvider.email,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey.shade600,
@@ -100,10 +97,8 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 24),
-
-                // Section Paramètres
+                /*--------- Section Paramètres ---------*/
                 Text(
                   translate.account_page_parameters,
                   style: const TextStyle(
@@ -113,7 +108,6 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 ),
                 const SizedBox(height: 12),
-
                 AppCard(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -157,9 +151,7 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 12),
-
                 AppCard(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -203,10 +195,8 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 24),
-
-                // Section Abonnement
+                /*--------- Section Abonnement ---------*/
                 Text(
                   translate.account_page_subscription,
                   style: const TextStyle(
@@ -216,7 +206,6 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 ),
                 const SizedBox(height: 12),
-
                 AppCard(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -226,8 +215,8 @@ class _AccountPageState extends State<AccountPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Statut actuel',
+                            Text(
+                              translate.account_page_subscription_state,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: AppColors.textPrimary,
@@ -241,7 +230,7 @@ class _AccountPageState extends State<AccountPage> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: _isPremium
-                                    ? AppColors.success
+                                    ? AppColors.notification
                                     : AppColors.warning,
                               ),
                             ),
@@ -262,7 +251,10 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.pushNamed(context, '/subscription');
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  '/subscription',
+                                );
                               },
                               child: Text(
                                 translate.account_page_no_subscription,
@@ -279,10 +271,8 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 24),
-
-                // Section Actions
+                /*--------- Section Actions ---------*/
                 Text(
                   translate.account_page_actions,
                   style: const TextStyle(
@@ -292,7 +282,6 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 ),
                 const SizedBox(height: 12),
-
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
@@ -304,7 +293,9 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                       side: const BorderSide(color: AppColors.menu),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/account/rgpd');
+                    },
                     child: Text(
                       translate.account_page_rgpd,
                       style: const TextStyle(
@@ -315,9 +306,7 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 12),
-
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
@@ -360,9 +349,7 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 12),
-
+                const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(

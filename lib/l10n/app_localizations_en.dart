@@ -127,16 +127,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account_page_language => 'Language';
 
   @override
-  String get account_page_dark_mode => 'Dark mode';
+  String get account_page_dark_mode => 'Dark Mode';
 
   @override
-  String get account_page_light_mode => 'Light mode';
+  String get account_page_light_mode => 'Light Mode';
+
+  @override
+  String get account_page_language_french => 'French';
+
+  @override
+  String get account_page_language_english => 'English';
 
   @override
   String get account_page_parameters => 'Settings';
 
   @override
   String get account_page_subscription => 'Subscription';
+
+  @override
+  String get account_page_subscription_state => 'Current Status';
 
   @override
   String get account_page_subscription_state_1 => 'Free';
@@ -151,20 +160,52 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account_page_actions => 'Actions';
 
   @override
-  String get account_page_rgpd => 'View GDPR policy';
+  String get account_page_rgpd => 'View GDPR Policy';
 
   @override
-  String get account_page_logout => 'Log out';
+  String get account_page_logout => 'Log Out';
 
   @override
   String get account_page_logout_content => 'Are you sure you want to log out?';
 
   @override
-  String get account_page_delete_account => 'Delete my account';
+  String get account_page_delete_account => 'Delete My Account';
 
   @override
   String get account_page_logout_cancel => 'Cancel';
 
   @override
-  String get account_page_logout_confirm => 'Log out';
+  String get account_page_logout_confirm => 'Log Out';
+
+  @override
+  String get account_page_rgpd_title => 'Our Commitments and Principles';
+
+  @override
+  String get account_page_rgpd_data_minimization =>
+      'Data Minimization\nWe apply a strict data minimization policy: we only collect what is strictly necessary for the processing and proper functioning of your crops. No superfluous data is requested.';
+
+  @override
+  String get account_page_rgpd_purpose_limitation =>
+      'Purpose Limitation\nWe clearly define the purpose of data collection for each piece of information. Your data is used solely for managing your account and monitoring your installations, without misuse.';
+
+  @override
+  String get account_page_rgpd_retention =>
+      'Data Retention\nWe have implemented automatic purge mechanisms. Your data is only retained for as long as necessary to provide the service and is permanently deleted upon account closure.';
+
+  @override
+  String get account_page_rgpd_security =>
+      'Security\nWe ensure the protection of your information through robust encryption technologies and data anonymization whenever possible, guaranteeing their integrity and confidentiality.';
+
+  @override
+  String get account_page_rgpd_transparency =>
+      'Transparency\nWe are committed to documenting data processing in a clear manner. You have full visibility into the use of your personal information through this page and our documentation.';
+
+  @override
+  String get account_page_rgpd_button => 'View GDPR Policy';
+
+  @override
+  String get rgpd_page_title => 'Privacy Policy and GDPR';
+
+  @override
+  String get rgpd_page_back_button => 'Back';
 }

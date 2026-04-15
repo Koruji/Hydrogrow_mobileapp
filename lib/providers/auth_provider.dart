@@ -8,6 +8,12 @@ class AuthProvider extends ChangeNotifier {
 
   String get login => _user?['login'] ?? '';
   String get email => _user?['email'] ?? '';
+  String get subscription => _user?['subscription'] ?? 'free';
+  String get language => _user?['language'] ?? 'fr';
+  String get avatarShape => _user?['avatar_shape'] ?? 'circle';
+  String get avatarUrl =>
+      _user?['avatar_url'] ?? 'assets/images/login_picture.png';
+  String get theme => _user?['theme'] ?? 'light';
 
   void setUser(Map<String, dynamic> user) {
     _user = user;

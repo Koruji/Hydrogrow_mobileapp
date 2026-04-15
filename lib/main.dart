@@ -5,12 +5,14 @@ import 'package:hydrogrow/core/theme/themes.dart';
 import 'package:hydrogrow/presentation/screens/account/account_page.dart';
 import 'package:hydrogrow/presentation/screens/dashboard/dashboard_page.dart';
 import 'package:hydrogrow/presentation/screens/login/login_page.dart';
+import 'package:hydrogrow/presentation/screens/rgpd/rgpd_page.dart';
 import 'package:hydrogrow/presentation/screens/stock/stock_page.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
-// import 'package:hydrogrow/presentation/screens/login/login_page.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() {
+  usePathUrlStrategy();
   runApp(ChangeNotifierProvider(create: (_) => AuthProvider(), child: MyApp()));
 }
 
@@ -44,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/parcels': (context) =>
             Scaffold(body: Center(child: Text('Parcels Page'))),
         '/account': (context) => AccountPage(),
+        '/account/rgpd': (context) => RGPDPage(),
       },
     );
   }

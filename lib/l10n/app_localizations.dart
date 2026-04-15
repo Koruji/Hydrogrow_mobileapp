@@ -329,14 +329,26 @@ abstract class AppLocalizations {
   /// No description provided for @account_page_dark_mode.
   ///
   /// In en, this message translates to:
-  /// **'Dark mode'**
+  /// **'Dark Mode'**
   String get account_page_dark_mode;
 
   /// No description provided for @account_page_light_mode.
   ///
   /// In en, this message translates to:
-  /// **'Light mode'**
+  /// **'Light Mode'**
   String get account_page_light_mode;
+
+  /// No description provided for @account_page_language_french.
+  ///
+  /// In en, this message translates to:
+  /// **'French'**
+  String get account_page_language_french;
+
+  /// No description provided for @account_page_language_english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get account_page_language_english;
 
   /// No description provided for @account_page_parameters.
   ///
@@ -349,6 +361,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscription'**
   String get account_page_subscription;
+
+  /// No description provided for @account_page_subscription_state.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Status'**
+  String get account_page_subscription_state;
 
   /// No description provided for @account_page_subscription_state_1.
   ///
@@ -377,13 +395,13 @@ abstract class AppLocalizations {
   /// No description provided for @account_page_rgpd.
   ///
   /// In en, this message translates to:
-  /// **'View GDPR policy'**
+  /// **'View GDPR Policy'**
   String get account_page_rgpd;
 
   /// No description provided for @account_page_logout.
   ///
   /// In en, this message translates to:
-  /// **'Log out'**
+  /// **'Log Out'**
   String get account_page_logout;
 
   /// No description provided for @account_page_logout_content.
@@ -395,7 +413,7 @@ abstract class AppLocalizations {
   /// No description provided for @account_page_delete_account.
   ///
   /// In en, this message translates to:
-  /// **'Delete my account'**
+  /// **'Delete My Account'**
   String get account_page_delete_account;
 
   /// No description provided for @account_page_logout_cancel.
@@ -407,8 +425,62 @@ abstract class AppLocalizations {
   /// No description provided for @account_page_logout_confirm.
   ///
   /// In en, this message translates to:
-  /// **'Log out'**
+  /// **'Log Out'**
   String get account_page_logout_confirm;
+
+  /// No description provided for @account_page_rgpd_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Our Commitments and Principles'**
+  String get account_page_rgpd_title;
+
+  /// No description provided for @account_page_rgpd_data_minimization.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Minimization\nWe apply a strict data minimization policy: we only collect what is strictly necessary for the processing and proper functioning of your crops. No superfluous data is requested.'**
+  String get account_page_rgpd_data_minimization;
+
+  /// No description provided for @account_page_rgpd_purpose_limitation.
+  ///
+  /// In en, this message translates to:
+  /// **'Purpose Limitation\nWe clearly define the purpose of data collection for each piece of information. Your data is used solely for managing your account and monitoring your installations, without misuse.'**
+  String get account_page_rgpd_purpose_limitation;
+
+  /// No description provided for @account_page_rgpd_retention.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Retention\nWe have implemented automatic purge mechanisms. Your data is only retained for as long as necessary to provide the service and is permanently deleted upon account closure.'**
+  String get account_page_rgpd_retention;
+
+  /// No description provided for @account_page_rgpd_security.
+  ///
+  /// In en, this message translates to:
+  /// **'Security\nWe ensure the protection of your information through robust encryption technologies and data anonymization whenever possible, guaranteeing their integrity and confidentiality.'**
+  String get account_page_rgpd_security;
+
+  /// No description provided for @account_page_rgpd_transparency.
+  ///
+  /// In en, this message translates to:
+  /// **'Transparency\nWe are committed to documenting data processing in a clear manner. You have full visibility into the use of your personal information through this page and our documentation.'**
+  String get account_page_rgpd_transparency;
+
+  /// No description provided for @account_page_rgpd_button.
+  ///
+  /// In en, this message translates to:
+  /// **'View GDPR Policy'**
+  String get account_page_rgpd_button;
+
+  /// No description provided for @rgpd_page_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy and GDPR'**
+  String get rgpd_page_title;
+
+  /// No description provided for @rgpd_page_back_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get rgpd_page_back_button;
 }
 
 class _AppLocalizationsDelegate

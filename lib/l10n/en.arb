@@ -44,20 +44,33 @@
 
     "account_page_theme": "Theme",
     "account_page_language": "Language",
-    "account_page_dark_mode": "Dark mode",
-    "account_page_light_mode": "Light mode",
+    "account_page_dark_mode": "Dark Mode",
+    "account_page_light_mode": "Light Mode",
+    "account_page_language_french": "French",
+    "account_page_language_english": "English",
     "account_page_parameters": "Settings",
     "account_page_subscription": "Subscription",
+    "account_page_subscription_state": "Current Status",
     "account_page_subscription_state_1": "Free",
     "account_page_subscription_state_2": "Premium",
     "account_page_no_subscription": "Go Premium",
     "account_page_actions": "Actions",
-    "account_page_rgpd": "View GDPR policy",
-    "account_page_logout": "Log out",
+    "account_page_rgpd": "View GDPR Policy",
+    "account_page_logout": "Log Out",
     "account_page_logout_content": "Are you sure you want to log out?",
-    "account_page_delete_account": "Delete my account",
+    "account_page_delete_account": "Delete My Account",
     "account_page_logout_cancel": "Cancel",
-    "account_page_logout_confirm": "Log out"
+    "account_page_logout_confirm": "Log Out",
+
+    "account_page_rgpd_title": "Our Commitments and Principles",
+    "account_page_rgpd_data_minimization": "Data Minimization\nWe apply a strict data minimization policy: we only collect what is strictly necessary for the processing and proper functioning of your crops. No superfluous data is requested.",
+    "account_page_rgpd_purpose_limitation": "Purpose Limitation\nWe clearly define the purpose of data collection for each piece of information. Your data is used solely for managing your account and monitoring your installations, without misuse.",
+    "account_page_rgpd_retention": "Data Retention\nWe have implemented automatic purge mechanisms. Your data is only retained for as long as necessary to provide the service and is permanently deleted upon account closure.",
+    "account_page_rgpd_security": "Security\nWe ensure the protection of your information through robust encryption technologies and data anonymization whenever possible, guaranteeing their integrity and confidentiality.",
+    "account_page_rgpd_transparency": "Transparency\nWe are committed to documenting data processing in a clear manner. You have full visibility into the use of your personal information through this page and our documentation.",
+    "account_page_rgpd_button": "View GDPR Policy",
+    "rgpd_page_title": "Privacy Policy and GDPR",
+    "rgpd_page_back_button": "Back"
 }
 
 

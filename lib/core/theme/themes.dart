@@ -77,12 +77,21 @@ class AppTheme {
     ),
   );
 
-  static ThemeData darkTheme = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.dark,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.menu,
-      brightness: Brightness.dark,
-    ),
+  static const TextStyle rgpdTitleStyle = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+  );
+
+  static const TextStyle rgpdSectionTitleStyle = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
+
+  static const TextStyle rgpdSectionContentStyle = TextStyle(
+    fontSize: 16,
+    color: AppColors.textSecondary,
+    height: 1.5,
   );
 }
