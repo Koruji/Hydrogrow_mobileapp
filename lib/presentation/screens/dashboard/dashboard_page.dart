@@ -5,6 +5,8 @@ import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 import 'package:hydrogrow/presentation/widgets/alert_message.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
+import 'package:hydrogrow/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -29,6 +31,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
+    final user = Provider.of<AuthProvider>(context).user;
     final containersTitle = [
       translate.dashboard_block_1_title,
       translate.dashboard_block_2_title,
@@ -50,7 +53,7 @@ class _DashboardPageState extends State<DashboardPage> {
           Padding(
             padding: const EdgeInsets.only(top: 16),
             child: Text(
-              '${translate.dashboard_welcome} ${user?['username'] ?? ''} !',
+              '${translate.dashboard_welcome} ${user?['login'] ?? ''} !',
               style: TextStyle(
                 color: AppColors.textPrimary,
                 fontSize: 16,

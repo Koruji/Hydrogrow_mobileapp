@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
-import 'package:hydrogrow/data/services/auth_service_mock.dart';
+import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
+import 'package:hydrogrow/presentation/components/app_card.dart';
 import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 import 'package:hydrogrow/presentation/widgets/dialog_component.dart';
+import 'package:hydrogrow/presentation/controllers/auth_controller.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -20,6 +23,7 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
+    final user = Provider.of<AuthProvider>(context).user;
 
     return AppScaffold(
       currentRoute: '/account',
@@ -33,12 +37,7 @@ class _AccountPageState extends State<AccountPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // En-tête avec avatar et infos utilisateur
-                Card(
-                  color: Colors.white, // Fond blanc pur
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                AppCard(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -53,9 +52,9 @@ class _AccountPageState extends State<AccountPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              'John Doe',
-                              style: TextStyle(
+                            Text(
+                              user?['login'] ?? '',
+                              style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.textPrimary,
@@ -63,11 +62,10 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'john.doe@example.com',
+                              user?['email'] ?? '',
                               style: TextStyle(
                                 fontSize: 14,
-                                color:
-                                    Colors.grey.shade600, // Gris plus lisible
+                                color: Colors.grey.shade600,
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -83,9 +81,13 @@ class _AccountPageState extends State<AccountPage> {
                                   color: AppColors.warning.withOpacity(0.3),
                                 ),
                               ),
-                              child: const Text(
-                                'Gratuit',
-                                style: TextStyle(
+                              child: Text(
+                                _isPremium
+                                    ? translate
+                                          .account_page_subscription_state_2
+                                    : translate
+                                          .account_page_subscription_state_1,
+                                style: const TextStyle(
                                   fontSize: 12,
                                   color: AppColors.warning,
                                   fontWeight: FontWeight.w500,
@@ -102,9 +104,9 @@ class _AccountPageState extends State<AccountPage> {
                 const SizedBox(height: 24),
 
                 // Section Paramètres
-                const Text(
-                  'Paramètres',
-                  style: TextStyle(
+                Text(
+                  translate.account_page_parameters,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textPrimary,
@@ -112,13 +114,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 const SizedBox(height: 12),
 
-                // Carte pour le thème (fond blanc)
-                Card(
-                  color: Colors.white, // Fond blanc pur
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                AppCard(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -127,9 +123,9 @@ class _AccountPageState extends State<AccountPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Thème',
-                          style: TextStyle(
+                        Text(
+                          translate.account_page_theme,
+                          style: const TextStyle(
                             fontSize: 16,
                             color: AppColors.textPrimary,
                           ),
@@ -149,9 +145,7 @@ class _AccountPageState extends State<AccountPage> {
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedTheme = newValue!;
-                            });
+                            setState(() => _selectedTheme = newValue!);
                           },
                           underline: Container(),
                           icon: const Icon(
@@ -166,13 +160,7 @@ class _AccountPageState extends State<AccountPage> {
 
                 const SizedBox(height: 12),
 
-                // Carte pour la langue (fond blanc)
-                Card(
-                  color: Colors.white, // Fond blanc pur
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                AppCard(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -181,9 +169,9 @@ class _AccountPageState extends State<AccountPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Langue',
-                          style: TextStyle(
+                        Text(
+                          translate.account_page_language,
+                          style: const TextStyle(
                             fontSize: 16,
                             color: AppColors.textPrimary,
                           ),
@@ -203,9 +191,7 @@ class _AccountPageState extends State<AccountPage> {
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedLanguage = newValue!;
-                            });
+                            setState(() => _selectedLanguage = newValue!);
                           },
                           underline: Container(),
                           icon: const Icon(
@@ -221,9 +207,9 @@ class _AccountPageState extends State<AccountPage> {
                 const SizedBox(height: 24),
 
                 // Section Abonnement
-                const Text(
-                  'Abonnement',
-                  style: TextStyle(
+                Text(
+                  translate.account_page_subscription,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textPrimary,
@@ -231,13 +217,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 const SizedBox(height: 12),
 
-                // Carte d'abonnement (fond blanc)
-                Card(
-                  color: Colors.white, // Fond blanc pur
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+                AppCard(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -254,7 +234,9 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             ),
                             Text(
-                              _isPremium ? 'Premium' : 'Gratuit',
+                              _isPremium
+                                  ? translate.account_page_subscription_state_2
+                                  : translate.account_page_subscription_state_1,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -265,8 +247,8 @@ class _AccountPageState extends State<AccountPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16),
-                        if (!_isPremium)
+                        if (!_isPremium) ...[
+                          const SizedBox(height: 16),
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
@@ -282,9 +264,9 @@ class _AccountPageState extends State<AccountPage> {
                               onPressed: () {
                                 Navigator.pushNamed(context, '/subscription');
                               },
-                              child: const Text(
-                                'Passer Premium',
-                                style: TextStyle(
+                              child: Text(
+                                translate.account_page_no_subscription,
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.white,
@@ -292,6 +274,7 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                             ),
                           ),
+                        ],
                       ],
                     ),
                   ),
@@ -300,9 +283,9 @@ class _AccountPageState extends State<AccountPage> {
                 const SizedBox(height: 24),
 
                 // Section Actions
-                const Text(
-                  'Actions',
-                  style: TextStyle(
+                Text(
+                  translate.account_page_actions,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: AppColors.textPrimary,
@@ -310,12 +293,11 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 const SizedBox(height: 12),
 
-                // Bouton RGPD (fond blanc)
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.white, // Fond blanc pur
+                      backgroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -323,9 +305,9 @@ class _AccountPageState extends State<AccountPage> {
                       side: const BorderSide(color: AppColors.menu),
                     ),
                     onPressed: () {},
-                    child: const Text(
-                      'Consulter la RGPD',
-                      style: TextStyle(
+                    child: Text(
+                      translate.account_page_rgpd,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: AppColors.menu,
@@ -336,12 +318,11 @@ class _AccountPageState extends State<AccountPage> {
 
                 const SizedBox(height: 12),
 
-                // Bouton Se déconnecter (fond blanc)
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.white, // Fond blanc pur
+                      backgroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -349,7 +330,7 @@ class _AccountPageState extends State<AccountPage> {
                       side: const BorderSide(color: AppColors.warning),
                     ),
                     onPressed: () async {
-                      bool confirm = await showDialog(
+                      final confirm = await showDialog<bool>(
                         context: context,
                         builder: (context) => AppDialog(
                           title: translate.account_page_logout,
@@ -364,18 +345,14 @@ class _AccountPageState extends State<AccountPage> {
                           ),
                         ),
                       );
-                      if (confirm) {
-                        await AuthService.logout();
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          '/login',
-                          (route) => false,
-                        );
+
+                      if (confirm == true && mounted) {
+                        AuthController.logout(context);
                       }
                     },
-                    child: const Text(
-                      'Se déconnecter',
-                      style: TextStyle(
+                    child: Text(
+                      translate.account_page_logout,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: AppColors.warning,
@@ -386,21 +363,20 @@ class _AccountPageState extends State<AccountPage> {
 
                 const SizedBox(height: 12),
 
-                // Bouton Supprimer le compte (fond rouge)
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.warning, // Fond rouge
+                      backgroundColor: AppColors.warning,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     onPressed: () {},
-                    child: const Text(
-                      'Supprimer le compte',
-                      style: TextStyle(
+                    child: Text(
+                      translate.account_page_delete_account,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,

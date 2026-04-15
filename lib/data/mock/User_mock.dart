@@ -1,7 +1,7 @@
 final List<Map<String, dynamic>> mockUsers = [
   {
     'id': '1',
-    'username': 'Koruji',
+    'login': 'Koruji',
     'email': 'koruji@example.com',
     'password': '12345678',
     'full_name': 'Koruji Sama',
@@ -25,7 +25,7 @@ final List<Map<String, dynamic>> mockUsers = [
   },
   {
     'id': '2',
-    'username': 'Loocist',
+    'login': 'Loocist',
     'email': 'loocist@example.com',
     'password': '5678910',
     'full_name': 'Loocist test',

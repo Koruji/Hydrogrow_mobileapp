@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/widgets/divider.dart';
-import 'package:hydrogrow/data/mock/user_mock.dart';
+import 'package:hydrogrow/presentation/controllers/auth_controller.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -20,16 +20,9 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _loginController = TextEditingController();
 
-  // FocusNodes pour chaque champ
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _loginFocusNode = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    // Écouteurs si nécessaire
-  }
 
   @override
   void dispose() {
@@ -43,7 +36,6 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _toggleAuthMode() {
-    if (!mounted) return;
     setState(() {
       _isLogin = !_isLogin;
       _errorMessage = null;
@@ -53,39 +45,61 @@ class _LoginFormState extends State<LoginForm> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    if (!mounted) return;
-
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
-    // Simule un délai réseau
     await Future.delayed(const Duration(milliseconds: 200));
 
     if (!mounted) return;
 
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
+    final login = _loginController.text.trim();
 
-    try {
-      final user = mockUsers.firstWhere(
-        (u) => u['email'] == email && u['password'] == password,
+    if (_isLogin) {
+      final result = AuthController.login(
+        context: context,
+        email: email,
+        password: password,
       );
 
       if (!mounted) return;
-      Navigator.pushReplacementNamed(context, '/dashboard', arguments: user);
-    } catch (e) {
+
+      if (result['success']) {
+        Navigator.pushReplacementNamed(context, '/dashboard');
+      } else {
+        setState(() => _errorMessage = result['error']);
+      }
+    } else {
+      final result = AuthController.register(
+        login: login,
+        email: email,
+        password: password,
+      );
+
       if (!mounted) return;
-      setState(() {
-        _errorMessage = "Email ou mot de passe incorrect";
-      });
-    } finally {
-      if (!mounted) return;
-      setState(() {
-        _isLoading = false;
-      });
+
+      if (result['success']) {
+        // Connecte directement après inscription
+        final loginResult = AuthController.login(
+          context: context,
+          email: email,
+          password: password,
+        );
+
+        if (!mounted) return;
+
+        if (loginResult['success']) {
+          Navigator.pushReplacementNamed(context, '/dashboard');
+        }
+      } else {
+        setState(() => _errorMessage = result['error']);
+      }
     }
+
+    if (mounted) setState(() => _isLoading = false);
   }
 
   @override
@@ -112,7 +126,7 @@ class _LoginFormState extends State<LoginForm> {
               focusNode: _loginFocusNode,
               controller: _loginController,
               decoration: InputDecoration(
-                icon: const Icon(Icons.login),
+                icon: const Icon(Icons.person),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -120,7 +134,6 @@ class _LoginFormState extends State<LoginForm> {
                 fillColor: Colors.white,
                 labelText: translate.login,
               ),
-              keyboardType: TextInputType.emailAddress,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return translate.connexion_error_mandatory;
@@ -131,7 +144,6 @@ class _LoginFormState extends State<LoginForm> {
           if (!_isLogin) const SizedBox(height: 16),
           TextFormField(
             focusNode: _emailFocusNode,
-            style: Theme.of(context).textTheme.labelSmall,
             controller: _emailController,
             decoration: InputDecoration(
               icon: const Icon(Icons.email),
@@ -155,11 +167,11 @@ class _LoginFormState extends State<LoginForm> {
             focusNode: _passwordFocusNode,
             controller: _passwordController,
             decoration: InputDecoration(
-              icon: const Icon(Icons.password),
+              icon: const Icon(Icons.lock),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              helperText: translate.login_forgot_password,
+              helperText: _isLogin ? translate.login_forgot_password : null,
               filled: true,
               fillColor: Colors.white,
               labelText: translate.login_password,

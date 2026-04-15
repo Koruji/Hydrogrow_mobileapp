@@ -26,12 +26,4 @@ class AuthService {
       return false;
     }
   }
-
-  static bool logout() {
-    try {
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
 }

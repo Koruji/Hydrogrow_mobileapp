@@ -6,10 +6,12 @@ import 'package:hydrogrow/presentation/screens/account/account_page.dart';
 import 'package:hydrogrow/presentation/screens/dashboard/dashboard_page.dart';
 import 'package:hydrogrow/presentation/screens/login/login_page.dart';
 import 'package:hydrogrow/presentation/screens/stock/stock_page.dart';
+import 'package:hydrogrow/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 // import 'package:hydrogrow/presentation/screens/login/login_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(create: (_) => AuthProvider(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
