@@ -40,7 +40,24 @@
     "menu_expenses": "Expense Tracking",
     "menu_stock": "Stock Tracking",
     "menu_parcels": "Parcel Management",
-    "menu_account": "My Account"
+    "menu_account": "My Account", 
+
+    "account_page_theme": "Theme",
+    "account_page_language": "Language",
+    "account_page_dark_mode": "Dark mode",
+    "account_page_light_mode": "Light mode",
+    "account_page_parameters": "Settings",
+    "account_page_subscription": "Subscription",
+    "account_page_subscription_state_1": "Free",
+    "account_page_subscription_state_2": "Premium",
+    "account_page_no_subscription": "Go Premium",
+    "account_page_actions": "Actions",
+    "account_page_rgpd": "View GDPR policy",
+    "account_page_logout": "Log out",
+    "account_page_logout_content": "Are you sure you want to log out?",
+    "account_page_delete_account": "Delete my account",
+    "account_page_logout_cancel": "Cancel",
+    "account_page_logout_confirm": "Log out"
 }
 
 

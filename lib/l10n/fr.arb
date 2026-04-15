@@ -40,5 +40,23 @@
     "menu_expenses": "Suivi des dépenses",
     "menu_stock": "Suivi des stocks",
     "menu_parcels": "Gestion des parcelles",
-    "menu_account": "Mon compte"
+    "menu_account": "Mon compte", 
+
+    "account_page_theme": "Thème",
+    "account_page_language": "Langue",
+    "account_page_dark_mode": "Mode sombre",
+    "account_page_light_mode": "Mode clair",
+    "account_page_parameters": "Paramètres",
+    "account_page_subscription": "Abonnement",
+    "account_page_subscription_state_1": "Gratuit",
+    "account_page_subscription_state_2": "Premium",
+    "account_page_no_subscription": "Passez Premium",
+    "account_page_actions": "Actions",
+    "account_page_rgpd": "Consulter la RGPD",
+    "account_page_logout": "Se déconnecter",
+    "account_page_logout_content": "Êtes-vous sûr de vouloir vous déconnecter ?",
+    "account_page_delete_account": "Supprimer mon compte",
+    "account_page_logout_cancel": "Annuler",
+    "account_page_logout_confirm": "Se déconnecter"
+
 }

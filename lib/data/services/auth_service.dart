@@ -9,17 +9,15 @@ class AuthService {
     try {
       final response = await _dio.post(
         '/auth/register',
-        data: {
-          'login': login,
-          'email': email,
-          'password': password,
-        },
+        data: {'login': login, 'email': email, 'password': password},
       );
 
       return response.statusCode == 200 || response.statusCode == 201;
     } on DioException catch (e) {
       if (e.response != null) {
-        throw Exception('Erreur ${e.response!.statusCode}: ${e.response!.data}');
+        throw Exception(
+          'Erreur ${e.response!.statusCode}: ${e.response!.data}',
+        );
       } else {
         throw Exception('Erreur de connexion');
       }
@@ -30,16 +28,30 @@ class AuthService {
     try {
       final response = await _dio.post(
         '/auth/login',
-        data: {
-          'email': email,
-          'password': password,
-        },
+        data: {'email': email, 'password': password},
       );
 
       return response.statusCode == 200;
     } on DioException catch (e) {
       if (e.response != null) {
-        throw Exception('Erreur ${e.response!.statusCode}: ${e.response!.data}');
+        throw Exception(
+          'Erreur ${e.response!.statusCode}: ${e.response!.data}',
+        );
+      } else {
+        throw Exception('Erreur de connexion');
+      }
+    }
+  }
+
+  Future<bool> logout() async {
+    try {
+      final response = await _dio.post('/auth/logout');
+      return response.statusCode == 200;
+    } on DioException catch (e) {
+      if (e.response != null) {
+        throw Exception(
+          'Erreur ${e.response!.statusCode}: ${e.response!.data}',
+        );
       } else {
         throw Exception('Erreur de connexion');
       }

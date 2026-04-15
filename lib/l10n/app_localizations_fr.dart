@@ -121,4 +121,53 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get menu_account => 'Mon compte';
+
+  @override
+  String get account_page_theme => 'Thème';
+
+  @override
+  String get account_page_language => 'Langue';
+
+  @override
+  String get account_page_dark_mode => 'Mode sombre';
+
+  @override
+  String get account_page_light_mode => 'Mode clair';
+
+  @override
+  String get account_page_parameters => 'Paramètres';
+
+  @override
+  String get account_page_subscription => 'Abonnement';
+
+  @override
+  String get account_page_subscription_state_1 => 'Gratuit';
+
+  @override
+  String get account_page_subscription_state_2 => 'Premium';
+
+  @override
+  String get account_page_no_subscription => 'Passez Premium';
+
+  @override
+  String get account_page_actions => 'Actions';
+
+  @override
+  String get account_page_rgpd => 'Consulter la RGPD';
+
+  @override
+  String get account_page_logout => 'Se déconnecter';
+
+  @override
+  String get account_page_logout_content =>
+      'Êtes-vous sûr de vouloir vous déconnecter ?';
+
+  @override
+  String get account_page_delete_account => 'Supprimer mon compte';
+
+  @override
+  String get account_page_logout_cancel => 'Annuler';
+
+  @override
+  String get account_page_logout_confirm => 'Se déconnecter';
 }

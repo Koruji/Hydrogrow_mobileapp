@@ -119,4 +119,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get menu_account => 'My Account';
+
+  @override
+  String get account_page_theme => 'Theme';
+
+  @override
+  String get account_page_language => 'Language';
+
+  @override
+  String get account_page_dark_mode => 'Dark mode';
+
+  @override
+  String get account_page_light_mode => 'Light mode';
+
+  @override
+  String get account_page_parameters => 'Settings';
+
+  @override
+  String get account_page_subscription => 'Subscription';
+
+  @override
+  String get account_page_subscription_state_1 => 'Free';
+
+  @override
+  String get account_page_subscription_state_2 => 'Premium';
+
+  @override
+  String get account_page_no_subscription => 'Go Premium';
+
+  @override
+  String get account_page_actions => 'Actions';
+
+  @override
+  String get account_page_rgpd => 'View GDPR policy';
+
+  @override
+  String get account_page_logout => 'Log out';
+
+  @override
+  String get account_page_logout_content => 'Are you sure you want to log out?';
+
+  @override
+  String get account_page_delete_account => 'Delete my account';
+
+  @override
+  String get account_page_logout_cancel => 'Cancel';
+
+  @override
+  String get account_page_logout_confirm => 'Log out';
 }

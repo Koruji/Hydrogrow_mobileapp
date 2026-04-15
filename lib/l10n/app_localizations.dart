@@ -313,6 +313,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My Account'**
   String get menu_account;
+
+  /// No description provided for @account_page_theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get account_page_theme;
+
+  /// No description provided for @account_page_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get account_page_language;
+
+  /// No description provided for @account_page_dark_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get account_page_dark_mode;
+
+  /// No description provided for @account_page_light_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Light mode'**
+  String get account_page_light_mode;
+
+  /// No description provided for @account_page_parameters.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get account_page_parameters;
+
+  /// No description provided for @account_page_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription'**
+  String get account_page_subscription;
+
+  /// No description provided for @account_page_subscription_state_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get account_page_subscription_state_1;
+
+  /// No description provided for @account_page_subscription_state_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium'**
+  String get account_page_subscription_state_2;
+
+  /// No description provided for @account_page_no_subscription.
+  ///
+  /// In en, this message translates to:
+  /// **'Go Premium'**
+  String get account_page_no_subscription;
+
+  /// No description provided for @account_page_actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get account_page_actions;
+
+  /// No description provided for @account_page_rgpd.
+  ///
+  /// In en, this message translates to:
+  /// **'View GDPR policy'**
+  String get account_page_rgpd;
+
+  /// No description provided for @account_page_logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get account_page_logout;
+
+  /// No description provided for @account_page_logout_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out?'**
+  String get account_page_logout_content;
+
+  /// No description provided for @account_page_delete_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete my account'**
+  String get account_page_delete_account;
+
+  /// No description provided for @account_page_logout_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get account_page_logout_cancel;
+
+  /// No description provided for @account_page_logout_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get account_page_logout_confirm;
 }
 
 class _AppLocalizationsDelegate
