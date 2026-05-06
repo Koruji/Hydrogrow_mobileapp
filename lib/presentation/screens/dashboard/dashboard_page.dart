@@ -6,10 +6,13 @@ import 'package:hydrogrow/presentation/widgets/alert_message.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
 import 'package:hydrogrow/presentation/widgets/stock_summary_dashboard.dart';
+import 'package:hydrogrow/presentation/widgets/parcel_summary_dashboard.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:hydrogrow/presentation/controllers/stock_controller.dart';
+import 'package:hydrogrow/presentation/controllers/parcel_controller.dart';
 import 'package:hydrogrow/data/mock/stock_mock.dart';
+import 'package:hydrogrow/data/mock/parcel_mock.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -24,14 +27,16 @@ class _DashboardPageState extends State<DashboardPage> {
   Map<String, dynamic>? user;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Stock Controller local
   late StockController _stockController;
+  late ParcelController _parcelController;
 
   @override
   void initState() {
     super.initState();
     _stockController = StockController();
     _stockController.initialize(mockStockItems);
+    _parcelController = ParcelController();
+    _parcelController.initialize(mockParcels);
   }
 
   @override
@@ -46,6 +51,7 @@ class _DashboardPageState extends State<DashboardPage> {
     final user = Provider.of<AuthProvider>(context).user;
     final containersTitle = [
       'Stocks',
+      'Parcelles',
       translate.dashboard_block_2_title,
       translate.dashboard_block_3_title,
     ];
@@ -92,6 +98,11 @@ class _DashboardPageState extends State<DashboardPage> {
                     padding: const EdgeInsets.all(16),
                     child: _buildStockSummaryContainer(),
                   );
+                } else if (title == 'Parcelles') {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: _buildParcelSummaryContainer(),
+                  );
                 } else {
                   return DashboardContainer(key: ValueKey(title), title: title);
                 }
@@ -106,6 +117,31 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
         ],
       ),
+    );
+  }
+
+  Widget _buildParcelSummaryContainer() {
+    final stats = _parcelController.getStatistics();
+    final inactiveParcels = mockParcels.where((p) => p.status == 'inactive').toList();
+
+    return ParcelSummaryWidget(
+      key: const ValueKey('parcel-summary'),
+      total: stats.total,
+      active: stats.active,
+      planned: stats.planned,
+      inactive: stats.inactive,
+      totalPlants: stats.totalPlants,
+      inactiveParcels: inactiveParcels,
+      onTap: () {
+        Navigator.pushNamed(context, '/parcels').then((_) {
+          if (mounted) {
+            setState(() {
+              _parcelController = ParcelController();
+              _parcelController.initialize(mockParcels);
+            });
+          }
+        });
+      },
     );
   }
 

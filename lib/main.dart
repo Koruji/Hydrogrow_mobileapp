@@ -7,6 +7,7 @@ import 'package:hydrogrow/presentation/screens/account/subscription_page.dart';
 import 'package:hydrogrow/presentation/screens/dashboard/dashboard_page.dart';
 import 'package:hydrogrow/presentation/screens/login/login_page.dart';
 import 'package:hydrogrow/presentation/screens/account/rgpd_page.dart';
+import 'package:hydrogrow/presentation/screens/parcels/parcels_page.dart';
 import 'package:hydrogrow/presentation/screens/stock/stock_page.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
@@ -44,8 +45,7 @@ class MyApp extends StatelessWidget {
             Scaffold(body: Center(child: Text('Expenses Page'))),
         '/community': (context) =>
             Scaffold(body: Center(child: Text('Community Page'))),
-        '/parcels': (context) =>
-            Scaffold(body: Center(child: Text('Parcels Page'))),
+        '/parcels': (context) => ParcelsPage(),
         '/account': (context) => AccountPage(),
         '/account/rgpd': (context) => RGPDPage(),
         '/account/subscription': (context) => SubscriptionPage(),
