@@ -5,8 +5,11 @@ import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 import 'package:hydrogrow/presentation/widgets/alert_message.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
+import 'package:hydrogrow/presentation/widgets/stock_summary_dashboard.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:hydrogrow/presentation/controllers/stock_controller.dart';
+import 'package:hydrogrow/data/mock/stock_mock.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -19,8 +22,17 @@ class _DashboardPageState extends State<DashboardPage> {
   bool isEditMode = false;
   bool isPremium = false;
   Map<String, dynamic>? user;
-  final GlobalKey<ScaffoldState> _scaffoldKey =
-      GlobalKey<ScaffoldState>(); // Déplacée ici
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // Stock Controller local
+  late StockController _stockController;
+
+  @override
+  void initState() {
+    super.initState();
+    _stockController = StockController();
+    _stockController.initialize(mockStockItems);
+  }
 
   @override
   void didChangeDependencies() {
@@ -33,7 +45,7 @@ class _DashboardPageState extends State<DashboardPage> {
     final translate = AppLocalizations.of(context)!;
     final user = Provider.of<AuthProvider>(context).user;
     final containersTitle = [
-      translate.dashboard_block_1_title,
+      'Stocks',
       translate.dashboard_block_2_title,
       translate.dashboard_block_3_title,
     ];
@@ -74,7 +86,15 @@ class _DashboardPageState extends State<DashboardPage> {
               isEditMode: isEditMode,
               headerWidget: null,
               itemBuilder: (title) {
-                return DashboardContainer(key: ValueKey(title), title: title);
+                // Retourner un widget différent selon le titre
+                if (title == 'Stocks') {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: _buildStockSummaryContainer(),
+                  );
+                } else {
+                  return DashboardContainer(key: ValueKey(title), title: title);
+                }
               },
             ),
           ),
@@ -86,6 +106,31 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
         ],
       ),
+    );
+  }
+
+  Widget _buildStockSummaryContainer() {
+    final stats = _stockController.getStatistics();
+
+    return StockSummaryWidget(
+      key: const ValueKey('stock-summary'),
+      total: stats.total,
+      optimal: stats.optimal,
+      moyen: stats.moyen,
+      faible: stats.faible,
+      rupture: stats.rupture,
+      onTap: () {
+        // Naviguer vers la page stock complète
+        Navigator.pushNamed(context, '/stock').then((_) {
+          // Rafraîchir quand on revient
+          if (mounted) {
+            setState(() {
+              _stockController = StockController();
+              _stockController.initialize(mockStockItems);
+            });
+          }
+        });
+      },
     );
   }
 }
