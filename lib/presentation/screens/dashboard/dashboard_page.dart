@@ -7,12 +7,16 @@ import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
 import 'package:hydrogrow/presentation/widgets/stock_summary_dashboard.dart';
 import 'package:hydrogrow/presentation/widgets/parcel_summary_dashboard.dart';
+import 'package:hydrogrow/presentation/widgets/community_summary_dashboard.dart';
+import 'package:hydrogrow/presentation/screens/community/article_detail_page.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:hydrogrow/presentation/controllers/stock_controller.dart';
 import 'package:hydrogrow/presentation/controllers/parcel_controller.dart';
+import 'package:hydrogrow/presentation/controllers/article_controller.dart';
 import 'package:hydrogrow/data/mock/stock_mock.dart';
 import 'package:hydrogrow/data/mock/parcel_mock.dart';
+import 'package:hydrogrow/data/mock/article_mock.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -29,6 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   late StockController _stockController;
   late ParcelController _parcelController;
+  late ArticleController _articleController;
 
   @override
   void initState() {
@@ -37,6 +42,8 @@ class _DashboardPageState extends State<DashboardPage> {
     _stockController.initialize(mockStockItems);
     _parcelController = ParcelController();
     _parcelController.initialize(mockParcels);
+    _articleController = ArticleController();
+    _articleController.initialize(mockArticles);
   }
 
   @override
@@ -103,6 +110,11 @@ class _DashboardPageState extends State<DashboardPage> {
                     padding: const EdgeInsets.all(16),
                     child: _buildParcelSummaryContainer(),
                   );
+                } else if (title == translate.dashboard_block_2_title) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: _buildCommunitySummaryContainer(),
+                  );
                 } else {
                   return DashboardContainer(key: ValueKey(title), title: title);
                 }
@@ -141,6 +153,41 @@ class _DashboardPageState extends State<DashboardPage> {
             });
           }
         });
+      },
+    );
+  }
+
+  Widget _buildCommunitySummaryContainer() {
+    final now = DateTime.now();
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+
+    final recentArticles = mockArticles.where((a) {
+      final d = a.createdAt;
+      final isToday = d.year == now.year && d.month == now.month && d.day == now.day;
+      final isYesterday = d.year == yesterday.year && d.month == yesterday.month && d.day == yesterday.day;
+      return isToday || isYesterday;
+    }).toList()
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
+    return CommunitySummaryWidget(
+      key: const ValueKey('community-summary'),
+      recentArticles: recentArticles,
+      onTap: () {
+        Navigator.pushNamed(context, '/community').then((_) {
+          if (mounted) setState(() {});
+        });
+      },
+      onArticleTap: (article) {
+        final currentUserId = Provider.of<AuthProvider>(context, listen: false).login;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ArticleDetailPage(
+              article: article,
+              isOwner: article.authorId == currentUserId,
+            ),
+          ),
+        );
       },
     );
   }

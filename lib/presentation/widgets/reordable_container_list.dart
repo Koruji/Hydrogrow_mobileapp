@@ -37,9 +37,15 @@ class _ReorderableContainerListState extends State<ReorderableContainerList> {
     final savedOrder = prefs.getStringList(widget.storageKey);
 
     if (savedOrder != null && savedOrder.length == widget.titles.length) {
-      setState(() {
-        containerOrder = savedOrder.map((e) => int.parse(e)).toList();
-      });
+      final parsed = savedOrder.map((e) => int.parse(e)).toList();
+      final valid = parsed.every((i) => i >= 0 && i < widget.titles.length);
+      if (valid) {
+        setState(() {
+          containerOrder = parsed;
+        });
+      } else {
+        await resetOrder();
+      }
     }
   }
 
