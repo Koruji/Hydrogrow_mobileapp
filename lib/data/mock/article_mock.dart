@@ -6,7 +6,7 @@ final List<Article> mockArticles = [
     title: 'Optimiser le pH en hydroponie NFT : mon retour d\'expérience',
     authorId: 'Koruji',
     authorName: 'Koruji',
-    createdAt: DateTime.now().subtract(const Duration(days: 2)),
+    createdAt: DateTime.now().subtract(const Duration(hours: 3)),
     category: 'Technique',
     tags: ['pH', 'NFT', 'hydroponie', 'optimisation'],
     content: '''Après plusieurs mois de culture en système NFT, j'ai enfin trouvé la méthode qui me convient pour maintenir un pH stable entre 5.8 et 6.2.
@@ -59,7 +59,7 @@ Dans tous les cas, l'important c'est la constance dans vos pratiques !''',
     title: 'Recette de solution nutritive de base pour légumes feuilles',
     authorId: 'Loocist',
     authorName: 'Loocist',
-    createdAt: DateTime.now().subtract(const Duration(days: 5)),
+    createdAt: DateTime.now().subtract(const Duration(hours: 8)),
     category: 'Nutrition',
     tags: ['nutrition', 'solution', 'légumes feuilles', 'recette'],
     content: '''Voici la recette que j'utilise depuis 6 mois pour mes laitues, épinards et basilic. Elle fonctionne très bien en système DWC et aéroponie.
