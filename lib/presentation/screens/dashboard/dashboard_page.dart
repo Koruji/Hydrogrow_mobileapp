@@ -5,6 +5,8 @@ import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 import 'package:hydrogrow/presentation/widgets/alert_message.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
+import 'package:hydrogrow/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -16,11 +18,20 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   bool isEditMode = false;
   bool isPremium = false;
+  Map<String, dynamic>? user;
+  final GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>(); // Déplacée ici
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    user = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+  }
 
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
-
+    final user = Provider.of<AuthProvider>(context).user;
     final containersTitle = [
       translate.dashboard_block_1_title,
       translate.dashboard_block_2_title,
@@ -31,16 +42,18 @@ class _DashboardPageState extends State<DashboardPage> {
       currentRoute: '/dashboard',
       isEditMode: isEditMode,
       onEditPressed: () {
-        setState(() {
-          isEditMode = !isEditMode;
-        });
+        if (mounted) {
+          setState(() {
+            isEditMode = !isEditMode;
+          });
+        }
       },
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 16),
+            padding: const EdgeInsets.only(top: 16),
             child: Text(
-              '${translate.dashboard_welcome} Koruji !',
+              '${translate.dashboard_welcome} ${user?['login'] ?? ''} !',
               style: TextStyle(
                 color: AppColors.textPrimary,
                 fontSize: 16,
