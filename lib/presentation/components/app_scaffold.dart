@@ -8,7 +8,8 @@ class AppScaffold extends StatefulWidget {
   final Widget body;
   final bool isEditMode;
   final VoidCallback? onEditPressed;
-  final bool showDrawer; // Option pour afficher ou non le drawer
+  final bool showDrawer;
+  final Widget? floatingActionButton;
 
   const AppScaffold({
     super.key,
@@ -16,7 +17,8 @@ class AppScaffold extends StatefulWidget {
     required this.body,
     this.isEditMode = false,
     this.onEditPressed,
-    this.showDrawer = true, // Par défaut, on affiche le drawer
+    this.showDrawer = true,
+    this.floatingActionButton,
   });
 
   @override
@@ -52,6 +54,7 @@ class _AppScaffoldState extends State<AppScaffold> {
             )
           : null,
       body: widget.body,
+      floatingActionButton: widget.floatingActionButton,
     );
   }
 }
