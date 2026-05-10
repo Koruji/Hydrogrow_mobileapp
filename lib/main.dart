@@ -42,9 +42,7 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => DashboardPage(),
         '/login': (context) => LoginPage(),
         '/stock': (context) => StockPage(),
-        '/expenses': (context) =>
-            Scaffold(body: Center(child: Text('Expenses Page'))),
-        '/community': (context) => const CommunityPage(),
+'/community': (context) => const CommunityPage(),
         '/parcels': (context) => ParcelsPage(),
         '/account': (context) => AccountPage(),
         '/account/rgpd': (context) => RGPDPage(),

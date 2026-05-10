@@ -29,16 +29,13 @@
     "dashboard_block_1_title": "Tableau de bord",
     "dashboard_block_2_title": "Communauté",
     "dashboard_block_2_subtitle": "Ajoutez une publication à vos favoris dans l'onglet Communauté pour la voir ici.",
-    "dashboard_block_3_title": "Dépenses",
-    "dashboard_block_3_admin_title": "Finances",
     "dashboard_block_4_title": "Communauté",
     "dashboard_premium": "Accédez à notre version PREMIUM pour une meilleure expérience !",
     "dashboard_alert_message": "Le mode édition du dashboard est activé !",
 
     "menu_dashboard": "Tableau de bord",
     "menu_community": "Communauté",
-    "menu_expenses": "Suivi des dépenses",
-    "menu_stock": "Suivi des stocks",
+"menu_stock": "Suivi des stocks",
     "menu_parcels": "Gestion des parcelles",
     "menu_account": "Mon compte", 
 

@@ -87,12 +87,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Add a post to your favorites in the Community tab to see it here.';
 
   @override
-  String get dashboard_block_3_title => 'Expenses';
-
-  @override
-  String get dashboard_block_3_admin_title => 'Finances';
-
-  @override
   String get dashboard_block_4_title => 'Community';
 
   @override
@@ -107,9 +101,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get menu_community => 'Community';
-
-  @override
-  String get menu_expenses => 'Expense Tracking';
 
   @override
   String get menu_stock => 'Stock Tracking';
