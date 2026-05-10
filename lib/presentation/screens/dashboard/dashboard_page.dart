@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_scaffold.dart';
+import 'package:hydrogrow/presentation/components/app_user_avatar.dart';
 import 'package:hydrogrow/presentation/widgets/alert_message.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
 import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
@@ -17,6 +18,7 @@ import 'package:hydrogrow/presentation/controllers/article_controller.dart';
 import 'package:hydrogrow/data/mock/stock_mock.dart';
 import 'package:hydrogrow/data/mock/parcel_mock.dart';
 import 'package:hydrogrow/data/mock/article_mock.dart';
+import 'package:hydrogrow/services/weather_service.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -29,7 +31,8 @@ class _DashboardPageState extends State<DashboardPage> {
   bool isEditMode = false;
   bool isPremium = false;
   Map<String, dynamic>? user;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  WeatherData? _weather;
+  bool _weatherLoading = true;
 
   late StockController _stockController;
   late ParcelController _parcelController;
@@ -44,6 +47,17 @@ class _DashboardPageState extends State<DashboardPage> {
     _parcelController.initialize(mockParcels);
     _articleController = ArticleController();
     _articleController.initialize(mockArticles);
+    _loadWeather();
+  }
+
+  Future<void> _loadWeather() async {
+    final data = await WeatherService().fetch();
+    if (mounted) {
+      setState(() {
+        _weather = data;
+        _weatherLoading = false;
+      });
+    }
   }
 
   @override
@@ -60,7 +74,6 @@ class _DashboardPageState extends State<DashboardPage> {
       'Stocks',
       'Parcelles',
       translate.dashboard_block_2_title,
-      translate.dashboard_block_3_title,
     ];
 
     return AppScaffold(
@@ -75,17 +88,7 @@ class _DashboardPageState extends State<DashboardPage> {
       },
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: Text(
-              '${translate.dashboard_welcome} ${user?['login'] ?? ''} !',
-              style: TextStyle(
-                color: AppColors.textPrimary,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
+          _buildGreetingSection(user?['login'] as String?, translate),
           if (isEditMode)
             AlertMessage(
               icon: Icons.warning_amber_rounded,
@@ -99,20 +102,19 @@ class _DashboardPageState extends State<DashboardPage> {
               isEditMode: isEditMode,
               headerWidget: null,
               itemBuilder: (title) {
-                // Retourner un widget différent selon le titre
                 if (title == 'Stocks') {
                   return Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                     child: _buildStockSummaryContainer(),
                   );
                 } else if (title == 'Parcelles') {
                   return Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                     child: _buildParcelSummaryContainer(),
                   );
                 } else if (title == translate.dashboard_block_2_title) {
                   return Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                     child: _buildCommunitySummaryContainer(),
                   );
                 } else {
@@ -127,6 +129,121 @@ class _DashboardPageState extends State<DashboardPage> {
               color: AppColors.notification,
               message: translate.dashboard_premium,
             ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGreetingSection(String? login, AppLocalizations translate) {
+    final hour = DateTime.now().hour;
+    final greeting = hour < 18 ? translate.dashboard_welcome : 'Bonsoir';
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            AppColors.menu.withValues(alpha: 0.13),
+            AppColors.background.withValues(alpha: 0.6),
+          ],
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+        ),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: AppColors.menu.withValues(alpha: 0.30),
+          width: 1,
+        ),
+      ),
+      child: Row(
+        children: [
+          UserAvatar(),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  greeting,
+                  style: TextStyle(
+                    color: AppColors.textPrimary.withValues(alpha: 0.6),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  login ?? '',
+                  style: const TextStyle(
+                    color: AppColors.textPrimary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          _buildWeatherChip(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWeatherChip() {
+    if (_weatherLoading) {
+      return SizedBox(
+        width: 20,
+        height: 20,
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          color: AppColors.menu.withValues(alpha: 0.6),
+        ),
+      );
+    }
+
+    if (_weather == null) {
+      return Icon(
+        Icons.energy_savings_leaf_rounded,
+        color: AppColors.menu,
+        size: 30,
+      );
+    }
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: AppColors.menu.withValues(alpha: 0.12),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.menu.withValues(alpha: 0.25)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            _weather!.emoji,
+            style: const TextStyle(fontSize: 18),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            '${_weather!.temperature.round()}°C',
+            style: const TextStyle(
+              color: AppColors.textPrimary,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.2,
+            ),
+          ),
+          Text(
+            _weather!.description,
+            style: TextStyle(
+              color: AppColors.textPrimary.withValues(alpha: 0.55),
+              fontSize: 10,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
         ],
       ),
     );

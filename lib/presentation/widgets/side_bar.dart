@@ -56,16 +56,6 @@ class _SideBarComponentState extends State<SideBarComponent> {
           ),
 
           _buildMenuItem(
-            icon: Icons.credit_card,
-            title: 'Suivi Dépense',
-            route: '/expenses',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, '/expenses');
-            },
-          ),
-
-          _buildMenuItem(
             icon: Icons.people_outline,
             title: 'Communauté',
             route: '/community',

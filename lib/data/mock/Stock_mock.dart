@@ -12,7 +12,6 @@ final List<Stock> mockStockItems = [
     costPerUnit: 0.15,
     currency: '€',
     expirationDate: '2026-12-31',
-    imageUrl: 'assets/images/tomato.png',
   ),
   Stock(
     id: '2',

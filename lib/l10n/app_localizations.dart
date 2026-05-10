@@ -248,18 +248,6 @@ abstract class AppLocalizations {
   /// **'Add a post to your favorites in the Community tab to see it here.'**
   String get dashboard_block_2_subtitle;
 
-  /// No description provided for @dashboard_block_3_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Expenses'**
-  String get dashboard_block_3_title;
-
-  /// No description provided for @dashboard_block_3_admin_title.
-  ///
-  /// In en, this message translates to:
-  /// **'Finances'**
-  String get dashboard_block_3_admin_title;
-
   /// No description provided for @dashboard_block_4_title.
   ///
   /// In en, this message translates to:
@@ -289,12 +277,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Community'**
   String get menu_community;
-
-  /// No description provided for @menu_expenses.
-  ///
-  /// In en, this message translates to:
-  /// **'Expense Tracking'**
-  String get menu_expenses;
 
   /// No description provided for @menu_stock.
   ///

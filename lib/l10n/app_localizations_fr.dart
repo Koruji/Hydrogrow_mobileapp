@@ -88,12 +88,6 @@ class AppLocalizationsFr extends AppLocalizations {
       'Ajoutez une publication à vos favoris dans l\'onglet Communauté pour la voir ici.';
 
   @override
-  String get dashboard_block_3_title => 'Dépenses';
-
-  @override
-  String get dashboard_block_3_admin_title => 'Finances';
-
-  @override
   String get dashboard_block_4_title => 'Communauté';
 
   @override
@@ -109,9 +103,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get menu_community => 'Communauté';
-
-  @override
-  String get menu_expenses => 'Suivi des dépenses';
 
   @override
   String get menu_stock => 'Suivi des stocks';

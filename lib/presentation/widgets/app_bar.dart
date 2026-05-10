@@ -46,13 +46,14 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       actions: [
-        IconButton(
-          icon: Icon(
-            isEditMode ? Icons.edit_off_outlined : Icons.edit_outlined,
-            color: AppColors.icon,
+        if (onEditPressed != null)
+          IconButton(
+            icon: Icon(
+              isEditMode ? Icons.edit_off_outlined : Icons.edit_outlined,
+              color: AppColors.icon,
+            ),
+            onPressed: onEditPressed,
           ),
-          onPressed: onEditPressed ?? () {},
-        ),
       ],
     );
   }
