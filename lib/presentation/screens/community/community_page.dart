@@ -121,12 +121,12 @@ class _CommunityPageState extends State<CommunityPage> {
       currentRoute: '/community',
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openForm(),
-        backgroundColor: AppColors.menu,
+        backgroundColor: context.colors.menu,
         foregroundColor: Colors.white,
         child: const Icon(Icons.edit_outlined),
       ),
       body: Container(
-        color: AppColors.background,
+        color: context.colors.background,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -154,13 +154,14 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   Widget _buildHeader() {
+    final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Communauté',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: AppColors.textPrimary,
+            color: colors.textPrimary,
             fontSize: 28,
           ),
         ),
@@ -168,7 +169,7 @@ class _CommunityPageState extends State<CommunityPage> {
         Text(
           'Partagez vos expériences et apprenez des autres cultivateurs',
           style: TextStyle(
-            color: AppColors.textSecondary,
+            color: colors.textSecondary,
             fontSize: 13,
             height: 1.4,
           ),
@@ -185,7 +186,7 @@ class _CommunityPageState extends State<CommunityPage> {
             icon: Icons.article_outlined,
             label: 'Articles',
             value: stats.total.toString(),
-            color: AppColors.menu,
+            color: context.colors.menu,
           ),
         ),
         const SizedBox(width: 10),
@@ -211,20 +212,21 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   Widget _buildSearchBar() {
+    final colors = context.colors;
     return TextField(
       controller: _searchController,
       onChanged: (value) {
         _controller.setSearchQuery(value);
         setState(() {});
       },
-      style: const TextStyle(fontSize: 14, color: AppColors.textPrimary),
+      style: TextStyle(fontSize: 14, color: colors.textPrimary),
       decoration: InputDecoration(
         hintText: 'Rechercher par titre, auteur, tag...',
-        hintStyle: TextStyle(color: AppColors.textSecondary, fontSize: 13),
-        prefixIcon: Icon(Icons.search, color: AppColors.textSecondary, size: 20),
+        hintStyle: TextStyle(color: colors.textSecondary, fontSize: 13),
+        prefixIcon: Icon(Icons.search, color: colors.textSecondary, size: 20),
         suffixIcon: _searchController.text.isNotEmpty
             ? IconButton(
-                icon: Icon(Icons.clear, size: 18, color: AppColors.textSecondary),
+                icon: Icon(Icons.clear, size: 18, color: colors.textSecondary),
                 onPressed: () {
                   _searchController.clear();
                   _controller.setSearchQuery('');
@@ -233,19 +235,19 @@ class _CommunityPageState extends State<CommunityPage> {
               )
             : null,
         filled: true,
-        fillColor: Colors.white,
+        fillColor: colors.surface,
         contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.3)),
+          borderSide: BorderSide(color: colors.divider.withValues(alpha: 0.3)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.3)),
+          borderSide: BorderSide(color: colors.divider.withValues(alpha: 0.3)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.menu, width: 1.5),
+          borderSide: BorderSide(color: colors.menu, width: 1.5),
         ),
       ),
     );
@@ -253,6 +255,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   Widget _buildCategoryFilter() {
     final categories = ['Toutes', ...articleCategories];
+    final colors = context.colors;
 
     return SizedBox(
       height: 40,
@@ -260,7 +263,7 @@ class _CommunityPageState extends State<CommunityPage> {
         scrollDirection: Axis.horizontal,
         children: categories.map((cat) {
           final isSelected = _controller.selectedCategory == cat;
-          Color color = AppColors.menu;
+          Color color = colors.menu;
           if (cat != 'Toutes') {
             final dummy = Article(
               id: '',
@@ -285,10 +288,10 @@ class _CommunityPageState extends State<CommunityPage> {
                 duration: const Duration(milliseconds: 180),
                 padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                 decoration: BoxDecoration(
-                  color: isSelected ? color : Colors.white,
+                  color: isSelected ? color : colors.surface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: isSelected ? color : AppColors.divider.withOpacity(0.4),
+                    color: isSelected ? color : colors.divider.withValues(alpha: 0.4),
                   ),
                 ),
                 child: Text(
@@ -296,7 +299,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                    color: isSelected ? Colors.white : AppColors.textSecondary,
+                    color: isSelected ? Colors.white : colors.textSecondary,
                   ),
                 ),
               ),
@@ -310,7 +313,7 @@ class _CommunityPageState extends State<CommunityPage> {
   Widget _buildArticleCount(int count) {
     return Text(
       '$count article(s) trouvé(s)',
-      style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+      style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
     );
   }
 
@@ -336,16 +339,17 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   Widget _buildEmptyState() {
+    final colors = context.colors;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(40),
         child: Column(
           children: [
-            Icon(Icons.article_outlined, size: 52, color: AppColors.textSecondary),
+            Icon(Icons.article_outlined, size: 52, color: colors.textSecondary),
             const SizedBox(height: 16),
             Text(
               'Aucun article ne correspond à votre recherche',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 15),
+              style: TextStyle(color: colors.textSecondary, fontSize: 15),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
@@ -405,7 +409,7 @@ class _StatCard extends StatelessWidget {
             label,
             style: TextStyle(
               fontSize: 11,
-              color: AppColors.textSecondary,
+              color: context.colors.textSecondary,
             ),
             textAlign: TextAlign.center,
           ),

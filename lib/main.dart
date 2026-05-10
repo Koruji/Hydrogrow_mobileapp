@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
+import 'package:hydrogrow/core/navigation/app_page_route.dart';
 import 'package:hydrogrow/core/theme/themes.dart';
 import 'package:hydrogrow/presentation/screens/account/account_page.dart';
 import 'package:hydrogrow/presentation/screens/account/subscription_page.dart';
@@ -10,14 +11,22 @@ import 'package:hydrogrow/presentation/screens/account/rgpd_page.dart';
 import 'package:hydrogrow/presentation/screens/community/community_page.dart';
 import 'package:hydrogrow/presentation/screens/parcels/parcels_page.dart';
 import 'package:hydrogrow/presentation/screens/stock/stock_page.dart';
-import 'package:hydrogrow/core/navigation/app_page_route.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
+import 'package:hydrogrow/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() {
   usePathUrlStrategy();
-  runApp(ChangeNotifierProvider(create: (_) => AuthProvider(), child: MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -25,6 +34,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
@@ -37,7 +48,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       title: 'HydroGrow',
       theme: AppTheme.lightTheme,
-      themeMode: ThemeMode.light,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeProvider.mode,
       home: LoginPage(),
       onGenerateRoute: (settings) {
         final routes = <String, Widget>{

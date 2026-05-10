@@ -21,6 +21,7 @@ class ArticleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final categoryColor = article.getCategoryColor();
 
     return GestureDetector(
@@ -30,9 +31,7 @@ class ArticleCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border(
-              left: BorderSide(color: categoryColor, width: 4),
-            ),
+            border: Border(left: BorderSide(color: categoryColor, width: 4)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,24 +39,24 @@ class ArticleCard extends StatelessWidget {
               if (article.imageUrl != null) _buildImage(),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 14, 12, 0),
-                child: _buildTopRow(context, categoryColor),
+                child: _buildTopRow(colors, categoryColor),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                child: _buildTitle(),
+                child: _buildTitle(colors),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 6, 16, 0),
-                child: _buildPreview(),
+                child: _buildPreview(colors),
               ),
               if (article.tags.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                  child: _buildTags(categoryColor),
+                  child: _buildTags(colors),
                 ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 10, 16, 14),
-                child: _buildFooter(),
+                child: _buildFooter(colors),
               ),
             ],
           ),
@@ -82,7 +81,7 @@ class ArticleCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTopRow(BuildContext context, Color categoryColor) {
+  Widget _buildTopRow(AppColorsExtension colors, Color categoryColor) {
     return Row(
       children: [
         _buildCategoryBadge(categoryColor),
@@ -93,7 +92,7 @@ class ArticleCard extends StatelessWidget {
             height: 30,
             child: PopupMenuButton<String>(
               padding: EdgeInsets.zero,
-              icon: Icon(Icons.more_vert, size: 18, color: AppColors.textSecondary),
+              icon: Icon(Icons.more_vert, size: 18, color: colors.textSecondary),
               onSelected: (value) {
                 if (value == 'edit') onEditPressed?.call();
                 if (value == 'delete') onDeletePressed?.call();
@@ -105,10 +104,7 @@ class ArticleCard extends StatelessWidget {
                 ),
                 const PopupMenuItem(
                   value: 'delete',
-                  child: Text(
-                    'Supprimer',
-                    style: TextStyle(color: Colors.red, fontSize: 13),
-                  ),
+                  child: Text('Supprimer', style: TextStyle(color: Colors.red, fontSize: 13)),
                 ),
               ],
             ),
@@ -121,9 +117,9 @@ class ArticleCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.12),
+        color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color.withOpacity(0.4)),
+        border: Border.all(color: color.withValues(alpha: 0.4)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -132,24 +128,20 @@ class ArticleCard extends StatelessWidget {
           const SizedBox(width: 5),
           Text(
             article.category,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: color),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(AppColorsExtension colors) {
     return Text(
       article.title,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w700,
-        color: AppColors.textPrimary,
+        color: colors.textPrimary,
         height: 1.3,
       ),
       maxLines: 2,
@@ -157,7 +149,7 @@ class ArticleCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPreview() {
+  Widget _buildPreview(AppColorsExtension colors) {
     final preview = article.content
         .replaceAll(RegExp(r'\*\*.*?\*\*'), '')
         .replaceAll(RegExp(r'\n+'), ' ')
@@ -165,17 +157,13 @@ class ArticleCard extends StatelessWidget {
 
     return Text(
       preview,
-      style: TextStyle(
-        fontSize: 13,
-        color: AppColors.textSecondary,
-        height: 1.5,
-      ),
+      style: TextStyle(fontSize: 13, color: colors.textSecondary, height: 1.5),
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
     );
   }
 
-  Widget _buildTags(Color categoryColor) {
+  Widget _buildTags(AppColorsExtension colors) {
     return Wrap(
       spacing: 6,
       runSpacing: 4,
@@ -183,22 +171,19 @@ class ArticleCard extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
-            color: AppColors.background,
+            color: colors.background,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
             '#$tag',
-            style: TextStyle(
-              fontSize: 11,
-              color: AppColors.textSecondary,
-            ),
+            style: TextStyle(fontSize: 11, color: colors.textSecondary),
           ),
         );
       }).toList(),
     );
   }
 
-  Widget _buildFooter() {
+  Widget _buildFooter(AppColorsExtension colors) {
     return Row(
       children: [
         _buildAuthorAvatar(),
@@ -209,29 +194,22 @@ class ArticleCard extends StatelessWidget {
             children: [
               Text(
                 article.authorName,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
-                ),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: colors.textPrimary),
               ),
               Text(
                 article.getRelativeDate(),
-                style: TextStyle(
-                  fontSize: 11,
-                  color: AppColors.textSecondary,
-                ),
+                style: TextStyle(fontSize: 11, color: colors.textSecondary),
               ),
             ],
           ),
         ),
         Row(
           children: [
-            Icon(Icons.schedule, size: 13, color: AppColors.textSecondary),
+            Icon(Icons.schedule, size: 13, color: colors.textSecondary),
             const SizedBox(width: 4),
             Text(
               '${article.getReadingTimeMinutes()} min',
-              style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
+              style: TextStyle(fontSize: 11, color: colors.textSecondary),
             ),
           ],
         ),
@@ -240,16 +218,12 @@ class ArticleCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
             decoration: BoxDecoration(
-              color: AppColors.menu.withOpacity(0.12),
+              color: colors.menu.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
               'Mon article',
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-                color: AppColors.menu,
-              ),
+              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: colors.menu),
             ),
           ),
         ],
@@ -258,21 +232,15 @@ class ArticleCard extends StatelessWidget {
   }
 
   Widget _buildAuthorAvatar() {
-    final initial = article.authorName.isNotEmpty
-        ? article.authorName[0].toUpperCase()
-        : '?';
+    final initial = article.authorName.isNotEmpty ? article.authorName[0].toUpperCase() : '?';
     final color = article.getCategoryColor();
 
     return CircleAvatar(
       radius: 16,
-      backgroundColor: color.withOpacity(0.15),
+      backgroundColor: color.withValues(alpha: 0.15),
       child: Text(
         initial,
-        style: TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.bold,
-          color: color,
-        ),
+        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: color),
       ),
     );
   }

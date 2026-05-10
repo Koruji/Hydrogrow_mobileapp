@@ -32,14 +32,12 @@ class _AppScaffoldState extends State<AppScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       appBar: AppBarComponent(
         isEditMode: widget.isEditMode,
         onMenuPressed: widget.showDrawer
             ? () {
-                if (mounted) {
-                  _scaffoldKey.currentState?.openDrawer();
-                }
+                if (mounted) _scaffoldKey.currentState?.openDrawer();
               }
             : null,
         onEditPressed: widget.onEditPressed,

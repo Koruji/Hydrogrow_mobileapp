@@ -20,6 +20,8 @@ class DashboardContainer extends StatefulWidget {
 class _DashboardContainerState extends State<DashboardContainer> {
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Stack(
@@ -29,16 +31,16 @@ class _DashboardContainerState extends State<DashboardContainer> {
             margin: const EdgeInsets.only(top: 12),
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.divider, width: 2),
+              border: Border.all(color: colors.divider, width: 2),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Center(
               child: Text(
                 widget.defaultContent,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: AppColors.textSecondary,
+                  color: colors.textSecondary,
                   height: 1.5,
                 ),
               ),
@@ -51,10 +53,10 @@ class _DashboardContainerState extends State<DashboardContainer> {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
                 widget.title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 14,
-                  color: AppColors.textSecondary,
-                  backgroundColor: AppColors.background,
+                  color: colors.textSecondary,
+                  backgroundColor: colors.background,
                 ),
               ),
             ),

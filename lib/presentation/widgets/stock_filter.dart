@@ -50,7 +50,7 @@ class StockFiltersWidget extends StatelessWidget {
                         category,
                         style: const TextStyle(
                           fontSize: 14,
-                          color: AppColors.textPrimary,
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     );
@@ -90,7 +90,7 @@ class StockFiltersWidget extends StatelessWidget {
                         status.toUpperCase(),
                         style: const TextStyle(
                           fontSize: 14,
-                          color: AppColors.textPrimary,
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     );

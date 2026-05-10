@@ -74,7 +74,7 @@ class _ParcelsPageState extends State<ParcelsPage> {
     return AppScaffold(
       currentRoute: '/parcels',
       body: Container(
-        color: AppColors.background,
+        color: context.colors.background,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -113,13 +113,14 @@ class _ParcelsPageState extends State<ParcelsPage> {
   }
 
   Widget _buildHeader(int count, ParcelStatistics statistics) {
+    final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Gestion des parcelles',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: AppColors.textPrimary,
+            color: colors.textPrimary,
             fontSize: 28,
           ),
         ),
@@ -129,7 +130,7 @@ class _ParcelsPageState extends State<ParcelsPage> {
           children: [
             Text(
               '$count parcelle(s) affichée(s)',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
+              style: TextStyle(color: colors.textSecondary, fontSize: 14),
             ),
             if (statistics.inactive > 0)
               Chip(
@@ -166,6 +167,7 @@ class _ParcelsPageState extends State<ParcelsPage> {
   }
 
   Widget _buildEmptyState() {
+    final colors = context.colors;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -174,12 +176,12 @@ class _ParcelsPageState extends State<ParcelsPage> {
             Icon(
               Icons.grass_outlined,
               size: 48,
-              color: AppColors.textSecondary,
+              color: colors.textSecondary,
             ),
             const SizedBox(height: 16),
             Text(
               'Aucune parcelle ne correspond à vos filtres',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 16),
+              style: TextStyle(color: colors.textSecondary, fontSize: 16),
               textAlign: TextAlign.center,
             ),
           ],

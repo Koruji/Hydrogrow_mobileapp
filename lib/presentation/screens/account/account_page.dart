@@ -4,6 +4,7 @@ import 'package:hydrogrow/presentation/screens/account/rgpd_page.dart';
 import 'package:provider/provider.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
+import 'package:hydrogrow/providers/theme_provider.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_card.dart';
 import 'package:hydrogrow/presentation/components/app_scaffold.dart';
@@ -18,20 +19,22 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  String _selectedTheme = 'Sombre';
   String _selectedLanguage = 'Français';
 
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
     final userProvider = Provider.of<AuthProvider>(context);
-    bool _isPremium = userProvider.subscription == 'premium';
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final bool isPremium = userProvider.subscription == 'premium';
+    final String selectedTheme = themeProvider.isDark ? 'Sombre' : 'Clair';
+    final colors = context.colors;
 
     return AppScaffold(
       currentRoute: '/account',
       showDrawer: true,
       body: Container(
-        color: AppColors.background,
+        color: context.colors.background,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -51,10 +54,10 @@ class _AccountPageState extends State<AccountPage> {
                           children: [
                             Text(
                               userProvider.login,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
-                                color: AppColors.textPrimary,
+                                color: colors.textPrimary,
                               ),
                             ),
                             const SizedBox(height: 4),
@@ -79,7 +82,7 @@ class _AccountPageState extends State<AccountPage> {
                                 ),
                               ),
                               child: Text(
-                                _isPremium
+                                isPremium
                                     ? translate
                                           .account_page_subscription_state_2
                                     : translate
@@ -101,10 +104,10 @@ class _AccountPageState extends State<AccountPage> {
                 /*--------- Section Paramètres ---------*/
                 Text(
                   translate.account_page_parameters,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color: colors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -119,32 +122,38 @@ class _AccountPageState extends State<AccountPage> {
                       children: [
                         Text(
                           translate.account_page_theme,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
-                            color: AppColors.textPrimary,
+                            color: colors.textPrimary,
                           ),
                         ),
                         DropdownButton<String>(
-                          value: _selectedTheme,
+                          value: selectedTheme,
+                          style: TextStyle(fontSize: 16, color: colors.textPrimary),
+                          dropdownColor: colors.surface,
                           items: ['Clair', 'Sombre'].map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(
                                 value,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16,
-                                  color: AppColors.textPrimary,
+                                  color: colors.textPrimary,
                                 ),
                               ),
                             );
                           }).toList(),
                           onChanged: (String? newValue) {
-                            setState(() => _selectedTheme = newValue!);
+                            if (newValue != null) {
+                              themeProvider.setMode(
+                                newValue == 'Sombre' ? ThemeMode.dark : ThemeMode.light,
+                              );
+                            }
                           },
                           underline: Container(),
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.arrow_drop_down,
-                            color: AppColors.icon,
+                            color: colors.icon,
                           ),
                         ),
                       ],
@@ -163,21 +172,23 @@ class _AccountPageState extends State<AccountPage> {
                       children: [
                         Text(
                           translate.account_page_language,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
-                            color: AppColors.textPrimary,
+                            color: colors.textPrimary,
                           ),
                         ),
                         DropdownButton<String>(
                           value: _selectedLanguage,
+                          style: TextStyle(fontSize: 16, color: colors.textPrimary),
+                          dropdownColor: colors.surface,
                           items: ['Français', 'Anglais'].map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(
                                 value,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16,
-                                  color: AppColors.textPrimary,
+                                  color: colors.textPrimary,
                                 ),
                               ),
                             );
@@ -186,9 +197,9 @@ class _AccountPageState extends State<AccountPage> {
                             setState(() => _selectedLanguage = newValue!);
                           },
                           underline: Container(),
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.arrow_drop_down,
-                            color: AppColors.icon,
+                            color: colors.icon,
                           ),
                         ),
                       ],
@@ -199,10 +210,10 @@ class _AccountPageState extends State<AccountPage> {
                 /*--------- Section Abonnement ---------*/
                 Text(
                   translate.account_page_subscription,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color: colors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -219,30 +230,30 @@ class _AccountPageState extends State<AccountPage> {
                               translate.account_page_subscription_state,
                               style: TextStyle(
                                 fontSize: 16,
-                                color: AppColors.textPrimary,
+                                color: colors.textPrimary,
                               ),
                             ),
                             Text(
-                              _isPremium
+                              isPremium
                                   ? translate.account_page_subscription_state_2
                                   : translate.account_page_subscription_state_1,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: _isPremium
+                                color: isPremium
                                     ? AppColors.notification
                                     : AppColors.warning,
                               ),
                             ),
                           ],
                         ),
-                        if (!_isPremium) ...[
+                        if (!isPremium) ...[
                           const SizedBox(height: 16),
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.menu,
+                                backgroundColor: colors.menu,
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 12,
                                 ),
@@ -275,10 +286,10 @@ class _AccountPageState extends State<AccountPage> {
                 /*--------- Section Actions ---------*/
                 Text(
                   translate.account_page_actions,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color: colors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -286,22 +297,22 @@ class _AccountPageState extends State<AccountPage> {
                   width: double.infinity,
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: colors.surface,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      side: const BorderSide(color: AppColors.menu),
+                      side: BorderSide(color: colors.menu),
                     ),
                     onPressed: () {
                       Navigator.pushNamed(context, '/account/rgpd');
                     },
                     child: Text(
                       translate.account_page_rgpd,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: AppColors.menu,
+                        color: colors.menu,
                       ),
                     ),
                   ),
@@ -311,7 +322,7 @@ class _AccountPageState extends State<AccountPage> {
                   width: double.infinity,
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: colors.surface,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
