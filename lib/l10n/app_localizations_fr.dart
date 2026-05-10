@@ -581,4 +581,43 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sidebar_menu_label => 'Menu';
+
+  @override
+  String get login_tagline =>
+      'Gérez vos cultures hydroponiques avec précision.';
+
+  @override
+  String get login_feature_monitoring => 'Monitoring temps réel';
+
+  @override
+  String get login_feature_alerts => 'Alertes intelligentes';
+
+  @override
+  String get login_feature_community => 'Communauté';
+
+  @override
+  String get forgot_password_link => 'Mot de passe oublié ?';
+
+  @override
+  String get forgot_password_title => 'Réinitialiser le mot de passe';
+
+  @override
+  String get forgot_password_subtitle =>
+      'Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.';
+
+  @override
+  String get forgot_password_email_label => 'Adresse email';
+
+  @override
+  String get forgot_password_send => 'Envoyer le lien';
+
+  @override
+  String get forgot_password_success_title => 'Email envoyé !';
+
+  @override
+  String get forgot_password_success_message =>
+      'Si cette adresse est associée à un compte, vous recevrez un lien de réinitialisation dans quelques instants.';
+
+  @override
+  String get forgot_password_close => 'Retour à la connexion';
 }
