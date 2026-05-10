@@ -10,6 +10,7 @@ import 'package:hydrogrow/presentation/screens/account/rgpd_page.dart';
 import 'package:hydrogrow/presentation/screens/community/community_page.dart';
 import 'package:hydrogrow/presentation/screens/parcels/parcels_page.dart';
 import 'package:hydrogrow/presentation/screens/stock/stock_page.dart';
+import 'package:hydrogrow/core/navigation/app_page_route.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -38,15 +39,22 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
       home: LoginPage(),
-      routes: {
-        '/dashboard': (context) => DashboardPage(),
-        '/login': (context) => LoginPage(),
-        '/stock': (context) => StockPage(),
-'/community': (context) => const CommunityPage(),
-        '/parcels': (context) => ParcelsPage(),
-        '/account': (context) => AccountPage(),
-        '/account/rgpd': (context) => RGPDPage(),
-        '/account/subscription': (context) => SubscriptionPage(),
+      onGenerateRoute: (settings) {
+        final routes = <String, Widget>{
+          '/dashboard': DashboardPage(),
+          '/login': LoginPage(),
+          '/stock': StockPage(),
+          '/community': const CommunityPage(),
+          '/parcels': ParcelsPage(),
+          '/account': AccountPage(),
+          '/account/rgpd': RGPDPage(),
+          '/account/subscription': SubscriptionPage(),
+        };
+        final page = routes[settings.name];
+        if (page != null) {
+          return AppPageRoute(page: page, settings: settings);
+        }
+        return null;
       },
     );
   }
