@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/models/article.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 
 class ArticleFormPage extends StatefulWidget {
@@ -82,6 +83,7 @@ class _ArticleFormPageState extends State<ArticleFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translate = AppLocalizations.of(context)!;
     return AppScaffold(
       currentRoute: '/community',
       showDrawer: false,
@@ -92,51 +94,55 @@ class _ArticleFormPageState extends State<ArticleFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildBackButton(context),
+              _buildBackButton(context, translate),
               const SizedBox(height: 16),
-              _buildSectionLabel('Catégorie'),
+              _buildSectionLabel(translate.article_form_category, context),
               const SizedBox(height: 8),
-              _buildCategorySelector(),
+              _buildCategorySelector(context),
               const SizedBox(height: 20),
 
-              _buildSectionLabel('Titre *'),
+              _buildSectionLabel(translate.article_form_title_label, context),
               const SizedBox(height: 8),
               _buildTextField(
+                context: context,
                 controller: _titleController,
-                hint: 'Donnez un titre accrocheur à votre article',
+                hint: translate.article_form_title_hint,
                 maxLines: 2,
                 validator: (v) =>
-                    (v == null || v.trim().isEmpty) ? 'Le titre est requis' : null,
+                    (v == null || v.trim().isEmpty) ? translate.article_form_title_required : null,
               ),
               const SizedBox(height: 20),
 
-              _buildSectionLabel('Contenu *'),
+              _buildSectionLabel(translate.article_form_content_label, context),
               const SizedBox(height: 8),
               _buildTextField(
+                context: context,
                 controller: _contentController,
-                hint: 'Partagez votre expérience, vos conseils, vos questions...',
+                hint: translate.article_form_content_hint,
                 maxLines: 14,
                 validator: (v) =>
                     (v == null || v.trim().length < 50)
-                        ? 'Le contenu doit faire au moins 50 caractères'
+                        ? translate.article_form_content_min
                         : null,
               ),
               const SizedBox(height: 20),
 
-              _buildSectionLabel('Tags (séparés par des virgules)'),
+              _buildSectionLabel(translate.article_form_tags_label, context),
               const SizedBox(height: 8),
               _buildTextField(
+                context: context,
                 controller: _tagsController,
-                hint: 'ex: hydroponie, pH, débutant',
+                hint: translate.article_form_tags_hint,
                 maxLines: 1,
               ),
               const SizedBox(height: 20),
 
-              _buildSectionLabel('Image (URL, optionnel)'),
+              _buildSectionLabel(translate.article_form_image_label, context),
               const SizedBox(height: 8),
               _buildTextField(
+                context: context,
                 controller: _imageUrlController,
-                hint: 'https://...',
+                hint: translate.article_form_image_hint,
                 maxLines: 1,
                 keyboardType: TextInputType.url,
               ),
@@ -147,14 +153,14 @@ class _ArticleFormPageState extends State<ArticleFormPage> {
                 child: ElevatedButton(
                   onPressed: _submit,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.menu,
+                    backgroundColor: context.colors.menu,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                   child: Text(
-                    _isEditing ? 'Enregistrer les modifications' : 'Publier l\'article',
+                    _isEditing ? translate.article_form_save : translate.article_form_publish,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -170,19 +176,19 @@ class _ArticleFormPageState extends State<ArticleFormPage> {
     );
   }
 
-  Widget _buildBackButton(BuildContext context) {
+  Widget _buildBackButton(BuildContext context, AppLocalizations translate) {
     return GestureDetector(
       onTap: () => Navigator.pop(context),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.arrow_back_ios, size: 16, color: AppColors.textPrimary),
+          Icon(Icons.arrow_back_ios, size: 16, color: context.colors.textPrimary),
           const SizedBox(width: 4),
           Text(
-            'Communauté',
+            translate.article_form_back,
             style: TextStyle(
               fontSize: 14,
-              color: AppColors.textPrimary,
+              color: context.colors.textPrimary,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -191,57 +197,60 @@ class _ArticleFormPageState extends State<ArticleFormPage> {
     );
   }
 
-  Widget _buildSectionLabel(String label) {
+  Widget _buildSectionLabel(String label, BuildContext context) {
     return Text(
       label,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 13,
         fontWeight: FontWeight.w600,
-        color: AppColors.textPrimary,
+        color: context.colors.textPrimary,
       ),
     );
   }
 
   Widget _buildTextField({
+    required BuildContext context,
     required TextEditingController controller,
     required String hint,
     required int maxLines,
     TextInputType? keyboardType,
     String? Function(String?)? validator,
   }) {
+    final colors = context.colors;
     return TextFormField(
       controller: controller,
       maxLines: maxLines,
       keyboardType: keyboardType,
       validator: validator,
-      style: const TextStyle(fontSize: 14, color: AppColors.textPrimary),
+      style: TextStyle(fontSize: 14, color: colors.textPrimary),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+        hintStyle: TextStyle(color: colors.textSecondary, fontSize: 13),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: colors.surface,
         contentPadding: const EdgeInsets.all(14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.4)),
+          borderSide: BorderSide(color: colors.divider.withOpacity(0.4)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.divider.withOpacity(0.4)),
+          borderSide: BorderSide(color: colors.divider.withOpacity(0.4)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColors.menu, width: 1.5),
+          borderSide: BorderSide(color: colors.menu, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: AppColors.warning),
+          borderSide: BorderSide(color: colors.warning),
         ),
       ),
     );
   }
 
-  Widget _buildCategorySelector() {
+  Widget _buildCategorySelector(BuildContext context) {
+    final colors = context.colors;
     return Wrap(
       spacing: 8,
       runSpacing: 8,
@@ -264,10 +273,10 @@ class _ArticleFormPageState extends State<ArticleFormPage> {
             duration: const Duration(milliseconds: 180),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             decoration: BoxDecoration(
-              color: isSelected ? color : Colors.white,
+              color: isSelected ? color : colors.surface,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                color: isSelected ? color : AppColors.divider.withOpacity(0.4),
+                color: isSelected ? color : colors.divider.withOpacity(0.4),
                 width: isSelected ? 2 : 1,
               ),
               boxShadow: isSelected
@@ -288,7 +297,7 @@ class _ArticleFormPageState extends State<ArticleFormPage> {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: isSelected ? Colors.white : AppColors.textPrimary,
+                    color: isSelected ? Colors.white : colors.textPrimary,
                   ),
                 ),
               ],

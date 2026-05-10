@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/mock/article_mock.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/data/models/article.dart';
 import 'package:hydrogrow/presentation/components/app_card.dart';
 import 'package:hydrogrow/presentation/components/app_scaffold.dart';
@@ -113,6 +114,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translate = AppLocalizations.of(context)!;
     final currentUserId = _currentUserId;
     final stats = _controller.getStatistics(currentUserId);
     final articles = _controller.filteredArticles;
@@ -133,15 +135,15 @@ class _CommunityPageState extends State<CommunityPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(),
+                _buildHeader(translate),
                 const SizedBox(height: 20),
-                _buildStatsRow(stats),
+                _buildStatsRow(stats, translate),
                 const SizedBox(height: 20),
-                _buildSearchBar(),
+                _buildSearchBar(translate),
                 const SizedBox(height: 12),
-                _buildCategoryFilter(),
+                _buildCategoryFilter(translate),
                 const SizedBox(height: 20),
-                _buildArticleCount(articles.length),
+                _buildArticleCount(articles.length, translate),
                 const SizedBox(height: 12),
                 _buildArticleList(articles, currentUserId),
                 const SizedBox(height: 80),
@@ -153,13 +155,13 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(AppLocalizations translate) {
     final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Communauté',
+          translate.community_page_title,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
             color: colors.textPrimary,
             fontSize: 28,
@@ -167,7 +169,7 @@ class _CommunityPageState extends State<CommunityPage> {
         ),
         const SizedBox(height: 6),
         Text(
-          'Partagez vos expériences et apprenez des autres cultivateurs',
+          translate.community_page_subtitle,
           style: TextStyle(
             color: colors.textSecondary,
             fontSize: 13,
@@ -178,13 +180,13 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-  Widget _buildStatsRow(ArticleStatistics stats) {
+  Widget _buildStatsRow(ArticleStatistics stats, AppLocalizations translate) {
     return Row(
       children: [
         Expanded(
           child: _StatCard(
             icon: Icons.article_outlined,
-            label: 'Articles',
+            label: translate.community_stat_articles,
             value: stats.total.toString(),
             color: context.colors.menu,
           ),
@@ -193,7 +195,7 @@ class _CommunityPageState extends State<CommunityPage> {
         Expanded(
           child: _StatCard(
             icon: Icons.person_outline,
-            label: 'Mes articles',
+            label: translate.community_stat_mine,
             value: stats.mine.toString(),
             color: const Color(0xFF8B5CF6),
           ),
@@ -202,7 +204,7 @@ class _CommunityPageState extends State<CommunityPage> {
         Expanded(
           child: _StatCard(
             icon: Icons.category_outlined,
-            label: 'Catégories',
+            label: translate.community_stat_categories,
             value: stats.categoriesCount.toString(),
             color: const Color(0xFFCE984B),
           ),
@@ -211,7 +213,7 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-  Widget _buildSearchBar() {
+  Widget _buildSearchBar(AppLocalizations translate) {
     final colors = context.colors;
     return TextField(
       controller: _searchController,
@@ -221,7 +223,7 @@ class _CommunityPageState extends State<CommunityPage> {
       },
       style: TextStyle(fontSize: 14, color: colors.textPrimary),
       decoration: InputDecoration(
-        hintText: 'Rechercher par titre, auteur, tag...',
+        hintText: translate.community_search_hint,
         hintStyle: TextStyle(color: colors.textSecondary, fontSize: 13),
         prefixIcon: Icon(Icons.search, color: colors.textSecondary, size: 20),
         suffixIcon: _searchController.text.isNotEmpty
@@ -253,7 +255,7 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-  Widget _buildCategoryFilter() {
+  Widget _buildCategoryFilter(AppLocalizations translate) {
     final categories = ['Toutes', ...articleCategories];
     final colors = context.colors;
 
@@ -295,7 +297,7 @@ class _CommunityPageState extends State<CommunityPage> {
                   ),
                 ),
                 child: Text(
-                  cat,
+                  cat == 'Toutes' ? translate.community_filter_all : cat,
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
@@ -310,9 +312,9 @@ class _CommunityPageState extends State<CommunityPage> {
     );
   }
 
-  Widget _buildArticleCount(int count) {
+  Widget _buildArticleCount(int count, AppLocalizations translate) {
     return Text(
-      '$count article(s) trouvé(s)',
+      '$count ${translate.community_articles_count_label}',
       style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
     );
   }
@@ -340,6 +342,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   Widget _buildEmptyState() {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(40),
@@ -348,7 +351,7 @@ class _CommunityPageState extends State<CommunityPage> {
             Icon(Icons.article_outlined, size: 52, color: colors.textSecondary),
             const SizedBox(height: 16),
             Text(
-              'Aucun article ne correspond à votre recherche',
+              translate.community_empty,
               style: TextStyle(color: colors.textSecondary, fontSize: 15),
               textAlign: TextAlign.center,
             ),
@@ -359,7 +362,7 @@ class _CommunityPageState extends State<CommunityPage> {
                 _controller.resetFilters();
                 setState(() {});
               },
-              child: const Text('Réinitialiser les filtres'),
+              child: Text(translate.community_reset_filters),
             ),
           ],
         ),

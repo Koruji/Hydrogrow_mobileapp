@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_card.dart';
 
 class StockSummaryWidget extends StatelessWidget {
@@ -25,6 +26,7 @@ class StockSummaryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return GestureDetector(
       onTap: onTap,
       child: AppCard(
@@ -38,10 +40,10 @@ class StockSummaryWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Suivi des stocks',
+                    Text(translate.stock_page_title,
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
                     const SizedBox(height: 4),
-                    Text('$total article(s) en stock',
+                    Text('$total ${translate.stock_page_items_label}',
                         style: TextStyle(fontSize: 12, color: colors.textSecondary)),
                   ],
                 ),
@@ -49,7 +51,7 @@ class StockSummaryWidget extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(color: colors.warning, borderRadius: BorderRadius.circular(12)),
-                    child: Text('$alertCount en alerte',
+                    child: Text('$alertCount ${translate.stock_page_alert_label}',
                         style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.white)),
                   ),
               ],
@@ -57,13 +59,13 @@ class StockSummaryWidget extends StatelessWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                Expanded(child: _buildStatCard(context, value: optimal.toString(), label: 'Optimal', color: colors.success, icon: Icons.check_circle)),
+                Expanded(child: _buildStatCard(context, value: optimal.toString(), label: translate.stock_status_optimal, color: colors.success, icon: Icons.check_circle)),
                 const SizedBox(width: 10),
-                Expanded(child: _buildStatCard(context, value: moyen.toString(), label: 'Moyen', color: colors.notification, icon: Icons.info_outline)),
+                Expanded(child: _buildStatCard(context, value: moyen.toString(), label: translate.stock_status_moyen, color: colors.notification, icon: Icons.info_outline)),
                 const SizedBox(width: 10),
-                Expanded(child: _buildStatCard(context, value: faible.toString(), label: 'Faible', color: colors.notification, icon: Icons.warning)),
+                Expanded(child: _buildStatCard(context, value: faible.toString(), label: translate.stock_status_faible, color: colors.notification, icon: Icons.warning)),
                 const SizedBox(width: 10),
-                Expanded(child: _buildStatCard(context, value: rupture.toString(), label: 'Rupture', color: colors.warning, icon: Icons.error)),
+                Expanded(child: _buildStatCard(context, value: rupture.toString(), label: translate.stock_status_rupture, color: colors.warning, icon: Icons.error)),
               ],
             ),
           ],

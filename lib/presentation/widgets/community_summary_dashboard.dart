@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/models/article.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_card.dart';
 
 class CommunitySummaryWidget extends StatelessWidget {
@@ -37,16 +38,17 @@ class CommunitySummaryWidget extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Derniers articles',
+            Text(translate.community_summary_title,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             const SizedBox(height: 4),
-            Text("Aujourd'hui et hier",
+            Text(translate.community_summary_subtitle,
                 style: TextStyle(fontSize: 12, color: colors.textSecondary)),
           ],
         ),
@@ -54,7 +56,7 @@ class CommunitySummaryWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(color: colors.menu, borderRadius: BorderRadius.circular(12)),
-            child: Text('${recentArticles.length} nouveau(x)',
+            child: Text('${recentArticles.length} ${translate.community_summary_new_label}',
                 style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.white)),
           ),
       ],
@@ -63,6 +65,7 @@ class CommunitySummaryWidget extends StatelessWidget {
 
   Widget _buildEmptyState(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
@@ -70,7 +73,7 @@ class CommunitySummaryWidget extends StatelessWidget {
         children: [
           Icon(Icons.article_outlined, size: 20, color: colors.textSecondary),
           const SizedBox(width: 8),
-          Text('Aucun article publié récemment',
+          Text(translate.community_summary_empty,
               style: TextStyle(fontSize: 13, color: colors.textSecondary)),
         ],
       ),

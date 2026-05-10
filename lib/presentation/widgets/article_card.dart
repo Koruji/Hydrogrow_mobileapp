@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/models/article.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_card.dart';
 
 class ArticleCard extends StatelessWidget {
@@ -22,6 +23,7 @@ class ArticleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     final categoryColor = article.getCategoryColor();
 
     return GestureDetector(
@@ -39,7 +41,7 @@ class ArticleCard extends StatelessWidget {
               if (article.imageUrl != null) _buildImage(),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 14, 12, 0),
-                child: _buildTopRow(colors, categoryColor),
+                child: _buildTopRow(colors, categoryColor, translate),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
@@ -56,7 +58,7 @@ class ArticleCard extends StatelessWidget {
                 ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 10, 16, 14),
-                child: _buildFooter(colors),
+                child: _buildFooter(colors, translate),
               ),
             ],
           ),
@@ -81,7 +83,7 @@ class ArticleCard extends StatelessWidget {
     );
   }
 
-  Widget _buildTopRow(AppColorsExtension colors, Color categoryColor) {
+  Widget _buildTopRow(AppColorsExtension colors, Color categoryColor, AppLocalizations translate) {
     return Row(
       children: [
         _buildCategoryBadge(categoryColor),
@@ -98,13 +100,13 @@ class ArticleCard extends StatelessWidget {
                 if (value == 'delete') onDeletePressed?.call();
               },
               itemBuilder: (_) => [
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'edit',
-                  child: Text('Modifier', style: TextStyle(fontSize: 13)),
+                  child: Text(translate.common_edit, style: const TextStyle(fontSize: 13)),
                 ),
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'delete',
-                  child: Text('Supprimer', style: TextStyle(color: Colors.red, fontSize: 13)),
+                  child: Text(translate.common_delete, style: const TextStyle(color: Colors.red, fontSize: 13)),
                 ),
               ],
             ),
@@ -183,7 +185,7 @@ class ArticleCard extends StatelessWidget {
     );
   }
 
-  Widget _buildFooter(AppColorsExtension colors) {
+  Widget _buildFooter(AppColorsExtension colors, AppLocalizations translate) {
     return Row(
       children: [
         _buildAuthorAvatar(),
@@ -208,7 +210,7 @@ class ArticleCard extends StatelessWidget {
             Icon(Icons.schedule, size: 13, color: colors.textSecondary),
             const SizedBox(width: 4),
             Text(
-              '${article.getReadingTimeMinutes()} min',
+              '${article.getReadingTimeMinutes()} ${translate.article_read_min}',
               style: TextStyle(fontSize: 11, color: colors.textSecondary),
             ),
           ],
@@ -222,7 +224,7 @@ class ArticleCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             child: Text(
-              'Mon article',
+              translate.article_my_article,
               style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: colors.menu),
             ),
           ),
