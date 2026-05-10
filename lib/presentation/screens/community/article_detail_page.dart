@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/models/article.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 
 class ArticleDetailPage extends StatelessWidget {
   final Article article;
@@ -18,13 +19,14 @@ class ArticleDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final translate = AppLocalizations.of(context)!;
     final categoryColor = article.getCategoryColor();
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: context.colors.background,
       body: CustomScrollView(
         slivers: [
-          _buildAppBar(context, categoryColor),
+          _buildAppBar(context, categoryColor, translate),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(20),
@@ -35,22 +37,22 @@ class ArticleDetailPage extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     article.title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
-                      color: AppColors.textPrimary,
+                      color: context.colors.textPrimary,
                       height: 1.3,
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildAuthorRow(),
+                  _buildAuthorRow(context, translate),
                   const SizedBox(height: 20),
-                  const Divider(color: AppColors.divider),
+                  Divider(color: context.colors.divider),
                   const SizedBox(height: 20),
                   _buildContent(),
                   if (article.tags.isNotEmpty) ...[
                     const SizedBox(height: 24),
-                    _buildTags(categoryColor),
+                    _buildTags(categoryColor, context, translate),
                   ],
                   const SizedBox(height: 40),
                 ],
@@ -62,11 +64,11 @@ class ArticleDetailPage extends StatelessWidget {
     );
   }
 
-  SliverAppBar _buildAppBar(BuildContext context, Color categoryColor) {
+  SliverAppBar _buildAppBar(BuildContext context, Color categoryColor, AppLocalizations translate) {
     return SliverAppBar(
       expandedHeight: article.imageUrl != null ? 220 : 0,
       pinned: true,
-      backgroundColor: AppColors.menu,
+      backgroundColor: context.colors.menu,
       foregroundColor: Colors.white,
       actions: isOwner
           ? [
@@ -83,15 +85,15 @@ class ArticleDetailPage extends StatelessWidget {
                   }
                 },
                 itemBuilder: (_) => [
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'edit',
-                    child: Text('Modifier'),
+                    child: Text(translate.article_action_edit),
                   ),
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 'delete',
                     child: Text(
-                      'Supprimer',
-                      style: TextStyle(color: Colors.red),
+                      translate.article_action_delete,
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
                 ],
@@ -136,7 +138,8 @@ class ArticleDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildAuthorRow() {
+  Widget _buildAuthorRow(BuildContext context, AppLocalizations translate) {
+    final colors = context.colors;
     final categoryColor = article.getCategoryColor();
     final initial = article.authorName.isNotEmpty
         ? article.authorName[0].toUpperCase()
@@ -164,10 +167,10 @@ class ArticleDetailPage extends StatelessWidget {
               children: [
                 Text(
                   article.authorName,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
+                    color: colors.textPrimary,
                   ),
                 ),
                 if (isOwner) ...[
@@ -175,15 +178,15 @@ class ArticleDetailPage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
                     decoration: BoxDecoration(
-                      color: AppColors.menu.withOpacity(0.12),
+                      color: colors.menu.withOpacity(0.12),
                       borderRadius: BorderRadius.circular(6),
                     ),
                     child: Text(
-                      'Vous',
+                      translate.article_detail_you,
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
-                        color: AppColors.menu,
+                        color: colors.menu,
                       ),
                     ),
                   ),
@@ -194,14 +197,14 @@ class ArticleDetailPage extends StatelessWidget {
               children: [
                 Text(
                   article.getRelativeDate(),
-                  style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                  style: TextStyle(fontSize: 12, color: colors.textSecondary),
                 ),
                 const SizedBox(width: 12),
-                Icon(Icons.schedule, size: 12, color: AppColors.textSecondary),
+                Icon(Icons.schedule, size: 12, color: colors.textSecondary),
                 const SizedBox(width: 4),
                 Text(
-                  '${article.getReadingTimeMinutes()} min de lecture',
-                  style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                  '${article.getReadingTimeMinutes()} ${translate.article_detail_read_label}',
+                  style: TextStyle(fontSize: 12, color: colors.textSecondary),
                 ),
               ],
             ),
@@ -215,16 +218,17 @@ class ArticleDetailPage extends StatelessWidget {
     return _MarkdownText(content: article.content);
   }
 
-  Widget _buildTags(Color categoryColor) {
+  Widget _buildTags(Color categoryColor, BuildContext context, AppLocalizations translate) {
+    final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Tags',
-          style: const TextStyle(
+          translate.article_detail_tags,
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
+            color: colors.textPrimary,
           ),
         ),
         const SizedBox(height: 8),
@@ -262,6 +266,7 @@ class _MarkdownText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final lines = content.split('\n');
 
     return Column(
@@ -272,10 +277,10 @@ class _MarkdownText extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12, bottom: 4),
             child: Text(
               line.replaceAll('**', ''),
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+                color: colors.textPrimary,
               ),
             ),
           );
@@ -287,7 +292,7 @@ class _MarkdownText extends StatelessWidget {
               line,
               style: TextStyle(
                 fontSize: 14,
-                color: AppColors.textPrimary,
+                color: colors.textPrimary,
                 height: 1.6,
               ),
             ),
@@ -302,7 +307,7 @@ class _MarkdownText extends StatelessWidget {
             line,
             style: TextStyle(
               fontSize: 15,
-              color: AppColors.textPrimary,
+              color: colors.textPrimary,
               height: 1.7,
             ),
           ),

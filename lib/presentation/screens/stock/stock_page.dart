@@ -126,11 +126,12 @@ class _StockPageState extends State<StockPage> {
 
   Widget _buildHeader(int itemCount) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Suivi des stocks',
+          translate.stock_page_title,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
             color: colors.textPrimary,
             fontSize: 28,
@@ -141,16 +142,16 @@ class _StockPageState extends State<StockPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '$itemCount article(s) en stock',
+              '$itemCount ${translate.stock_page_items_label}',
               style: TextStyle(color: colors.textSecondary, fontSize: 14),
             ),
             if (_stockController.getStatistics().alertCount > 0)
               Chip(
                 label: Text(
-                  '${_stockController.getStatistics().alertCount} en alerte',
+                  '${_stockController.getStatistics().alertCount} ${translate.stock_page_alert_label}',
                   style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
-                backgroundColor: AppColors.warning,
+                backgroundColor: context.colors.warning,
               ),
           ],
         ),
@@ -180,6 +181,7 @@ class _StockPageState extends State<StockPage> {
 
   Widget _buildEmptyState() {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -192,7 +194,7 @@ class _StockPageState extends State<StockPage> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Aucun article ne correspond à vos filtres',
+              translate.stock_page_empty,
               style: TextStyle(color: colors.textSecondary, fontSize: 16),
               textAlign: TextAlign.center,
             ),

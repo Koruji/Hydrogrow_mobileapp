@@ -13,6 +13,7 @@ import 'package:hydrogrow/presentation/screens/parcels/parcels_page.dart';
 import 'package:hydrogrow/presentation/screens/stock/stock_page.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:hydrogrow/providers/theme_provider.dart';
+import 'package:hydrogrow/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
@@ -23,6 +24,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
       ],
       child: const MyApp(),
     ),
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
+    final localeProvider = context.watch<LocaleProvider>();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -44,7 +47,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      locale: const Locale('fr'),
+      locale: localeProvider.locale,
       supportedLocales: AppLocalizations.supportedLocales,
       title: 'HydroGrow',
       theme: AppTheme.lightTheme,

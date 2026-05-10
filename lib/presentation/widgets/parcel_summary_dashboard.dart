@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/models/parcel.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_card.dart';
 
 class ParcelSummaryWidget extends StatelessWidget {
@@ -47,16 +48,17 @@ class ParcelSummaryWidget extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Suivi des parcelles',
+            Text(translate.parcel_summary_title,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             const SizedBox(height: 4),
-            Text('$total parcelle(s) · $totalPlants plantes',
+            Text('$total ${translate.parcel_summary_parcels_label} · $totalPlants ${translate.parcel_summary_plants_label}',
                 style: TextStyle(fontSize: 12, color: colors.textSecondary)),
           ],
         ),
@@ -64,7 +66,7 @@ class ParcelSummaryWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(color: colors.warning, borderRadius: BorderRadius.circular(12)),
-            child: Text('$inactive inactive(s)',
+            child: Text('$inactive ${translate.parcel_summary_inactive_label}',
                 style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.white)),
           ),
       ],
@@ -73,21 +75,23 @@ class ParcelSummaryWidget extends StatelessWidget {
 
   Widget _buildStatCards(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Row(
       children: [
-        Expanded(child: _buildStatCard(context, value: active.toString(), label: 'Actives', color: colors.success, icon: Icons.check_circle)),
+        Expanded(child: _buildStatCard(context, value: active.toString(), label: translate.parcel_status_active, color: colors.success, icon: Icons.check_circle)),
         const SizedBox(width: 10),
-        Expanded(child: _buildStatCard(context, value: planned.toString(), label: 'Planifiées', color: colors.notification, icon: Icons.schedule)),
+        Expanded(child: _buildStatCard(context, value: planned.toString(), label: translate.parcel_status_planned, color: colors.notification, icon: Icons.schedule)),
         const SizedBox(width: 10),
-        Expanded(child: _buildStatCard(context, value: inactive.toString(), label: 'Inactives', color: colors.warning, icon: Icons.pause_circle)),
+        Expanded(child: _buildStatCard(context, value: inactive.toString(), label: translate.parcel_status_inactive, color: colors.warning, icon: Icons.pause_circle)),
         const SizedBox(width: 10),
-        Expanded(child: _buildStatCard(context, value: totalPlants.toString(), label: 'Plantes', color: colors.menu, icon: Icons.eco)),
+        Expanded(child: _buildStatCard(context, value: totalPlants.toString(), label: translate.parcel_label_plants, color: colors.menu, icon: Icons.eco)),
       ],
     );
   }
 
   Widget _buildInactiveSection(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -97,7 +101,7 @@ class ParcelSummaryWidget extends StatelessWidget {
           children: [
             Icon(Icons.warning_amber_rounded, size: 14, color: colors.warning),
             const SizedBox(width: 6),
-            Text('Parcelles inactives',
+            Text(translate.parcel_inactive_section,
                 style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: colors.warning)),
           ],
         ),

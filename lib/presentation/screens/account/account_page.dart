@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
 import 'package:hydrogrow/providers/theme_provider.dart';
+import 'package:hydrogrow/providers/locale_provider.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_card.dart';
 import 'package:hydrogrow/presentation/components/app_scaffold.dart';
@@ -19,15 +20,15 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  String _selectedLanguage = 'Français';
 
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
     final userProvider = Provider.of<AuthProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final localeProvider = Provider.of<LocaleProvider>(context);
     final bool isPremium = userProvider.subscription == 'premium';
-    final String selectedTheme = themeProvider.isDark ? 'Sombre' : 'Clair';
+    final String selectedTheme = themeProvider.isDark ? 'dark' : 'light';
     final colors = context.colors;
 
     return AppScaffold(
@@ -131,22 +132,26 @@ class _AccountPageState extends State<AccountPage> {
                           value: selectedTheme,
                           style: TextStyle(fontSize: 16, color: colors.textPrimary),
                           dropdownColor: colors.surface,
-                          items: ['Clair', 'Sombre'].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
+                          items: [
+                            DropdownMenuItem(
+                              value: 'light',
                               child: Text(
-                                value,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: colors.textPrimary,
-                                ),
+                                translate.account_page_light_mode,
+                                style: TextStyle(fontSize: 16, color: colors.textPrimary),
                               ),
-                            );
-                          }).toList(),
+                            ),
+                            DropdownMenuItem(
+                              value: 'dark',
+                              child: Text(
+                                translate.account_page_dark_mode,
+                                style: TextStyle(fontSize: 16, color: colors.textPrimary),
+                              ),
+                            ),
+                          ],
                           onChanged: (String? newValue) {
                             if (newValue != null) {
                               themeProvider.setMode(
-                                newValue == 'Sombre' ? ThemeMode.dark : ThemeMode.light,
+                                newValue == 'dark' ? ThemeMode.dark : ThemeMode.light,
                               );
                             }
                           },
@@ -178,29 +183,26 @@ class _AccountPageState extends State<AccountPage> {
                           ),
                         ),
                         DropdownButton<String>(
-                          value: _selectedLanguage,
+                          value: localeProvider.locale.languageCode,
                           style: TextStyle(fontSize: 16, color: colors.textPrimary),
                           dropdownColor: colors.surface,
-                          items: ['Français', 'Anglais'].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: colors.textPrimary,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() => _selectedLanguage = newValue!);
+                          items: [
+                            DropdownMenuItem(
+                              value: 'fr',
+                              child: Text(translate.account_page_language_french,
+                                  style: TextStyle(fontSize: 16, color: colors.textPrimary)),
+                            ),
+                            DropdownMenuItem(
+                              value: 'en',
+                              child: Text(translate.account_page_language_english,
+                                  style: TextStyle(fontSize: 16, color: colors.textPrimary)),
+                            ),
+                          ],
+                          onChanged: (String? code) {
+                            if (code != null) localeProvider.setLocale(Locale(code));
                           },
                           underline: Container(),
-                          icon: Icon(
-                            Icons.arrow_drop_down,
-                            color: colors.icon,
-                          ),
+                          icon: Icon(Icons.arrow_drop_down, color: colors.icon),
                         ),
                       ],
                     ),

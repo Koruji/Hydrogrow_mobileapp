@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 
 class SideBarComponent extends StatefulWidget {
   final String currentRoute;
@@ -15,6 +16,7 @@ class _SideBarComponentState extends State<SideBarComponent> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final drawerBg = isDark ? colors.surface : colors.menu;
 
@@ -38,7 +40,7 @@ class _SideBarComponentState extends State<SideBarComponent> {
           if (isDark) ...[
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-              child: Text('Menu',
+              child: Text(translate.sidebar_menu_label,
                   style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -46,15 +48,15 @@ class _SideBarComponentState extends State<SideBarComponent> {
                       color: colors.textSecondary)),
             ),
           ],
-          _buildMenuItem(context, isDark: isDark, icon: Icons.dashboard_outlined, title: 'Dashboard', route: '/dashboard',
+          _buildMenuItem(context, isDark: isDark, icon: Icons.dashboard_outlined, title: translate.menu_dashboard, route: '/dashboard',
               onTap: () { Navigator.pop(context); Navigator.pushReplacementNamed(context, '/dashboard'); }),
-          _buildMenuItem(context, isDark: isDark, icon: Icons.inventory_2_outlined, title: 'Stock', route: '/stock',
+          _buildMenuItem(context, isDark: isDark, icon: Icons.inventory_2_outlined, title: translate.menu_stock, route: '/stock',
               onTap: () { Navigator.pop(context); Navigator.pushReplacementNamed(context, '/stock'); }),
-          _buildMenuItem(context, isDark: isDark, icon: Icons.people_outline, title: 'Communauté', route: '/community',
+          _buildMenuItem(context, isDark: isDark, icon: Icons.people_outline, title: translate.menu_community, route: '/community',
               onTap: () { Navigator.pop(context); Navigator.pushReplacementNamed(context, '/community'); }),
-          _buildMenuItem(context, isDark: isDark, icon: Icons.grass_outlined, title: 'Mes parcelles', route: '/parcels',
+          _buildMenuItem(context, isDark: isDark, icon: Icons.grass_outlined, title: translate.menu_parcels, route: '/parcels',
               onTap: () { Navigator.pop(context); Navigator.pushReplacementNamed(context, '/parcels'); }),
-          _buildMenuItem(context, isDark: isDark, icon: Icons.account_circle_outlined, title: 'Mon compte', route: '/account',
+          _buildMenuItem(context, isDark: isDark, icon: Icons.account_circle_outlined, title: translate.menu_account, route: '/account',
               onTap: () { Navigator.pop(context); Navigator.pushReplacementNamed(context, '/account'); }),
         ],
       ),

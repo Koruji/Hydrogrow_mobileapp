@@ -59,12 +59,12 @@ class StockItemCard extends StatelessWidget {
                           itemBuilder: (context) => [
                             if (onEditPressed != null)
                               PopupMenuItem(
-                                child: const Text('Modifier', style: TextStyle(fontSize: 12)),
+                                child: Text(translate.common_edit, style: const TextStyle(fontSize: 12)),
                                 onTap: onEditPressed,
                               ),
                             if (onDeletePressed != null)
                               PopupMenuItem(
-                                child: const Text('Supprimer', style: TextStyle(color: Colors.red, fontSize: 12)),
+                                child: Text(translate.common_delete, style: const TextStyle(color: Colors.red, fontSize: 12)),
                                 onTap: onDeletePressed,
                               ),
                           ],
@@ -75,7 +75,7 @@ class StockItemCard extends StatelessWidget {
                 ),
               ),
               Divider(height: 1, color: colors.divider),
-              _buildDetailsSection(colors),
+              _buildDetailsSection(colors, translate),
             ],
           ),
         ),
@@ -149,7 +149,7 @@ class StockItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailsSection(AppColorsExtension colors) {
+  Widget _buildDetailsSection(AppColorsExtension colors, AppLocalizations translate) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -158,13 +158,13 @@ class StockItemCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildDetailColumn(colors, label: 'Seuil min.', value: '${item.minThreshold} ${item.unit}'),
+              _buildDetailColumn(colors, label: translate.stock_card_threshold, value: '${item.minThreshold} ${item.unit}'),
               _buildDetailColumn(colors,
-                  label: 'Coût unitaire',
+                  label: translate.stock_card_unit_cost,
                   value: '${item.costPerUnit.toStringAsFixed(2)}${item.currency}',
                   color: colors.menu),
               _buildDetailColumn(colors,
-                  label: 'Valeur totale',
+                  label: translate.stock_card_total_value,
                   value: '${item.getTotalValue().toStringAsFixed(2)}${item.currency}'),
             ],
           ),
@@ -175,7 +175,7 @@ class StockItemCard extends StatelessWidget {
                 Icon(Icons.calendar_today, size: 14, color: colors.textSecondary),
                 const SizedBox(width: 6),
                 Text(
-                  'Expiration: ${item.expirationDate}',
+                  '${translate.stock_card_expiry} ${item.expirationDate}',
                   style: TextStyle(fontSize: 12, color: colors.textSecondary),
                 ),
               ],

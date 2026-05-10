@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/mock/parcel_mock.dart';
 import 'package:hydrogrow/data/models/parcel.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 import 'package:hydrogrow/presentation/controllers/parcel_controller.dart';
 import 'package:hydrogrow/presentation/widgets/dialog_component.dart';
@@ -67,6 +68,7 @@ class _ParcelsPageState extends State<ParcelsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translate = AppLocalizations.of(context)!;
     final types = _parcelController.getAvailableTypes();
     final statistics = _parcelController.getStatistics();
     final filteredParcels = _parcelController.filteredParcels;
@@ -81,7 +83,7 @@ class _ParcelsPageState extends State<ParcelsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(filteredParcels.length, statistics),
+                _buildHeader(filteredParcels.length, statistics, translate),
                 const SizedBox(height: 20),
 
                 ParcelSummaryRow(statistics: statistics),
@@ -112,13 +114,13 @@ class _ParcelsPageState extends State<ParcelsPage> {
     );
   }
 
-  Widget _buildHeader(int count, ParcelStatistics statistics) {
+  Widget _buildHeader(int count, ParcelStatistics statistics, AppLocalizations translate) {
     final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Gestion des parcelles',
+          translate.parcel_page_title,
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
             color: colors.textPrimary,
             fontSize: 28,
@@ -129,16 +131,16 @@ class _ParcelsPageState extends State<ParcelsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '$count parcelle(s) affichée(s)',
+              '$count ${translate.parcel_page_count_label}',
               style: TextStyle(color: colors.textSecondary, fontSize: 14),
             ),
             if (statistics.inactive > 0)
               Chip(
                 label: Text(
-                  '${statistics.inactive} inactive(s)',
+                  '${statistics.inactive} ${translate.parcel_page_inactive_label}',
                   style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
-                backgroundColor: AppColors.warning,
+                backgroundColor: context.colors.warning,
               ),
           ],
         ),
@@ -168,6 +170,7 @@ class _ParcelsPageState extends State<ParcelsPage> {
 
   Widget _buildEmptyState() {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -180,7 +183,7 @@ class _ParcelsPageState extends State<ParcelsPage> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Aucune parcelle ne correspond à vos filtres',
+              translate.parcel_page_empty,
               style: TextStyle(color: colors.textSecondary, fontSize: 16),
               textAlign: TextAlign.center,
             ),

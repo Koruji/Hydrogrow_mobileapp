@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/models/parcel.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_card.dart';
 
 class ParcelItemCard extends StatelessWidget {
@@ -20,6 +21,7 @@ class ParcelItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final translate = AppLocalizations.of(context)!;
     final statusColor = parcel.getStatusColor();
     final statusLabel = parcel.getStatusLabel();
     final isInactive = parcel.status == 'inactive';
@@ -47,7 +49,7 @@ class ParcelItemCard extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(child: _buildParcelInfo(colors, statusLabel, statusColor)),
                     const SizedBox(width: 12),
-                    _buildPlantCount(colors),
+                    _buildPlantCount(colors, translate),
                     if (onEditPressed != null || onDeletePressed != null)
                       SizedBox(
                         width: 32,
@@ -57,12 +59,12 @@ class ParcelItemCard extends StatelessWidget {
                           itemBuilder: (context) => [
                             if (onEditPressed != null)
                               PopupMenuItem(
-                                child: const Text('Modifier', style: TextStyle(fontSize: 12)),
+                                child: Text(translate.common_edit, style: const TextStyle(fontSize: 12)),
                                 onTap: onEditPressed,
                               ),
                             if (onDeletePressed != null)
                               PopupMenuItem(
-                                child: const Text('Supprimer', style: TextStyle(color: Colors.red, fontSize: 12)),
+                                child: Text(translate.common_delete, style: const TextStyle(color: Colors.red, fontSize: 12)),
                                 onTap: onDeletePressed,
                               ),
                           ],
@@ -73,7 +75,7 @@ class ParcelItemCard extends StatelessWidget {
                 ),
               ),
               Divider(height: 1, color: colors.divider),
-              _buildDetailsSection(colors),
+              _buildDetailsSection(colors, translate),
             ],
           ),
         ),
@@ -141,7 +143,7 @@ class ParcelItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPlantCount(AppColorsExtension colors) {
+  Widget _buildPlantCount(AppColorsExtension colors, AppLocalizations translate) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -149,12 +151,12 @@ class ParcelItemCard extends StatelessWidget {
           parcel.nbPlant.toString(),
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: colors.textPrimary),
         ),
-        Text('plantes', style: TextStyle(fontSize: 12, color: colors.textSecondary)),
+        Text(translate.parcel_card_plants, style: TextStyle(fontSize: 12, color: colors.textSecondary)),
       ],
     );
   }
 
-  Widget _buildDetailsSection(AppColorsExtension colors) {
+  Widget _buildDetailsSection(AppColorsExtension colors, AppLocalizations translate) {
     final commissioningStr =
         '${parcel.commissioningDate.day.toString().padLeft(2, '0')}/'
         '${parcel.commissioningDate.month.toString().padLeft(2, '0')}/'
@@ -170,7 +172,7 @@ class ParcelItemCard extends StatelessWidget {
               Icon(Icons.calendar_today, size: 14, color: colors.textSecondary),
               const SizedBox(width: 6),
               Text(
-                'Mise en service : $commissioningStr',
+                '${translate.parcel_card_commissioned} $commissioningStr',
                 style: TextStyle(fontSize: 12, color: colors.textSecondary),
               ),
             ],

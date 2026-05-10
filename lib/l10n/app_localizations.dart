@@ -775,6 +775,396 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'3-Year Warranty'**
   String get subscription_page_feature_three_year_warranty;
+
+  /// No description provided for @common_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get common_edit;
+
+  /// No description provided for @common_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get common_delete;
+
+  /// No description provided for @stock_page_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Tracking'**
+  String get stock_page_title;
+
+  /// No description provided for @stock_page_items_label.
+  ///
+  /// In en, this message translates to:
+  /// **'items'**
+  String get stock_page_items_label;
+
+  /// No description provided for @stock_page_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No items in stock.'**
+  String get stock_page_empty;
+
+  /// No description provided for @stock_page_alert_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Alerts'**
+  String get stock_page_alert_label;
+
+  /// No description provided for @stock_card_expiry.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiry'**
+  String get stock_card_expiry;
+
+  /// No description provided for @stock_card_threshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Threshold'**
+  String get stock_card_threshold;
+
+  /// No description provided for @stock_card_total_value.
+  ///
+  /// In en, this message translates to:
+  /// **'Total value'**
+  String get stock_card_total_value;
+
+  /// No description provided for @stock_card_unit_cost.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit cost'**
+  String get stock_card_unit_cost;
+
+  /// No description provided for @stock_status_faible.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get stock_status_faible;
+
+  /// No description provided for @stock_status_moyen.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get stock_status_moyen;
+
+  /// No description provided for @stock_status_optimal.
+  ///
+  /// In en, this message translates to:
+  /// **'Optimal'**
+  String get stock_status_optimal;
+
+  /// No description provided for @stock_status_rupture.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of stock'**
+  String get stock_status_rupture;
+
+  /// No description provided for @parcel_page_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Parcel Management'**
+  String get parcel_page_title;
+
+  /// No description provided for @parcel_page_count_label.
+  ///
+  /// In en, this message translates to:
+  /// **'parcels'**
+  String get parcel_page_count_label;
+
+  /// No description provided for @parcel_page_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No parcels found.'**
+  String get parcel_page_empty;
+
+  /// No description provided for @parcel_page_inactive_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get parcel_page_inactive_label;
+
+  /// No description provided for @parcel_status_active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get parcel_status_active;
+
+  /// No description provided for @parcel_status_inactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get parcel_status_inactive;
+
+  /// No description provided for @parcel_status_planned.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned'**
+  String get parcel_status_planned;
+
+  /// No description provided for @parcel_card_commissioned.
+  ///
+  /// In en, this message translates to:
+  /// **'Commissioned'**
+  String get parcel_card_commissioned;
+
+  /// No description provided for @parcel_card_plants.
+  ///
+  /// In en, this message translates to:
+  /// **'Plants'**
+  String get parcel_card_plants;
+
+  /// No description provided for @parcel_inactive_section.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive parcels'**
+  String get parcel_inactive_section;
+
+  /// No description provided for @parcel_label_plants.
+  ///
+  /// In en, this message translates to:
+  /// **'plants'**
+  String get parcel_label_plants;
+
+  /// No description provided for @parcel_summary_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Parcels'**
+  String get parcel_summary_title;
+
+  /// No description provided for @parcel_summary_parcels_label.
+  ///
+  /// In en, this message translates to:
+  /// **'parcels'**
+  String get parcel_summary_parcels_label;
+
+  /// No description provided for @parcel_summary_plants_label.
+  ///
+  /// In en, this message translates to:
+  /// **'plants'**
+  String get parcel_summary_plants_label;
+
+  /// No description provided for @parcel_summary_inactive_label.
+  ///
+  /// In en, this message translates to:
+  /// **'inactive'**
+  String get parcel_summary_inactive_label;
+
+  /// No description provided for @community_page_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Community'**
+  String get community_page_title;
+
+  /// No description provided for @community_page_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share your experiences'**
+  String get community_page_subtitle;
+
+  /// No description provided for @community_search_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search...'**
+  String get community_search_hint;
+
+  /// No description provided for @community_filter_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get community_filter_all;
+
+  /// No description provided for @community_reset_filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset filters'**
+  String get community_reset_filters;
+
+  /// No description provided for @community_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No articles found.'**
+  String get community_empty;
+
+  /// No description provided for @community_articles_count_label.
+  ///
+  /// In en, this message translates to:
+  /// **'articles'**
+  String get community_articles_count_label;
+
+  /// No description provided for @community_stat_articles.
+  ///
+  /// In en, this message translates to:
+  /// **'Articles'**
+  String get community_stat_articles;
+
+  /// No description provided for @community_stat_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get community_stat_categories;
+
+  /// No description provided for @community_stat_mine.
+  ///
+  /// In en, this message translates to:
+  /// **'Mine'**
+  String get community_stat_mine;
+
+  /// No description provided for @community_summary_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Community'**
+  String get community_summary_title;
+
+  /// No description provided for @community_summary_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest posts'**
+  String get community_summary_subtitle;
+
+  /// No description provided for @community_summary_new_label.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get community_summary_new_label;
+
+  /// No description provided for @community_summary_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No recent posts.'**
+  String get community_summary_empty;
+
+  /// No description provided for @article_read_min.
+  ///
+  /// In en, this message translates to:
+  /// **'min read'**
+  String get article_read_min;
+
+  /// No description provided for @article_my_article.
+  ///
+  /// In en, this message translates to:
+  /// **'My article'**
+  String get article_my_article;
+
+  /// No description provided for @article_action_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get article_action_edit;
+
+  /// No description provided for @article_action_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get article_action_delete;
+
+  /// No description provided for @article_detail_read_label.
+  ///
+  /// In en, this message translates to:
+  /// **'min read'**
+  String get article_detail_read_label;
+
+  /// No description provided for @article_detail_tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get article_detail_tags;
+
+  /// No description provided for @article_detail_you.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get article_detail_you;
+
+  /// No description provided for @article_form_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get article_form_back;
+
+  /// No description provided for @article_form_title_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get article_form_title_label;
+
+  /// No description provided for @article_form_title_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Article title'**
+  String get article_form_title_hint;
+
+  /// No description provided for @article_form_title_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get article_form_title_required;
+
+  /// No description provided for @article_form_content_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get article_form_content_label;
+
+  /// No description provided for @article_form_content_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Article content'**
+  String get article_form_content_hint;
+
+  /// No description provided for @article_form_content_min.
+  ///
+  /// In en, this message translates to:
+  /// **'Content must be at least 10 characters'**
+  String get article_form_content_min;
+
+  /// No description provided for @article_form_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get article_form_category;
+
+  /// No description provided for @article_form_image_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Image'**
+  String get article_form_image_label;
+
+  /// No description provided for @article_form_image_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Image URL'**
+  String get article_form_image_hint;
+
+  /// No description provided for @article_form_tags_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get article_form_tags_label;
+
+  /// No description provided for @article_form_tags_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'tag1, tag2, tag3'**
+  String get article_form_tags_hint;
+
+  /// No description provided for @article_form_publish.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish'**
+  String get article_form_publish;
+
+  /// No description provided for @article_form_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get article_form_save;
+
+  /// No description provided for @sidebar_menu_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get sidebar_menu_label;
 }
 
 class _AppLocalizationsDelegate

@@ -379,4 +379,200 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscription_page_feature_three_year_warranty => '3-Year Warranty';
+
+  @override
+  String get common_edit => 'Edit';
+
+  @override
+  String get common_delete => 'Delete';
+
+  @override
+  String get stock_page_title => 'Stock Tracking';
+
+  @override
+  String get stock_page_items_label => 'items';
+
+  @override
+  String get stock_page_empty => 'No items in stock.';
+
+  @override
+  String get stock_page_alert_label => 'Alerts';
+
+  @override
+  String get stock_card_expiry => 'Expiry';
+
+  @override
+  String get stock_card_threshold => 'Threshold';
+
+  @override
+  String get stock_card_total_value => 'Total value';
+
+  @override
+  String get stock_card_unit_cost => 'Unit cost';
+
+  @override
+  String get stock_status_faible => 'Low';
+
+  @override
+  String get stock_status_moyen => 'Medium';
+
+  @override
+  String get stock_status_optimal => 'Optimal';
+
+  @override
+  String get stock_status_rupture => 'Out of stock';
+
+  @override
+  String get parcel_page_title => 'Parcel Management';
+
+  @override
+  String get parcel_page_count_label => 'parcels';
+
+  @override
+  String get parcel_page_empty => 'No parcels found.';
+
+  @override
+  String get parcel_page_inactive_label => 'Inactive';
+
+  @override
+  String get parcel_status_active => 'Active';
+
+  @override
+  String get parcel_status_inactive => 'Inactive';
+
+  @override
+  String get parcel_status_planned => 'Planned';
+
+  @override
+  String get parcel_card_commissioned => 'Commissioned';
+
+  @override
+  String get parcel_card_plants => 'Plants';
+
+  @override
+  String get parcel_inactive_section => 'Inactive parcels';
+
+  @override
+  String get parcel_label_plants => 'plants';
+
+  @override
+  String get parcel_summary_title => 'Parcels';
+
+  @override
+  String get parcel_summary_parcels_label => 'parcels';
+
+  @override
+  String get parcel_summary_plants_label => 'plants';
+
+  @override
+  String get parcel_summary_inactive_label => 'inactive';
+
+  @override
+  String get community_page_title => 'Community';
+
+  @override
+  String get community_page_subtitle => 'Share your experiences';
+
+  @override
+  String get community_search_hint => 'Search...';
+
+  @override
+  String get community_filter_all => 'All';
+
+  @override
+  String get community_reset_filters => 'Reset filters';
+
+  @override
+  String get community_empty => 'No articles found.';
+
+  @override
+  String get community_articles_count_label => 'articles';
+
+  @override
+  String get community_stat_articles => 'Articles';
+
+  @override
+  String get community_stat_categories => 'Categories';
+
+  @override
+  String get community_stat_mine => 'Mine';
+
+  @override
+  String get community_summary_title => 'Community';
+
+  @override
+  String get community_summary_subtitle => 'Latest posts';
+
+  @override
+  String get community_summary_new_label => 'New';
+
+  @override
+  String get community_summary_empty => 'No recent posts.';
+
+  @override
+  String get article_read_min => 'min read';
+
+  @override
+  String get article_my_article => 'My article';
+
+  @override
+  String get article_action_edit => 'Edit';
+
+  @override
+  String get article_action_delete => 'Delete';
+
+  @override
+  String get article_detail_read_label => 'min read';
+
+  @override
+  String get article_detail_tags => 'Tags';
+
+  @override
+  String get article_detail_you => 'You';
+
+  @override
+  String get article_form_back => 'Back';
+
+  @override
+  String get article_form_title_label => 'Title';
+
+  @override
+  String get article_form_title_hint => 'Article title';
+
+  @override
+  String get article_form_title_required => 'Title is required';
+
+  @override
+  String get article_form_content_label => 'Content';
+
+  @override
+  String get article_form_content_hint => 'Article content';
+
+  @override
+  String get article_form_content_min =>
+      'Content must be at least 10 characters';
+
+  @override
+  String get article_form_category => 'Category';
+
+  @override
+  String get article_form_image_label => 'Image';
+
+  @override
+  String get article_form_image_hint => 'Image URL';
+
+  @override
+  String get article_form_tags_label => 'Tags';
+
+  @override
+  String get article_form_tags_hint => 'tag1, tag2, tag3';
+
+  @override
+  String get article_form_publish => 'Publish';
+
+  @override
+  String get article_form_save => 'Save';
+
+  @override
+  String get sidebar_menu_label => 'Menu';
 }
