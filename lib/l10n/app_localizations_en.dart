@@ -575,4 +575,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sidebar_menu_label => 'Menu';
+
+  @override
+  String get login_tagline => 'Manage your hydroponic crops with precision.';
+
+  @override
+  String get login_feature_monitoring => 'Real-time monitoring';
+
+  @override
+  String get login_feature_alerts => 'Smart alerts';
+
+  @override
+  String get login_feature_community => 'Community';
+
+  @override
+  String get forgot_password_link => 'Forgot your password?';
+
+  @override
+  String get forgot_password_title => 'Reset Password';
+
+  @override
+  String get forgot_password_subtitle =>
+      'Enter your email address and we\'ll send you a link to reset your password.';
+
+  @override
+  String get forgot_password_email_label => 'Email address';
+
+  @override
+  String get forgot_password_send => 'Send reset link';
+
+  @override
+  String get forgot_password_success_title => 'Email sent!';
+
+  @override
+  String get forgot_password_success_message =>
+      'If this address is associated with an account, you will receive a reset link shortly.';
+
+  @override
+  String get forgot_password_close => 'Back to login';
 }

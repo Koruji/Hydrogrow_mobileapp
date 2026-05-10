@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/widgets/divider.dart';
+import 'package:hydrogrow/presentation/widgets/forgot_password_sheet.dart';
 import 'package:hydrogrow/presentation/controllers/auth_controller.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  const LoginForm({
+    super.key,
+    required this.isLogin,
+    required this.onToggle,
+  });
+
+  final bool isLogin;
+  final VoidCallback onToggle;
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -12,7 +21,6 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  bool _isLogin = true;
   bool _isLoading = false;
   String? _errorMessage;
 
@@ -35,13 +43,6 @@ class _LoginFormState extends State<LoginForm> {
     super.dispose();
   }
 
-  void _toggleAuthMode() {
-    setState(() {
-      _isLogin = !_isLogin;
-      _errorMessage = null;
-    });
-  }
-
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -51,22 +52,19 @@ class _LoginFormState extends State<LoginForm> {
     });
 
     await Future.delayed(const Duration(milliseconds: 200));
-
     if (!mounted) return;
 
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
     final login = _loginController.text.trim();
 
-    if (_isLogin) {
+    if (widget.isLogin) {
       final result = AuthController.login(
         context: context,
         email: email,
         password: password,
       );
-
       if (!mounted) return;
-
       if (result['success']) {
         Navigator.pushReplacementNamed(context, '/dashboard');
       } else {
@@ -78,19 +76,14 @@ class _LoginFormState extends State<LoginForm> {
         email: email,
         password: password,
       );
-
       if (!mounted) return;
-
       if (result['success']) {
-        // Connecte directement après inscription
         final loginResult = AuthController.login(
           context: context,
           email: email,
           password: password,
         );
-
         if (!mounted) return;
-
         if (loginResult['success']) {
           Navigator.pushReplacementNamed(context, '/dashboard');
         }
@@ -105,53 +98,88 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
+    final colors = context.colors;
+
+    final inputDecoration = InputDecoration(
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: colors.divider),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: colors.menu, width: 2),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: colors.warning),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: colors.warning, width: 2),
+      ),
+      filled: true,
+      fillColor: colors.surface,
+      labelStyle: TextStyle(color: colors.textSecondary),
+      iconColor: colors.icon,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+    );
 
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Text(
-                _isLogin
-                    ? translate.login_title
-                    : translate.create_account_title,
-                style: Theme.of(context).textTheme.titleMedium,
+          // Titre du mode
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 250),
+            child: Text(
+              widget.isLogin
+                  ? translate.login_title
+                  : translate.create_account_title,
+              key: ValueKey(widget.isLogin),
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
+                color: colors.textPrimary,
               ),
-            ],
+            ),
           ),
           const SizedBox(height: 20),
-          if (!_isLogin)
-            TextFormField(
-              focusNode: _loginFocusNode,
-              controller: _loginController,
-              decoration: InputDecoration(
-                icon: const Icon(Icons.person),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-                labelText: translate.login,
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return translate.connexion_error_mandatory;
-                }
-                return null;
-              },
-            ),
-          if (!_isLogin) const SizedBox(height: 16),
+          // Champ username (inscription seulement)
+          AnimatedSize(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            child: !widget.isLogin
+                ? Column(
+                    children: [
+                      TextFormField(
+                        focusNode: _loginFocusNode,
+                        controller: _loginController,
+                        style: TextStyle(color: colors.textPrimary),
+                        decoration: inputDecoration.copyWith(
+                          prefixIcon: Icon(Icons.person_outline_rounded, color: colors.icon),
+                          labelText: translate.create_account_username,
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return translate.connexion_error_mandatory;
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 14),
+                    ],
+                  )
+                : const SizedBox.shrink(),
+          ),
+          // Champ email
           TextFormField(
             focusNode: _emailFocusNode,
             controller: _emailController,
-            decoration: InputDecoration(
-              icon: const Icon(Icons.email),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              filled: true,
-              fillColor: Colors.white,
+            style: TextStyle(color: colors.textPrimary),
+            decoration: inputDecoration.copyWith(
+              prefixIcon: Icon(Icons.email_outlined, color: colors.icon),
               labelText: translate.login_email,
             ),
             keyboardType: TextInputType.emailAddress,
@@ -162,18 +190,14 @@ class _LoginFormState extends State<LoginForm> {
               return null;
             },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
+          // Champ mot de passe
           TextFormField(
             focusNode: _passwordFocusNode,
             controller: _passwordController,
-            decoration: InputDecoration(
-              icon: const Icon(Icons.lock),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              helperText: _isLogin ? translate.login_forgot_password : null,
-              filled: true,
-              fillColor: Colors.white,
+            style: TextStyle(color: colors.textPrimary),
+            decoration: inputDecoration.copyWith(
+              prefixIcon: Icon(Icons.lock_outline_rounded, color: colors.icon),
               labelText: translate.login_password,
             ),
             obscureText: true,
@@ -186,44 +210,88 @@ class _LoginFormState extends State<LoginForm> {
               return null;
             },
           ),
-          const SizedBox(height: 16),
-          if (_errorMessage != null)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Text(
-                _errorMessage!,
-                style: const TextStyle(color: Colors.red),
+          // Lien mot de passe oublié
+          if (widget.isLogin)
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () => showForgotPasswordSheet(context),
+                style: TextButton.styleFrom(
+                  foregroundColor: colors.textSecondary,
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: Text(
+                  translate.forgot_password_link,
+                  style: TextStyle(fontSize: 12, color: colors.textSecondary),
+                ),
               ),
             ),
           const SizedBox(height: 8),
+          // Message d'erreur
+          if (_errorMessage != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Text(
+                _errorMessage!,
+                style: TextStyle(color: colors.warning, fontSize: 13),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          // Bouton principal
           SizedBox(
-            width: 200,
+            height: 50,
             child: ElevatedButton(
               onPressed: _isLoading ? null : _submit,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: colors.menu,
+                foregroundColor: Colors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
               child: _isLoading
                   ? const SizedBox(
-                      width: 24,
-                      height: 24,
+                      width: 20,
+                      height: 20,
                       child: CircularProgressIndicator(
                         color: Colors.white,
                         strokeWidth: 2,
                       ),
                     )
                   : Text(
-                      _isLogin
+                      widget.isLogin
                           ? translate.login_send
                           : translate.create_account_send,
-                      style: Theme.of(context).textTheme.labelMedium,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
             ),
           ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: _toggleAuthMode,
-            child: DividerWithText(
-              text: _isLogin
-                  ? translate.login_no_account
-                  : translate.create_account_have_account,
+          const SizedBox(height: 24),
+          // Toggle login / register
+          DividerWithText(
+            text: widget.isLogin
+                ? translate.login_no_account
+                : translate.create_account_have_account,
+          ),
+          Center(
+            child: TextButton(
+              onPressed: widget.onToggle,
+              child: Text(
+                widget.isLogin
+                    ? translate.login_sign_up
+                    : translate.create_account_login,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: colors.menu,
+                ),
+              ),
             ),
           ),
         ],

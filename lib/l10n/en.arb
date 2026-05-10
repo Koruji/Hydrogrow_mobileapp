@@ -199,7 +199,21 @@
     "article_form_publish": "Publish",
     "article_form_save": "Save",
 
-    "sidebar_menu_label": "Menu"
+    "sidebar_menu_label": "Menu",
+
+    "login_tagline": "Manage your hydroponic crops with precision.",
+    "login_feature_monitoring": "Real-time monitoring",
+    "login_feature_alerts": "Smart alerts",
+    "login_feature_community": "Community",
+
+    "forgot_password_link": "Forgot your password?",
+    "forgot_password_title": "Reset Password",
+    "forgot_password_subtitle": "Enter your email address and we'll send you a link to reset your password.",
+    "forgot_password_email_label": "Email address",
+    "forgot_password_send": "Send reset link",
+    "forgot_password_success_title": "Email sent!",
+    "forgot_password_success_message": "If this address is associated with an account, you will receive a reset link shortly.",
+    "forgot_password_close": "Back to login"
 }
 
 

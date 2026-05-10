@@ -199,5 +199,19 @@
     "article_form_publish": "Publier",
     "article_form_save": "Enregistrer",
 
-    "sidebar_menu_label": "Menu"
+    "sidebar_menu_label": "Menu",
+
+    "login_tagline": "Gérez vos cultures hydroponiques avec précision.",
+    "login_feature_monitoring": "Monitoring temps réel",
+    "login_feature_alerts": "Alertes intelligentes",
+    "login_feature_community": "Communauté",
+
+    "forgot_password_link": "Mot de passe oublié ?",
+    "forgot_password_title": "Réinitialiser le mot de passe",
+    "forgot_password_subtitle": "Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "forgot_password_email_label": "Adresse email",
+    "forgot_password_send": "Envoyer le lien",
+    "forgot_password_success_title": "Email envoyé !",
+    "forgot_password_success_message": "Si cette adresse est associée à un compte, vous recevrez un lien de réinitialisation dans quelques instants.",
+    "forgot_password_close": "Retour à la connexion"
 }

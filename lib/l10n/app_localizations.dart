@@ -1165,6 +1165,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Menu'**
   String get sidebar_menu_label;
+
+  /// No description provided for @login_tagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your hydroponic crops with precision.'**
+  String get login_tagline;
+
+  /// No description provided for @login_feature_monitoring.
+  ///
+  /// In en, this message translates to:
+  /// **'Real-time monitoring'**
+  String get login_feature_monitoring;
+
+  /// No description provided for @login_feature_alerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart alerts'**
+  String get login_feature_alerts;
+
+  /// No description provided for @login_feature_community.
+  ///
+  /// In en, this message translates to:
+  /// **'Community'**
+  String get login_feature_community;
+
+  /// No description provided for @forgot_password_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot your password?'**
+  String get forgot_password_link;
+
+  /// No description provided for @forgot_password_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get forgot_password_title;
+
+  /// No description provided for @forgot_password_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address and we\'ll send you a link to reset your password.'**
+  String get forgot_password_subtitle;
+
+  /// No description provided for @forgot_password_email_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Email address'**
+  String get forgot_password_email_label;
+
+  /// No description provided for @forgot_password_send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send reset link'**
+  String get forgot_password_send;
+
+  /// No description provided for @forgot_password_success_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Email sent!'**
+  String get forgot_password_success_title;
+
+  /// No description provided for @forgot_password_success_message.
+  ///
+  /// In en, this message translates to:
+  /// **'If this address is associated with an account, you will receive a reset link shortly.'**
+  String get forgot_password_success_message;
+
+  /// No description provided for @forgot_password_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to login'**
+  String get forgot_password_close;
 }
 
 class _AppLocalizationsDelegate
