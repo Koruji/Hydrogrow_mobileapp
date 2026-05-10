@@ -32,6 +32,15 @@ class _ReorderableContainerListState extends State<ReorderableContainerList> {
     _loadOrder();
   }
 
+  @override
+  void didUpdateWidget(ReorderableContainerList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.titles.length != widget.titles.length) {
+      containerOrder = List.generate(widget.titles.length, (index) => index);
+      _saveOrder();
+    }
+  }
+
   Future<void> _loadOrder() async {
     final prefs = await SharedPreferences.getInstance();
     final savedOrder = prefs.getStringList(widget.storageKey);
@@ -46,6 +55,8 @@ class _ReorderableContainerListState extends State<ReorderableContainerList> {
       } else {
         await resetOrder();
       }
+    } else if (savedOrder != null) {
+      await resetOrder();
     }
   }
 
