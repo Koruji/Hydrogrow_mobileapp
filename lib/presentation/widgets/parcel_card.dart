@@ -19,6 +19,7 @@ class ParcelItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final statusColor = parcel.getStatusColor();
     final statusLabel = parcel.getStatusLabel();
     final isInactive = parcel.status == 'inactive';
@@ -31,9 +32,7 @@ class ParcelItemCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isInactive
-                  ? statusColor.withOpacity(0.3)
-                  : AppColors.divider,
+              color: isInactive ? statusColor.withValues(alpha: 0.3) : colors.divider,
               width: isInactive ? 2 : 1,
             ),
           ),
@@ -46,11 +45,9 @@ class ParcelItemCard extends StatelessWidget {
                   children: [
                     _buildTypeIcon(statusColor),
                     const SizedBox(width: 16),
-                    Expanded(
-                      child: _buildParcelInfo(statusLabel, statusColor),
-                    ),
+                    Expanded(child: _buildParcelInfo(colors, statusLabel, statusColor)),
                     const SizedBox(width: 12),
-                    _buildPlantCount(),
+                    _buildPlantCount(colors),
                     if (onEditPressed != null || onDeletePressed != null)
                       SizedBox(
                         width: 32,
@@ -60,36 +57,23 @@ class ParcelItemCard extends StatelessWidget {
                           itemBuilder: (context) => [
                             if (onEditPressed != null)
                               PopupMenuItem(
-                                child: const Text(
-                                  'Modifier',
-                                  style: TextStyle(fontSize: 12),
-                                ),
+                                child: const Text('Modifier', style: TextStyle(fontSize: 12)),
                                 onTap: onEditPressed,
                               ),
                             if (onDeletePressed != null)
                               PopupMenuItem(
-                                child: const Text(
-                                  'Supprimer',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                child: const Text('Supprimer', style: TextStyle(color: Colors.red, fontSize: 12)),
                                 onTap: onDeletePressed,
                               ),
                           ],
-                          child: Icon(
-                            Icons.more_vert,
-                            size: 20,
-                            color: AppColors.textSecondary,
-                          ),
+                          child: Icon(Icons.more_vert, size: 20, color: colors.textSecondary),
                         ),
                       ),
                   ],
                 ),
               ),
-              const Divider(height: 1, color: AppColors.divider),
-              _buildDetailsSection(),
+              Divider(height: 1, color: colors.divider),
+              _buildDetailsSection(colors),
             ],
           ),
         ),
@@ -102,41 +86,33 @@ class ParcelItemCard extends StatelessWidget {
       width: 64,
       height: 64,
       decoration: BoxDecoration(
-        color: statusColor.withOpacity(0.1),
+        color: statusColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: statusColor.withOpacity(0.3)),
+        border: Border.all(color: statusColor.withValues(alpha: 0.3)),
       ),
-      child: Icon(
-        parcel.getTypeIcon(),
-        size: 32,
-        color: statusColor,
-      ),
+      child: Icon(parcel.getTypeIcon(), size: 32, color: statusColor),
     );
   }
 
-  Widget _buildParcelInfo(String statusLabel, Color statusColor) {
+  Widget _buildParcelInfo(AppColorsExtension colors, String statusLabel, Color statusColor) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           parcel.name,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 4),
         Row(
           children: [
-            Icon(Icons.location_on, size: 12, color: AppColors.textSecondary),
+            Icon(Icons.location_on, size: 12, color: colors.textSecondary),
             const SizedBox(width: 4),
             Expanded(
               child: Text(
                 parcel.location,
-                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                style: TextStyle(fontSize: 12, color: colors.textSecondary),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -146,54 +122,39 @@ class ParcelItemCard extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           parcel.type,
-          style: TextStyle(
-            fontSize: 11,
-            color: AppColors.textSecondary,
-            fontStyle: FontStyle.italic,
-          ),
+          style: TextStyle(fontSize: 11, color: colors.textSecondary, fontStyle: FontStyle.italic),
         ),
         const SizedBox(height: 8),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
-            color: statusColor.withOpacity(0.15),
+            color: statusColor.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: statusColor.withOpacity(0.4)),
+            border: Border.all(color: statusColor.withValues(alpha: 0.4)),
           ),
           child: Text(
             statusLabel,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: statusColor,
-            ),
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: statusColor),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildPlantCount() {
+  Widget _buildPlantCount(AppColorsExtension colors) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
           parcel.nbPlant.toString(),
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: AppColors.textPrimary,
-          ),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: colors.textPrimary),
         ),
-        Text(
-          'plantes',
-          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
-        ),
+        Text('plantes', style: TextStyle(fontSize: 12, color: colors.textSecondary)),
       ],
     );
   }
 
-  Widget _buildDetailsSection() {
+  Widget _buildDetailsSection(AppColorsExtension colors) {
     final commissioningStr =
         '${parcel.commissioningDate.day.toString().padLeft(2, '0')}/'
         '${parcel.commissioningDate.month.toString().padLeft(2, '0')}/'
@@ -206,15 +167,11 @@ class ParcelItemCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                Icons.calendar_today,
-                size: 14,
-                color: AppColors.textSecondary,
-              ),
+              Icon(Icons.calendar_today, size: 14, color: colors.textSecondary),
               const SizedBox(width: 6),
               Text(
                 'Mise en service : $commissioningStr',
-                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                style: TextStyle(fontSize: 12, color: colors.textSecondary),
               ),
             ],
           ),
@@ -223,19 +180,12 @@ class ParcelItemCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.notes,
-                  size: 14,
-                  color: AppColors.textSecondary,
-                ),
+                Icon(Icons.notes, size: 14, color: colors.textSecondary),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
                     parcel.notes!,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: AppColors.textSecondary,
-                    ),
+                    style: TextStyle(fontSize: 12, color: colors.textSecondary),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

@@ -28,10 +28,7 @@ class CommunitySummaryWidget extends StatelessWidget {
             const SizedBox(height: 16),
             if (recentArticles.isEmpty) _buildEmptyState(context),
             for (final a in recentArticles)
-              _ArticleRow(
-                article: a,
-                onTap: () => onArticleTap?.call(a),
-              ),
+              _ArticleRow(article: a, onTap: () => onArticleTap?.call(a)),
           ],
         ),
       ),
@@ -39,59 +36,42 @@ class CommunitySummaryWidget extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final colors = context.colors;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Derniers articles',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: AppColors.textPrimary,
-              ),
-            ),
+            Text('Derniers articles',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary)),
             const SizedBox(height: 4),
-            Text(
-              "Aujourd'hui et hier",
-              style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
-            ),
+            Text("Aujourd'hui et hier",
+                style: TextStyle(fontSize: 12, color: colors.textSecondary)),
           ],
         ),
         if (recentArticles.isNotEmpty)
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: AppColors.menu,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              '${recentArticles.length} nouveau(x)',
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-            ),
+            decoration: BoxDecoration(color: colors.menu, borderRadius: BorderRadius.circular(12)),
+            child: Text('${recentArticles.length} nouveau(x)',
+                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Colors.white)),
           ),
       ],
     );
   }
 
   Widget _buildEmptyState(BuildContext context) {
+    final colors = context.colors;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.article_outlined, size: 20, color: AppColors.textSecondary),
+          Icon(Icons.article_outlined, size: 20, color: colors.textSecondary),
           const SizedBox(width: 8),
-          Text(
-            'Aucun article publié récemment',
-            style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
-          ),
+          Text('Aucun article publié récemment',
+              style: TextStyle(fontSize: 13, color: colors.textSecondary)),
         ],
       ),
     );
@@ -106,6 +86,7 @@ class _ArticleRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final color = article.getCategoryColor();
     final tags = article.tags.take(3).map((t) => '#$t').join('  ');
 
@@ -114,9 +95,9 @@ class _ArticleRow extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: colors.surface,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.divider, width: 0.8),
+          border: Border.all(color: colors.divider, width: 0.8),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
@@ -134,27 +115,14 @@ class _ArticleRow extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _CategoryBadge(
-                              icon: article.getCategoryIcon(),
-                              label: article.category,
-                              color: color,
-                            ),
+                            _CategoryBadge(icon: article.getCategoryIcon(), label: article.category, color: color),
                             Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(
-                                  article.getRelativeDate(),
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: AppColors.textSecondary,
-                                  ),
-                                ),
+                                Text(article.getRelativeDate(),
+                                    style: TextStyle(fontSize: 10, color: colors.textSecondary)),
                                 const SizedBox(width: 4),
-                                Icon(
-                                  Icons.chevron_right,
-                                  size: 14,
-                                  color: AppColors.textSecondary,
-                                ),
+                                Icon(Icons.chevron_right, size: 14, color: colors.textSecondary),
                               ],
                             ),
                           ],
@@ -162,10 +130,10 @@ class _ArticleRow extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           article.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
-                            color: AppColors.textPrimary,
+                            color: colors.textPrimary,
                             height: 1.3,
                           ),
                           maxLines: 2,
@@ -174,40 +142,19 @@ class _ArticleRow extends StatelessWidget {
                         const SizedBox(height: 6),
                         Row(
                           children: [
-                            Icon(
-                              Icons.person_outline,
-                              size: 11,
-                              color: AppColors.textSecondary,
-                            ),
+                            Icon(Icons.person_outline, size: 11, color: colors.textSecondary),
                             const SizedBox(width: 4),
-                            Text(
-                              article.authorName,
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: AppColors.textSecondary,
-                              ),
-                            ),
+                            Text(article.authorName,
+                                style: TextStyle(fontSize: 11, color: colors.textSecondary)),
                             if (tags.isNotEmpty) ...[
                               const SizedBox(width: 8),
-                              const Text(
-                                '·',
-                                style: TextStyle(
-                                  color: AppColors.textSecondary,
-                                  fontSize: 11,
-                                ),
-                              ),
+                              Text('·', style: TextStyle(color: colors.textSecondary, fontSize: 11)),
                               const SizedBox(width: 8),
                               Flexible(
-                                child: Text(
-                                  tags,
-                                  style: const TextStyle(
-                                    fontSize: 10,
-                                    color: AppColors.textSecondary,
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                child: Text(tags,
+                                    style: TextStyle(
+                                        fontSize: 10, color: colors.textSecondary, fontStyle: FontStyle.italic),
+                                    maxLines: 1, overflow: TextOverflow.ellipsis),
                               ),
                             ],
                           ],
@@ -230,18 +177,14 @@ class _CategoryBadge extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _CategoryBadge({
-    required this.icon,
-    required this.label,
-    required this.color,
-  });
+  const _CategoryBadge({required this.icon, required this.label, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.12),
+        color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(6),
       ),
       child: Row(
@@ -249,14 +192,7 @@ class _CategoryBadge extends StatelessWidget {
         children: [
           Icon(icon, size: 11, color: color),
           const SizedBox(width: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-              color: color,
-            ),
-          ),
+          Text(label, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: color)),
         ],
       ),
     );

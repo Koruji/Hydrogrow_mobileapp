@@ -82,7 +82,7 @@ class _StockPageState extends State<StockPage> {
     return AppScaffold(
       currentRoute: '/stock',
       body: Container(
-        color: AppColors.background,
+        color: context.colors.background,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -125,13 +125,14 @@ class _StockPageState extends State<StockPage> {
   }
 
   Widget _buildHeader(int itemCount) {
+    final colors = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'Suivi des stocks',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: AppColors.textPrimary,
+            color: colors.textPrimary,
             fontSize: 28,
           ),
         ),
@@ -141,7 +142,7 @@ class _StockPageState extends State<StockPage> {
           children: [
             Text(
               '$itemCount article(s) en stock',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
+              style: TextStyle(color: colors.textSecondary, fontSize: 14),
             ),
             if (_stockController.getStatistics().alertCount > 0)
               Chip(
@@ -178,6 +179,7 @@ class _StockPageState extends State<StockPage> {
   }
 
   Widget _buildEmptyState() {
+    final colors = context.colors;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32.0),
@@ -186,12 +188,12 @@ class _StockPageState extends State<StockPage> {
             Icon(
               Icons.inbox_outlined,
               size: 48,
-              color: AppColors.textSecondary,
+              color: colors.textSecondary,
             ),
             const SizedBox(height: 16),
             Text(
               'Aucun article ne correspond à vos filtres',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 16),
+              style: TextStyle(color: colors.textSecondary, fontSize: 16),
               textAlign: TextAlign.center,
             ),
           ],

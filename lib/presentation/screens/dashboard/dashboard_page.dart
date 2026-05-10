@@ -137,6 +137,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget _buildGreetingSection(String? login, AppLocalizations translate) {
     final hour = DateTime.now().hour;
     final greeting = hour < 18 ? translate.dashboard_welcome : 'Bonsoir';
+    final colors = context.colors;
 
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 16, 16, 4),
@@ -144,17 +145,14 @@ class _DashboardPageState extends State<DashboardPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.menu.withValues(alpha: 0.13),
-            AppColors.background.withValues(alpha: 0.6),
+            colors.menu.withValues(alpha: 0.13),
+            colors.background.withValues(alpha: 0.6),
           ],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: AppColors.menu.withValues(alpha: 0.30),
-          width: 1,
-        ),
+        border: Border.all(color: colors.menu.withValues(alpha: 0.30), width: 1),
       ),
       child: Row(
         children: [
@@ -167,7 +165,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 Text(
                   greeting,
                   style: TextStyle(
-                    color: AppColors.textPrimary.withValues(alpha: 0.6),
+                    color: colors.textPrimary.withValues(alpha: 0.6),
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
                     letterSpacing: 0.4,
@@ -176,8 +174,8 @@ class _DashboardPageState extends State<DashboardPage> {
                 const SizedBox(height: 2),
                 Text(
                   login ?? '',
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
+                  style: TextStyle(
+                    color: colors.textPrimary,
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
                     letterSpacing: 0.2,
@@ -193,56 +191,42 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildWeatherChip() {
+    final colors = context.colors;
+
     if (_weatherLoading) {
       return SizedBox(
         width: 20,
         height: 20,
         child: CircularProgressIndicator(
           strokeWidth: 2,
-          color: AppColors.menu.withValues(alpha: 0.6),
+          color: colors.menu.withValues(alpha: 0.6),
         ),
       );
     }
 
     if (_weather == null) {
-      return Icon(
-        Icons.energy_savings_leaf_rounded,
-        color: AppColors.menu,
-        size: 30,
-      );
+      return Icon(Icons.energy_savings_leaf_rounded, color: colors.menu, size: 30);
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
-        color: AppColors.menu.withValues(alpha: 0.12),
+        color: colors.menu.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.menu.withValues(alpha: 0.25)),
+        border: Border.all(color: colors.menu.withValues(alpha: 0.25)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            _weather!.emoji,
-            style: const TextStyle(fontSize: 18),
-          ),
+          Text(_weather!.emoji, style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 2),
           Text(
             '${_weather!.temperature.round()}°C',
-            style: const TextStyle(
-              color: AppColors.textPrimary,
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.2,
-            ),
+            style: TextStyle(color: colors.textPrimary, fontSize: 13, fontWeight: FontWeight.w700),
           ),
           Text(
             _weather!.description,
-            style: TextStyle(
-              color: AppColors.textPrimary.withValues(alpha: 0.55),
-              fontSize: 10,
-              fontWeight: FontWeight.w400,
-            ),
+            style: TextStyle(color: colors.textPrimary.withValues(alpha: 0.55), fontSize: 10),
           ),
         ],
       ),

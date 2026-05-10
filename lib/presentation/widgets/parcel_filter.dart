@@ -55,7 +55,7 @@ class ParcelFiltersWidget extends StatelessWidget {
                         type,
                         style: const TextStyle(
                           fontSize: 14,
-                          color: AppColors.textPrimary,
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     );
@@ -92,7 +92,7 @@ class ParcelFiltersWidget extends StatelessWidget {
                         statusLabels[status] ?? status.toUpperCase(),
                         style: const TextStyle(
                           fontSize: 14,
-                          color: AppColors.textPrimary,
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     );

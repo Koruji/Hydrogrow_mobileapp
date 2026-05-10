@@ -20,6 +20,7 @@ class StockItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final translate = AppLocalizations.of(context)!;
     final statusColor = item.getStatusColor();
     final statusLabel = item.getStatusLabel(translate);
@@ -33,28 +34,22 @@ class StockItemCard extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isLow ? statusColor.withOpacity(0.3) : AppColors.divider,
+              color: isLow ? statusColor.withValues(alpha: 0.3) : colors.divider,
               width: isLow ? 2 : 1,
             ),
           ),
           child: Column(
             children: [
-              // En-tête avec image et infos principales
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Image/Icône
-                    _buildProductImage(),
+                    _buildProductImage(colors),
                     const SizedBox(width: 16),
-                    // Infos principales
-                    Expanded(
-                      child: _buildProductInfo(statusLabel, statusColor),
-                    ),
+                    Expanded(child: _buildProductInfo(colors, statusLabel, statusColor)),
                     const SizedBox(width: 12),
-                    // Quantité affichée
-                    _buildQuantityDisplay(isLow),
+                    _buildQuantityDisplay(colors, isLow),
                     if (onEditPressed != null || onDeletePressed != null)
                       SizedBox(
                         width: 32,
@@ -64,38 +59,23 @@ class StockItemCard extends StatelessWidget {
                           itemBuilder: (context) => [
                             if (onEditPressed != null)
                               PopupMenuItem(
-                                child: const Text(
-                                  'Modifier',
-                                  style: TextStyle(fontSize: 12),
-                                ),
+                                child: const Text('Modifier', style: TextStyle(fontSize: 12)),
                                 onTap: onEditPressed,
                               ),
                             if (onDeletePressed != null)
                               PopupMenuItem(
-                                child: const Text(
-                                  'Supprimer',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                child: const Text('Supprimer', style: TextStyle(color: Colors.red, fontSize: 12)),
                                 onTap: onDeletePressed,
                               ),
                           ],
-                          child: Icon(
-                            Icons.more_vert,
-                            size: 20,
-                            color: AppColors.textSecondary,
-                          ),
+                          child: Icon(Icons.more_vert, size: 20, color: colors.textSecondary),
                         ),
                       ),
                   ],
                 ),
               ),
-              // Divider
-              const Divider(height: 1, color: AppColors.divider),
-              // Détails supplémentaires
-              _buildDetailsSection(),
+              Divider(height: 1, color: colors.divider),
+              _buildDetailsSection(colors),
             ],
           ),
         ),
@@ -103,76 +83,56 @@ class StockItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildProductImage() {
+  Widget _buildProductImage(AppColorsExtension colors) {
     return Container(
       width: 80,
       height: 80,
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: colors.background,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.divider),
+        border: Border.all(color: colors.divider),
       ),
       child: item.imageUrl != null
           ? Image.asset(item.imageUrl!, fit: BoxFit.cover)
-          : Icon(
-              _getCategoryIcon(item.category),
-              size: 40,
-              color: AppColors.textSecondary,
-            ),
+          : Icon(_getCategoryIcon(item.category), size: 40, color: colors.textSecondary),
     );
   }
 
-  Widget _buildProductInfo(String statusLabel, Color statusColor) {
+  Widget _buildProductInfo(AppColorsExtension colors, String statusLabel, Color statusColor) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           item.name,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textPrimary,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colors.textPrimary),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 4),
-        Text(
-          item.brand,
-          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
-        ),
+        Text(item.brand, style: TextStyle(fontSize: 12, color: colors.textSecondary)),
         const SizedBox(height: 4),
         Text(
           item.category,
-          style: TextStyle(
-            fontSize: 11,
-            color: AppColors.textSecondary,
-            fontStyle: FontStyle.italic,
-          ),
+          style: TextStyle(fontSize: 11, color: colors.textSecondary, fontStyle: FontStyle.italic),
         ),
         const SizedBox(height: 8),
-        // Statut badge
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(
-            color: statusColor.withOpacity(0.15),
+            color: statusColor.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: statusColor.withOpacity(0.4)),
+            border: Border.all(color: statusColor.withValues(alpha: 0.4)),
           ),
           child: Text(
             statusLabel,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              color: statusColor,
-            ),
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: statusColor),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildQuantityDisplay(bool isLow) {
+  Widget _buildQuantityDisplay(AppColorsExtension colors, bool isLow) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -181,18 +141,15 @@ class StockItemCard extends StatelessWidget {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: isLow ? AppColors.warning : AppColors.textPrimary,
+            color: isLow ? AppColors.warning : colors.textPrimary,
           ),
         ),
-        Text(
-          item.unit,
-          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
-        ),
+        Text(item.unit, style: TextStyle(fontSize: 12, color: colors.textSecondary)),
       ],
     );
   }
 
-  Widget _buildDetailsSection() {
+  Widget _buildDetailsSection(AppColorsExtension colors) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -201,38 +158,25 @@ class StockItemCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildDetailColumn(
-                label: 'Seuil min.',
-                value: '${item.minThreshold} ${item.unit}',
-              ),
-              _buildDetailColumn(
-                label: 'Coût unitaire',
-                value: '${item.costPerUnit.toStringAsFixed(2)}${item.currency}',
-                color: AppColors.menu,
-              ),
-              _buildDetailColumn(
-                label: 'Valeur totale',
-                value:
-                    '${item.getTotalValue().toStringAsFixed(2)}${item.currency}',
-              ),
+              _buildDetailColumn(colors, label: 'Seuil min.', value: '${item.minThreshold} ${item.unit}'),
+              _buildDetailColumn(colors,
+                  label: 'Coût unitaire',
+                  value: '${item.costPerUnit.toStringAsFixed(2)}${item.currency}',
+                  color: colors.menu),
+              _buildDetailColumn(colors,
+                  label: 'Valeur totale',
+                  value: '${item.getTotalValue().toStringAsFixed(2)}${item.currency}'),
             ],
           ),
           if (item.expirationDate != null) ...[
             const SizedBox(height: 12),
             Row(
               children: [
-                Icon(
-                  Icons.calendar_today,
-                  size: 14,
-                  color: AppColors.textSecondary,
-                ),
+                Icon(Icons.calendar_today, size: 14, color: colors.textSecondary),
                 const SizedBox(width: 6),
                 Text(
                   'Expiration: ${item.expirationDate}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: AppColors.textSecondary,
-                  ),
+                  style: TextStyle(fontSize: 12, color: colors.textSecondary),
                 ),
               ],
             ),
@@ -242,26 +186,19 @@ class StockItemCard extends StatelessWidget {
     );
   }
 
-  Widget _buildDetailColumn({
+  Widget _buildDetailColumn(AppColorsExtension colors, {
     required String label,
     required String value,
-    Color color = AppColors.textPrimary,
+    Color? color,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
-        ),
+        Text(label, style: TextStyle(fontSize: 12, color: colors.textSecondary)),
         const SizedBox(height: 4),
         Text(
           value,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: color,
-          ),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: color ?? colors.textPrimary),
         ),
       ],
     );
@@ -269,16 +206,11 @@ class StockItemCard extends StatelessWidget {
 
   IconData _getCategoryIcon(String category) {
     switch (category) {
-      case 'Semences':
-        return Icons.eco;
-      case 'Fertilisants':
-        return Icons.grain;
-      case 'Additifs':
-        return Icons.science;
-      case 'Équipements':
-        return Icons.build;
-      default:
-        return Icons.inventory_2;
+      case 'Semences': return Icons.eco;
+      case 'Fertilisants': return Icons.grain;
+      case 'Additifs': return Icons.science;
+      case 'Équipements': return Icons.build;
+      default: return Icons.inventory_2;
     }
   }
 }

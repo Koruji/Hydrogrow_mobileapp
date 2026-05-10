@@ -17,11 +17,12 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
+    final colors = context.colors;
 
     return AppBar(
-      backgroundColor: AppColors.menu,
+      backgroundColor: colors.menu,
       leading: IconButton(
-        icon: Icon(Icons.menu, color: AppColors.icon),
+        icon: Icon(Icons.menu, color: colors.titleText),
         onPressed: onMenuPressed ?? () {},
       ),
       title: Row(
@@ -29,15 +30,15 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
-            image: AssetImage('assets/images/hydrogrow_logo.png'),
+            image: const AssetImage('assets/images/hydrogrow_logo.png'),
             height: 20,
             width: 20,
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             translate.app_name,
             style: TextStyle(
-              color: AppColors.titleText,
+              color: colors.titleText,
               fontSize: 20,
               letterSpacing: 0.5,
             ),
@@ -50,7 +51,7 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
           IconButton(
             icon: Icon(
               isEditMode ? Icons.edit_off_outlined : Icons.edit_outlined,
-              color: AppColors.icon,
+              color: colors.titleText,
             ),
             onPressed: onEditPressed,
           ),
@@ -58,7 +59,6 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  //nécessaire pour définir la hauteur à implémenter à notre AppBar personnalisée
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
