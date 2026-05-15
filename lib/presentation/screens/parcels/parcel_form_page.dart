@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
 import 'package:hydrogrow/data/models/parcel.dart';
 import 'package:hydrogrow/data/services/installation_service.dart';
+import 'package:hydrogrow/l10n/app_localizations.dart';
+import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 
 class ParcelFormPage extends StatefulWidget {
   final Parcel? parcel;
@@ -108,142 +110,112 @@ class _ParcelFormPageState extends State<ParcelFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final translate = AppLocalizations.of(context)!;
     final colors = context.colors;
 
-    final inputDecoration = InputDecoration(
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: colors.divider),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: colors.menu, width: 2),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: colors.warning),
-      ),
-      filled: true,
-      fillColor: colors.surface,
-      labelStyle: TextStyle(color: colors.textSecondary),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-    );
-
-    return Scaffold(
-      backgroundColor: colors.background,
-      appBar: AppBar(
-        backgroundColor: colors.background,
-        elevation: 0,
-        title: Text(
-          _isEdit ? 'Modifier la parcelle' : 'Nouvelle parcelle',
-          style: TextStyle(
-              color: colors.textPrimary, fontWeight: FontWeight.w700),
-        ),
-        iconTheme: IconThemeData(color: colors.textPrimary),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Form(
-          key: _formKey,
+    return AppScaffold(
+      currentRoute: '/parcels',
+      showDrawer: false,
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Nom
-              TextFormField(
+              _buildBackButton(context, translate),
+              const SizedBox(height: 20),
+              Text(
+                _isEdit ? translate.parcel_form_title_edit : translate.parcel_form_title_create,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w700,
+                  color: colors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              _buildSectionLabel(translate.parcel_form_field_name, context),
+              const SizedBox(height: 8),
+              _buildTextField(
+                context: context,
                 controller: _nameCtrl,
-                style: TextStyle(color: colors.textPrimary),
-                decoration: inputDecoration.copyWith(labelText: 'Nom *'),
-                validator: (v) =>
-                    v == null || v.trim().isEmpty ? 'Champ obligatoire' : null,
+                hint: translate.parcel_form_field_name_hint,
+                validator: (v) => (v == null || v.trim().isEmpty)
+                    ? translate.parcel_form_field_name_required
+                    : null,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
-              // Type
-              DropdownButtonFormField<String>(
-                value: _type,
-                decoration: inputDecoration.copyWith(labelText: 'Type'),
-                dropdownColor: colors.surface,
-                style: TextStyle(color: colors.textPrimary),
-                items: _types
-                    .map((t) => DropdownMenuItem(value: t, child: Text(t)))
-                    .toList(),
-                onChanged: (v) => setState(() => _type = v!),
-              ),
-              const SizedBox(height: 16),
+              _buildSectionLabel(translate.parcel_form_field_type, context),
+              const SizedBox(height: 8),
+              _buildTypeSelector(context),
+              const SizedBox(height: 20),
 
-              // Statut
-              DropdownButtonFormField<String>(
-                value: _status,
-                decoration: inputDecoration.copyWith(labelText: 'Statut'),
-                dropdownColor: colors.surface,
-                style: TextStyle(color: colors.textPrimary),
-                items: _statuses
-                    .map((s) =>
-                        DropdownMenuItem(value: s.$1, child: Text(s.$2)))
-                    .toList(),
-                onChanged: (v) => setState(() => _status = v!),
-              ),
-              const SizedBox(height: 16),
+              _buildSectionLabel(translate.parcel_form_field_status, context),
+              const SizedBox(height: 8),
+              _buildStatusSelector(context),
+              const SizedBox(height: 20),
 
-              // Localisation
-              TextFormField(
+              _buildSectionLabel(translate.parcel_form_field_location, context),
+              const SizedBox(height: 8),
+              _buildTextField(
+                context: context,
                 controller: _locationCtrl,
-                style: TextStyle(color: colors.textPrimary),
-                decoration:
-                    inputDecoration.copyWith(labelText: 'Localisation'),
+                hint: '',
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
-              // Nombre de plantes
-              TextFormField(
+              _buildSectionLabel(translate.parcel_form_field_plants, context),
+              const SizedBox(height: 8),
+              _buildTextField(
+                context: context,
                 controller: _nbPlantCtrl,
-                style: TextStyle(color: colors.textPrimary),
-                decoration:
-                    inputDecoration.copyWith(labelText: 'Nombre de plantes'),
+                hint: '0',
                 keyboardType: TextInputType.number,
                 validator: (v) {
                   if (v != null && v.isNotEmpty && int.tryParse(v) == null) {
-                    return 'Nombre entier';
+                    return translate.parcel_form_field_plants_invalid;
                   }
                   return null;
                 },
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
-              // Date de mise en service
-              InkWell(
+              _buildSectionLabel(translate.parcel_form_field_date, context),
+              const SizedBox(height: 8),
+              GestureDetector(
                 onTap: _pickDate,
-                borderRadius: BorderRadius.circular(12),
-                child: InputDecorator(
-                  decoration:
-                      inputDecoration.copyWith(labelText: 'Mise en service'),
+                child: Container(
+                  padding: const EdgeInsets.all(14),
+                  decoration: BoxDecoration(
+                    color: colors.surface,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: colors.divider),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '${_commissioningDate.day.toString().padLeft(2, '0')}/${_commissioningDate.month.toString().padLeft(2, '0')}/${_commissioningDate.year}',
-                        style: TextStyle(color: colors.textPrimary),
+                        style: TextStyle(fontSize: 14, color: colors.textPrimary),
                       ),
-                      Icon(Icons.calendar_today_outlined,
-                          size: 18, color: colors.icon),
+                      Icon(Icons.calendar_today_outlined, size: 18, color: colors.icon),
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 32),
 
-              // Bouton submit
               SizedBox(
                 width: double.infinity,
-                height: 52,
                 child: ElevatedButton(
                   onPressed: _isLoading ? null : _submit,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: colors.menu,
-                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(14)),
+                        borderRadius: BorderRadius.circular(12)),
                   ),
                   child: _isLoading
                       ? const SizedBox(
@@ -253,16 +225,166 @@ class _ParcelFormPageState extends State<ParcelFormPage> {
                               color: Colors.white, strokeWidth: 2.5),
                         )
                       : Text(
-                          _isEdit ? 'Enregistrer' : 'Créer la parcelle',
+                          _isEdit ? translate.parcel_form_save : translate.parcel_form_create,
                           style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
                         ),
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildBackButton(BuildContext context, AppLocalizations translate) {
+    return GestureDetector(
+      onTap: () => Navigator.pop(context),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.arrow_back_ios, size: 16, color: context.colors.textPrimary),
+          const SizedBox(width: 4),
+          Text(
+            translate.parcel_form_back,
+            style: TextStyle(
+              fontSize: 14,
+              color: context.colors.textPrimary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionLabel(String label, BuildContext context) {
+    return Text(
+      label,
+      style: TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+        color: context.colors.textPrimary,
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required BuildContext context,
+    required TextEditingController controller,
+    required String hint,
+    int maxLines = 1,
+    TextInputType? keyboardType,
+    String? Function(String?)? validator,
+  }) {
+    final colors = context.colors;
+    return TextFormField(
+      controller: controller,
+      maxLines: maxLines,
+      keyboardType: keyboardType,
+      validator: validator,
+      style: TextStyle(fontSize: 14, color: colors.textPrimary),
+      decoration: InputDecoration(
+        hintText: hint,
+        hintStyle: TextStyle(color: colors.textSecondary, fontSize: 13),
+        filled: true,
+        fillColor: colors.surface,
+        contentPadding: const EdgeInsets.all(14),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: colors.divider),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: colors.divider),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: colors.menu, width: 1.5),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: colors.warning),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTypeSelector(BuildContext context) {
+    final colors = context.colors;
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: _types.map((type) {
+        final isSelected = type == _type;
+        return GestureDetector(
+          onTap: () => setState(() => _type = type),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: isSelected ? colors.menu : colors.surface,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isSelected ? colors.menu : colors.divider,
+                width: isSelected ? 2 : 1,
+              ),
+              boxShadow: isSelected
+                  ? [BoxShadow(color: colors.menu.withValues(alpha: 0.25), blurRadius: 8, offset: const Offset(0, 2))]
+                  : null,
+            ),
+            child: Text(
+              type,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: isSelected ? Colors.white : colors.textPrimary,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildStatusSelector(BuildContext context) {
+    final colors = context.colors;
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: _statuses.map((s) {
+        final isSelected = s.$1 == _status;
+        return GestureDetector(
+          onTap: () => setState(() => _status = s.$1),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 180),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: isSelected ? colors.menu : colors.surface,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isSelected ? colors.menu : colors.divider,
+                width: isSelected ? 2 : 1,
+              ),
+              boxShadow: isSelected
+                  ? [BoxShadow(color: colors.menu.withValues(alpha: 0.25), blurRadius: 8, offset: const Offset(0, 2))]
+                  : null,
+            ),
+            child: Text(
+              s.$2,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: isSelected ? Colors.white : colors.textPrimary,
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

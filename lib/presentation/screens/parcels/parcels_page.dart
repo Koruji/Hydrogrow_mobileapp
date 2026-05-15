@@ -233,16 +233,6 @@ class _ParcelsPageState extends State<ParcelsPage> {
               style: TextStyle(color: colors.textSecondary, fontSize: 16),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: () => _openForm(),
-              icon: const Icon(Icons.add),
-              label: const Text('Créer une parcelle'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: colors.menu,
-                foregroundColor: Colors.white,
-              ),
-            ),
           ],
         ),
       ),

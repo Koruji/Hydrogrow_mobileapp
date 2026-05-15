@@ -620,4 +620,103 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get forgot_password_close => 'Retour à la connexion';
+
+  @override
+  String get stock_form_back => 'Retour';
+
+  @override
+  String get stock_form_title_create => 'Nouvel article';
+
+  @override
+  String get stock_form_title_edit => 'Modifier l\'article';
+
+  @override
+  String get stock_form_field_name => 'Nom *';
+
+  @override
+  String get stock_form_field_name_hint => 'Nom de l\'article';
+
+  @override
+  String get stock_form_field_name_required => 'Le nom est requis';
+
+  @override
+  String get stock_form_field_category => 'Catégorie *';
+
+  @override
+  String get stock_form_field_quantity => 'Quantité *';
+
+  @override
+  String get stock_form_field_quantity_required => 'Obligatoire';
+
+  @override
+  String get stock_form_field_quantity_invalid => 'Nombre entier requis';
+
+  @override
+  String get stock_form_field_unit => 'Unité';
+
+  @override
+  String get stock_form_field_threshold => 'Seuil d\'alerte';
+
+  @override
+  String get stock_form_field_threshold_invalid => 'Nombre entier requis';
+
+  @override
+  String get stock_form_field_brand => 'Marque';
+
+  @override
+  String get stock_form_field_price => 'Prix unitaire (€)';
+
+  @override
+  String get stock_form_field_price_invalid => 'Nombre invalide';
+
+  @override
+  String get stock_form_field_notes => 'Notes';
+
+  @override
+  String get stock_form_save => 'Enregistrer';
+
+  @override
+  String get stock_form_create => 'Ajouter au stock';
+
+  @override
+  String get parcel_form_back => 'Retour';
+
+  @override
+  String get parcel_form_title_create => 'Nouvelle parcelle';
+
+  @override
+  String get parcel_form_title_edit => 'Modifier la parcelle';
+
+  @override
+  String get parcel_form_field_name => 'Nom *';
+
+  @override
+  String get parcel_form_field_name_hint => 'Nom de la parcelle';
+
+  @override
+  String get parcel_form_field_name_required => 'Champ obligatoire';
+
+  @override
+  String get parcel_form_field_type => 'Type';
+
+  @override
+  String get parcel_form_field_status => 'Statut';
+
+  @override
+  String get parcel_form_field_location => 'Localisation';
+
+  @override
+  String get parcel_form_field_plants => 'Nombre de plantes';
+
+  @override
+  String get parcel_form_field_plants_invalid => 'Nombre entier requis';
+
+  @override
+  String get parcel_form_field_date => 'Mise en service';
+
+  @override
+  String get parcel_form_save => 'Enregistrer';
+
+  @override
+  String get parcel_form_create => 'Créer la parcelle';
 }

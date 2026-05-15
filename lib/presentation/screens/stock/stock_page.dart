@@ -231,16 +231,6 @@ class _StockPageState extends State<StockPage> {
               style: TextStyle(color: colors.textSecondary, fontSize: 16),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: () => _openForm(),
-              icon: const Icon(Icons.add),
-              label: const Text('Ajouter un article'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: colors.menu,
-                foregroundColor: Colors.white,
-              ),
-            ),
           ],
         ),
       ),

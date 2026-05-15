@@ -613,4 +613,103 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forgot_password_close => 'Back to login';
+
+  @override
+  String get stock_form_back => 'Back';
+
+  @override
+  String get stock_form_title_create => 'New item';
+
+  @override
+  String get stock_form_title_edit => 'Edit item';
+
+  @override
+  String get stock_form_field_name => 'Name *';
+
+  @override
+  String get stock_form_field_name_hint => 'Item name';
+
+  @override
+  String get stock_form_field_name_required => 'Name is required';
+
+  @override
+  String get stock_form_field_category => 'Category *';
+
+  @override
+  String get stock_form_field_quantity => 'Quantity *';
+
+  @override
+  String get stock_form_field_quantity_required => 'Required';
+
+  @override
+  String get stock_form_field_quantity_invalid => 'Whole number required';
+
+  @override
+  String get stock_form_field_unit => 'Unit';
+
+  @override
+  String get stock_form_field_threshold => 'Alert threshold';
+
+  @override
+  String get stock_form_field_threshold_invalid => 'Whole number required';
+
+  @override
+  String get stock_form_field_brand => 'Brand';
+
+  @override
+  String get stock_form_field_price => 'Unit price (€)';
+
+  @override
+  String get stock_form_field_price_invalid => 'Invalid number';
+
+  @override
+  String get stock_form_field_notes => 'Notes';
+
+  @override
+  String get stock_form_save => 'Save';
+
+  @override
+  String get stock_form_create => 'Add to stock';
+
+  @override
+  String get parcel_form_back => 'Back';
+
+  @override
+  String get parcel_form_title_create => 'New parcel';
+
+  @override
+  String get parcel_form_title_edit => 'Edit parcel';
+
+  @override
+  String get parcel_form_field_name => 'Name *';
+
+  @override
+  String get parcel_form_field_name_hint => 'Parcel name';
+
+  @override
+  String get parcel_form_field_name_required => 'Required field';
+
+  @override
+  String get parcel_form_field_type => 'Type';
+
+  @override
+  String get parcel_form_field_status => 'Status';
+
+  @override
+  String get parcel_form_field_location => 'Location';
+
+  @override
+  String get parcel_form_field_plants => 'Number of plants';
+
+  @override
+  String get parcel_form_field_plants_invalid => 'Whole number required';
+
+  @override
+  String get parcel_form_field_date => 'Commissioning date';
+
+  @override
+  String get parcel_form_save => 'Save';
+
+  @override
+  String get parcel_form_create => 'Create parcel';
 }

@@ -213,7 +213,42 @@
     "forgot_password_send": "Send reset link",
     "forgot_password_success_title": "Email sent!",
     "forgot_password_success_message": "If this address is associated with an account, you will receive a reset link shortly.",
-    "forgot_password_close": "Back to login"
+    "forgot_password_close": "Back to login",
+
+    "stock_form_back": "Back",
+    "stock_form_title_create": "New item",
+    "stock_form_title_edit": "Edit item",
+    "stock_form_field_name": "Name *",
+    "stock_form_field_name_hint": "Item name",
+    "stock_form_field_name_required": "Name is required",
+    "stock_form_field_category": "Category *",
+    "stock_form_field_quantity": "Quantity *",
+    "stock_form_field_quantity_required": "Required",
+    "stock_form_field_quantity_invalid": "Whole number required",
+    "stock_form_field_unit": "Unit",
+    "stock_form_field_threshold": "Alert threshold",
+    "stock_form_field_threshold_invalid": "Whole number required",
+    "stock_form_field_brand": "Brand",
+    "stock_form_field_price": "Unit price (€)",
+    "stock_form_field_price_invalid": "Invalid number",
+    "stock_form_field_notes": "Notes",
+    "stock_form_save": "Save",
+    "stock_form_create": "Add to stock",
+
+    "parcel_form_back": "Back",
+    "parcel_form_title_create": "New parcel",
+    "parcel_form_title_edit": "Edit parcel",
+    "parcel_form_field_name": "Name *",
+    "parcel_form_field_name_hint": "Parcel name",
+    "parcel_form_field_name_required": "Required field",
+    "parcel_form_field_type": "Type",
+    "parcel_form_field_status": "Status",
+    "parcel_form_field_location": "Location",
+    "parcel_form_field_plants": "Number of plants",
+    "parcel_form_field_plants_invalid": "Whole number required",
+    "parcel_form_field_date": "Commissioning date",
+    "parcel_form_save": "Save",
+    "parcel_form_create": "Create parcel"
 }
 
 
