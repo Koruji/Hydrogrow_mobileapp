@@ -1237,6 +1237,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to login'**
   String get forgot_password_close;
+
+  /// No description provided for @stock_form_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get stock_form_back;
+
+  /// No description provided for @stock_form_title_create.
+  ///
+  /// In en, this message translates to:
+  /// **'New item'**
+  String get stock_form_title_create;
+
+  /// No description provided for @stock_form_title_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit item'**
+  String get stock_form_title_edit;
+
+  /// No description provided for @stock_form_field_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name *'**
+  String get stock_form_field_name;
+
+  /// No description provided for @stock_form_field_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Item name'**
+  String get stock_form_field_name_hint;
+
+  /// No description provided for @stock_form_field_name_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get stock_form_field_name_required;
+
+  /// No description provided for @stock_form_field_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category *'**
+  String get stock_form_field_category;
+
+  /// No description provided for @stock_form_field_quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity *'**
+  String get stock_form_field_quantity;
+
+  /// No description provided for @stock_form_field_quantity_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get stock_form_field_quantity_required;
+
+  /// No description provided for @stock_form_field_quantity_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Whole number required'**
+  String get stock_form_field_quantity_invalid;
+
+  /// No description provided for @stock_form_field_unit.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit'**
+  String get stock_form_field_unit;
+
+  /// No description provided for @stock_form_field_threshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Alert threshold'**
+  String get stock_form_field_threshold;
+
+  /// No description provided for @stock_form_field_threshold_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Whole number required'**
+  String get stock_form_field_threshold_invalid;
+
+  /// No description provided for @stock_form_field_brand.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand'**
+  String get stock_form_field_brand;
+
+  /// No description provided for @stock_form_field_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit price (€)'**
+  String get stock_form_field_price;
+
+  /// No description provided for @stock_form_field_price_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid number'**
+  String get stock_form_field_price_invalid;
+
+  /// No description provided for @stock_form_field_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get stock_form_field_notes;
+
+  /// No description provided for @stock_form_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get stock_form_save;
+
+  /// No description provided for @stock_form_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to stock'**
+  String get stock_form_create;
+
+  /// No description provided for @parcel_form_back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get parcel_form_back;
+
+  /// No description provided for @parcel_form_title_create.
+  ///
+  /// In en, this message translates to:
+  /// **'New parcel'**
+  String get parcel_form_title_create;
+
+  /// No description provided for @parcel_form_title_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit parcel'**
+  String get parcel_form_title_edit;
+
+  /// No description provided for @parcel_form_field_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name *'**
+  String get parcel_form_field_name;
+
+  /// No description provided for @parcel_form_field_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Parcel name'**
+  String get parcel_form_field_name_hint;
+
+  /// No description provided for @parcel_form_field_name_required.
+  ///
+  /// In en, this message translates to:
+  /// **'Required field'**
+  String get parcel_form_field_name_required;
+
+  /// No description provided for @parcel_form_field_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get parcel_form_field_type;
+
+  /// No description provided for @parcel_form_field_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get parcel_form_field_status;
+
+  /// No description provided for @parcel_form_field_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get parcel_form_field_location;
+
+  /// No description provided for @parcel_form_field_plants.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of plants'**
+  String get parcel_form_field_plants;
+
+  /// No description provided for @parcel_form_field_plants_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Whole number required'**
+  String get parcel_form_field_plants_invalid;
+
+  /// No description provided for @parcel_form_field_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Commissioning date'**
+  String get parcel_form_field_date;
+
+  /// No description provided for @parcel_form_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get parcel_form_save;
+
+  /// No description provided for @parcel_form_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create parcel'**
+  String get parcel_form_create;
 }
 
 class _AppLocalizationsDelegate

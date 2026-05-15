@@ -55,9 +55,13 @@ class Parcel {
       case 'active':
         return AppColors.success;
       case 'planned':
+      case 'setup':
         return AppColors.notification;
+      case 'maintenance':
       case 'inactive':
         return AppColors.warning;
+      case 'retired':
+        return AppColors.textSecondary;
       default:
         return AppColors.textSecondary;
     }
@@ -69,6 +73,12 @@ class Parcel {
         return 'Active';
       case 'planned':
         return 'Planifiée';
+      case 'setup':
+        return 'En installation';
+      case 'maintenance':
+        return 'Maintenance';
+      case 'retired':
+        return 'Retirée';
       case 'inactive':
         return 'Inactive';
       default:

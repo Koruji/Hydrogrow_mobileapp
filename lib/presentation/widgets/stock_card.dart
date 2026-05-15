@@ -112,7 +112,7 @@ class StockItemCard extends StatelessWidget {
         Text(item.brand, style: TextStyle(fontSize: 12, color: colors.textSecondary)),
         const SizedBox(height: 4),
         Text(
-          item.category,
+          _categoryLabel(item.category),
           style: TextStyle(fontSize: 11, color: colors.textSecondary, fontStyle: FontStyle.italic),
         ),
         const SizedBox(height: 8),
@@ -144,7 +144,7 @@ class StockItemCard extends StatelessWidget {
             color: isLow ? AppColors.warning : colors.textPrimary,
           ),
         ),
-        Text(item.unit, style: TextStyle(fontSize: 12, color: colors.textSecondary)),
+        Text(_unitLabel(item.unit), style: TextStyle(fontSize: 12, color: colors.textSecondary)),
       ],
     );
   }
@@ -158,7 +158,7 @@ class StockItemCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildDetailColumn(colors, label: translate.stock_card_threshold, value: '${item.minThreshold} ${item.unit}'),
+              _buildDetailColumn(colors, label: translate.stock_card_threshold, value: '${item.minThreshold} ${_unitLabel(item.unit)}'),
               _buildDetailColumn(colors,
                   label: translate.stock_card_unit_cost,
                   value: '${item.costPerUnit.toStringAsFixed(2)}${item.currency}',
@@ -204,12 +204,36 @@ class StockItemCard extends StatelessWidget {
     );
   }
 
+  String _unitLabel(String unit) {
+    switch (unit) {
+      case 'qty': return 'unité(s)';
+      case 'g': return 'g';
+      case 'kg': return 'kg';
+      case 'ml': return 'ml';
+      case 'l': return 'l';
+      default: return unit;
+    }
+  }
+
+  String _categoryLabel(String category) {
+    switch (category) {
+      case 'seed': return 'Semences';
+      case 'nutrient': return 'Engrais / Nutriments';
+      case 'ph_control': return 'Correcteur pH';
+      case 'substrate': return 'Substrat';
+      case 'equipment': return 'Équipement';
+      case 'other': return 'Autre';
+      default: return category;
+    }
+  }
+
   IconData _getCategoryIcon(String category) {
     switch (category) {
-      case 'Semences': return Icons.eco;
-      case 'Fertilisants': return Icons.grain;
-      case 'Additifs': return Icons.science;
-      case 'Équipements': return Icons.build;
+      case 'seed': return Icons.eco;
+      case 'nutrient': return Icons.grain;
+      case 'ph_control': return Icons.science;
+      case 'substrate': return Icons.landscape;
+      case 'equipment': return Icons.build;
       default: return Icons.inventory_2;
     }
   }

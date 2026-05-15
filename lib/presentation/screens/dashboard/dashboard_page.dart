@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
+import 'package:hydrogrow/data/mock/article_mock.dart';
+import 'package:hydrogrow/data/services/installation_service.dart';
+import 'package:hydrogrow/data/services/inventory_service.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/presentation/components/app_scaffold.dart';
 import 'package:hydrogrow/presentation/components/app_user_avatar.dart';
+import 'package:hydrogrow/presentation/controllers/parcel_controller.dart';
+import 'package:hydrogrow/presentation/controllers/stock_controller.dart';
+import 'package:hydrogrow/presentation/screens/community/article_detail_page.dart';
 import 'package:hydrogrow/presentation/widgets/alert_message.dart';
+import 'package:hydrogrow/presentation/widgets/community_summary_dashboard.dart';
 import 'package:hydrogrow/presentation/widgets/dashboard_container.dart';
+import 'package:hydrogrow/presentation/widgets/parcel_summary_dashboard.dart';
 import 'package:hydrogrow/presentation/widgets/reordable_container_list.dart';
 import 'package:hydrogrow/presentation/widgets/stock_summary_dashboard.dart';
-import 'package:hydrogrow/presentation/widgets/parcel_summary_dashboard.dart';
-import 'package:hydrogrow/presentation/widgets/community_summary_dashboard.dart';
-import 'package:hydrogrow/presentation/screens/community/article_detail_page.dart';
 import 'package:hydrogrow/providers/auth_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:hydrogrow/presentation/controllers/stock_controller.dart';
-import 'package:hydrogrow/presentation/controllers/parcel_controller.dart';
-import 'package:hydrogrow/presentation/controllers/article_controller.dart';
-import 'package:hydrogrow/data/mock/stock_mock.dart';
-import 'package:hydrogrow/data/mock/parcel_mock.dart';
-import 'package:hydrogrow/data/mock/article_mock.dart';
 import 'package:hydrogrow/services/weather_service.dart';
+import 'package:provider/provider.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -28,24 +27,47 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  final _inventoryService = InventoryService();
+  final _installationService = InstallationService();
+
+  final _stockController = StockController();
+  final _parcelController = ParcelController();
   bool isEditMode = false;
+  bool _stockLoading = true;
+  bool _parcelsLoading = true;
   WeatherData? _weather;
   bool _weatherLoading = true;
-
-  late StockController _stockController;
-  late ParcelController _parcelController;
-  late ArticleController _articleController;
 
   @override
   void initState() {
     super.initState();
-    _stockController = StockController();
-    _stockController.initialize(mockStockItems);
-    _parcelController = ParcelController();
-    _parcelController.initialize(mockParcels);
-    _articleController = ArticleController();
-    _articleController.initialize(mockArticles);
+    _loadStock();
+    _loadParcels();
     _loadWeather();
+  }
+
+  Future<void> _loadStock() async {
+    setState(() => _stockLoading = true);
+    try {
+      final items = await _inventoryService.getAll();
+      _stockController.initialize(items);
+    } catch (_) {
+      _stockController.initialize([]);
+    } finally {
+      if (mounted) setState(() => _stockLoading = false);
+    }
+  }
+
+  Future<void> _loadParcels() async {
+    setState(() => _parcelsLoading = true);
+    try {
+      final parcels = await _installationService.getAll();
+      _parcelController.initialize(parcels);
+    } catch (_) {
+      _parcelController.initialize([]);
+    } finally {
+      if (mounted) setState(() => _parcelsLoading = false);
+    }
   }
 
   Future<void> _loadWeather() async {
@@ -65,6 +87,7 @@ class _DashboardPageState extends State<DashboardPage> {
     final user = authProvider.user;
     final isPremium = authProvider.subscription != 'freemium' &&
         authProvider.subscription != 'free';
+
     final containersTitle = [
       'Stocks',
       'Parcelles',
@@ -74,13 +97,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return AppScaffold(
       currentRoute: '/dashboard',
       isEditMode: isEditMode,
-      onEditPressed: () {
-        if (mounted) {
-          setState(() {
-            isEditMode = !isEditMode;
-          });
-        }
-      },
+      onEditPressed: () => setState(() => isEditMode = !isEditMode),
       body: Column(
         children: [
           _buildGreetingSection(user?['username'] as String?, translate),
@@ -129,9 +146,11 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget _buildGreetingSection(String? login, AppLocalizations translate) {
+  Widget _buildGreetingSection(
+      String? username, AppLocalizations translate) {
     final hour = DateTime.now().hour;
-    final greeting = hour < 18 ? translate.dashboard_welcome : 'Bonsoir';
+    final greeting =
+        hour < 18 ? translate.dashboard_welcome : 'Bonsoir';
     final colors = context.colors;
 
     return Container(
@@ -147,7 +166,8 @@ class _DashboardPageState extends State<DashboardPage> {
           end: Alignment.centerRight,
         ),
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: colors.menu.withValues(alpha: 0.30), width: 1),
+        border:
+            Border.all(color: colors.menu.withValues(alpha: 0.30), width: 1),
       ),
       child: Row(
         children: [
@@ -168,7 +188,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  login ?? '',
+                  username ?? '',
                   style: TextStyle(
                     color: colors.textPrimary,
                     fontSize: 20,
@@ -200,7 +220,8 @@ class _DashboardPageState extends State<DashboardPage> {
     }
 
     if (_weather == null) {
-      return Icon(Icons.energy_savings_leaf_rounded, color: colors.menu, size: 30);
+      return Icon(Icons.energy_savings_leaf_rounded,
+          color: colors.menu, size: 30);
     }
 
     return Container(
@@ -217,20 +238,51 @@ class _DashboardPageState extends State<DashboardPage> {
           const SizedBox(height: 2),
           Text(
             '${_weather!.temperature.round()}°C',
-            style: TextStyle(color: colors.textPrimary, fontSize: 13, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                color: colors.textPrimary,
+                fontSize: 13,
+                fontWeight: FontWeight.w700),
           ),
           Text(
             _weather!.description,
-            style: TextStyle(color: colors.textPrimary.withValues(alpha: 0.55), fontSize: 10),
+            style: TextStyle(
+                color: colors.textPrimary.withValues(alpha: 0.55),
+                fontSize: 10),
           ),
         ],
       ),
     );
   }
 
+  Widget _buildStockSummaryContainer() {
+    if (_stockLoading) {
+      return _buildLoadingCard('Stocks');
+    }
+    final stats = _stockController.getStatistics();
+    return StockSummaryWidget(
+      key: const ValueKey('stock-summary'),
+      total: stats.total,
+      optimal: stats.optimal,
+      moyen: stats.moyen,
+      faible: stats.faible,
+      rupture: stats.rupture,
+      onTap: () {
+        Navigator.pushNamed(context, '/stock').then((_) {
+          if (mounted) _loadStock();
+        });
+      },
+    );
+  }
+
   Widget _buildParcelSummaryContainer() {
+    if (_parcelsLoading) {
+      return _buildLoadingCard('Parcelles');
+    }
     final stats = _parcelController.getStatistics();
-    final inactiveParcels = mockParcels.where((p) => p.status == 'inactive').toList();
+    final inactiveParcels = _parcelController.filteredParcels
+        .where((p) =>
+            p.status == 'inactive' || p.status == 'maintenance')
+        .toList();
 
     return ParcelSummaryWidget(
       key: const ValueKey('parcel-summary'),
@@ -242,12 +294,7 @@ class _DashboardPageState extends State<DashboardPage> {
       inactiveParcels: inactiveParcels,
       onTap: () {
         Navigator.pushNamed(context, '/parcels').then((_) {
-          if (mounted) {
-            setState(() {
-              _parcelController = ParcelController();
-              _parcelController.initialize(mockParcels);
-            });
-          }
+          if (mounted) _loadParcels();
         });
       },
     );
@@ -259,8 +306,11 @@ class _DashboardPageState extends State<DashboardPage> {
 
     final recentArticles = mockArticles.where((a) {
       final d = a.createdAt;
-      final isToday = d.year == now.year && d.month == now.month && d.day == now.day;
-      final isYesterday = d.year == yesterday.year && d.month == yesterday.month && d.day == yesterday.day;
+      final isToday =
+          d.year == now.year && d.month == now.month && d.day == now.day;
+      final isYesterday = d.year == yesterday.year &&
+          d.month == yesterday.month &&
+          d.day == yesterday.day;
       return isToday || isYesterday;
     }).toList()
       ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
@@ -269,12 +319,12 @@ class _DashboardPageState extends State<DashboardPage> {
       key: const ValueKey('community-summary'),
       recentArticles: recentArticles,
       onTap: () {
-        Navigator.pushNamed(context, '/community').then((_) {
-          if (mounted) setState(() {});
-        });
+        Navigator.pushNamed(context, '/community')
+            .then((_) => setState(() {}));
       },
       onArticleTap: (article) {
-        final currentUserId = Provider.of<AuthProvider>(context, listen: false).username;
+        final currentUserId =
+            Provider.of<AuthProvider>(context, listen: false).username;
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -288,28 +338,32 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget _buildStockSummaryContainer() {
-    final stats = _stockController.getStatistics();
-
-    return StockSummaryWidget(
-      key: const ValueKey('stock-summary'),
-      total: stats.total,
-      optimal: stats.optimal,
-      moyen: stats.moyen,
-      faible: stats.faible,
-      rupture: stats.rupture,
-      onTap: () {
-        // Naviguer vers la page stock complète
-        Navigator.pushNamed(context, '/stock').then((_) {
-          // Rafraîchir quand on revient
-          if (mounted) {
-            setState(() {
-              _stockController = StockController();
-              _stockController.initialize(mockStockItems);
-            });
-          }
-        });
-      },
+  Widget _buildLoadingCard(String title) {
+    final colors = context.colors;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: colors.divider),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 16,
+            height: 16,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: colors.menu,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Text(
+            'Chargement $title...',
+            style: TextStyle(color: colors.textSecondary, fontSize: 13),
+          ),
+        ],
+      ),
     );
   }
 }
