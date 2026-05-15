@@ -1,60 +1,48 @@
 import 'package:dio/dio.dart';
 import '../../core/network/api_client.dart';
-import '../models/user.dart';
+import '../../core/network/token_service.dart';
 
 class AuthService {
   final Dio _dio = ApiClient().dio;
 
-  Future<bool> register(String login, String email, String password) async {
-    try {
-      final response = await _dio.post(
-        '/auth/register',
-        data: {'login': login, 'email': email, 'password': password},
-      );
+  Future<Map<String, dynamic>> login(
+      String identifier, String password) async {
+    final response = await _dio.post(
+      '/auth/login',
+      data: {'identifier': identifier, 'password': password},
+    );
+    final token = response.data['access_token'] as String;
+    await TokenService.saveToken(token);
+    return getMe();
+  }
 
-      return response.statusCode == 200 || response.statusCode == 201;
-    } on DioException catch (e) {
-      if (e.response != null) {
-        throw Exception(
-          'Erreur ${e.response!.statusCode}: ${e.response!.data}',
-        );
-      } else {
-        throw Exception('Erreur de connexion');
-      }
+  Future<bool> register(
+      String username, String email, String password) async {
+    final response = await _dio.post(
+      '/auth/register',
+      data: {'username': username, 'email': email, 'password': password},
+    );
+    return response.statusCode == 201;
+  }
+
+  Future<void> logout() async {
+    try {
+      await _dio.post('/auth/logout');
+    } finally {
+      await TokenService.deleteToken();
     }
   }
 
-  Future<bool> login(String email, String password) async {
-    try {
-      final response = await _dio.post(
-        '/auth/login',
-        data: {'email': email, 'password': password},
-      );
-
-      return response.statusCode == 200;
-    } on DioException catch (e) {
-      if (e.response != null) {
-        throw Exception(
-          'Erreur ${e.response!.statusCode}: ${e.response!.data}',
-        );
-      } else {
-        throw Exception('Erreur de connexion');
-      }
-    }
+  Future<Map<String, dynamic>> getMe() async {
+    final response = await _dio.get('/auth/me');
+    final data = response.data as Map;
+    final user = data.containsKey('user') ? data['user'] : data;
+    return Map<String, dynamic>.from(user as Map);
   }
 
-  Future<bool> logout() async {
-    try {
-      final response = await _dio.post('/auth/logout');
-      return response.statusCode == 200;
-    } on DioException catch (e) {
-      if (e.response != null) {
-        throw Exception(
-          'Erreur ${e.response!.statusCode}: ${e.response!.data}',
-        );
-      } else {
-        throw Exception('Erreur de connexion');
-      }
-    }
+  Future<void> forgotPassword(String email) async {
+    await _dio.post('/auth/forgot-password', data: {'email': email});
   }
+
+  Future<bool> isLoggedIn() => TokenService.hasToken();
 }

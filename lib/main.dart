@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 import 'package:hydrogrow/core/navigation/app_page_route.dart';
@@ -16,8 +17,11 @@ import 'package:hydrogrow/providers/theme_provider.dart';
 import 'package:hydrogrow/providers/locale_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:hydrogrow/presentation/controllers/auth_controller.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
   usePathUrlStrategy();
   runApp(
     MultiProvider(
@@ -53,7 +57,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.mode,
-      home: LoginPage(),
+      home: const AuthGate(),
       onGenerateRoute: (settings) {
         final routes = <String, Widget>{
           '/dashboard': DashboardPage(),
@@ -71,6 +75,38 @@ class MyApp extends StatelessWidget {
         }
         return null;
       },
+    );
+  }
+}
+
+class AuthGate extends StatefulWidget {
+  const AuthGate({super.key});
+
+  @override
+  State<AuthGate> createState() => _AuthGateState();
+}
+
+class _AuthGateState extends State<AuthGate> {
+  @override
+  void initState() {
+    super.initState();
+    _checkAuth();
+  }
+
+  Future<void> _checkAuth() async {
+    final loggedIn = await AuthController.tryAutoLogin(context);
+    if (!mounted) return;
+    if (loggedIn) {
+      Navigator.pushReplacementNamed(context, '/dashboard');
+    } else {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

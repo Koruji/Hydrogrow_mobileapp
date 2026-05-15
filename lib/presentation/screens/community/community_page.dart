@@ -38,7 +38,7 @@ class _CommunityPageState extends State<CommunityPage> {
   }
 
   String get _currentUserId =>
-      Provider.of<AuthProvider>(context, listen: false).login;
+      Provider.of<AuthProvider>(context, listen: false).username;
 
   bool _isOwner(Article article) => article.authorId == _currentUserId;
 
@@ -63,8 +63,8 @@ class _CommunityPageState extends State<CommunityPage> {
       MaterialPageRoute(
         builder: (_) => ArticleFormPage(
           article: article,
-          authorId: auth.login,
-          authorName: auth.login,
+          authorId: auth.username,
+          authorName: auth.username,
           onSave: (saved) {
             if (article != null) {
               _controller.update(article.id, saved);

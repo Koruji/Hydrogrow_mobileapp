@@ -29,8 +29,6 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   bool isEditMode = false;
-  bool isPremium = false;
-  Map<String, dynamic>? user;
   WeatherData? _weather;
   bool _weatherLoading = true;
 
@@ -61,15 +59,12 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    user = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-  }
-
-  @override
   Widget build(BuildContext context) {
     final translate = AppLocalizations.of(context)!;
-    final user = Provider.of<AuthProvider>(context).user;
+    final authProvider = Provider.of<AuthProvider>(context);
+    final user = authProvider.user;
+    final isPremium = authProvider.subscription != 'freemium' &&
+        authProvider.subscription != 'free';
     final containersTitle = [
       'Stocks',
       'Parcelles',
@@ -88,7 +83,7 @@ class _DashboardPageState extends State<DashboardPage> {
       },
       body: Column(
         children: [
-          _buildGreetingSection(user?['login'] as String?, translate),
+          _buildGreetingSection(user?['username'] as String?, translate),
           if (isEditMode)
             AlertMessage(
               icon: Icons.warning_amber_rounded,
@@ -279,7 +274,7 @@ class _DashboardPageState extends State<DashboardPage> {
         });
       },
       onArticleTap: (article) {
-        final currentUserId = Provider.of<AuthProvider>(context, listen: false).login;
+        final currentUserId = Provider.of<AuthProvider>(context, listen: false).username;
         Navigator.push(
           context,
           MaterialPageRoute(
