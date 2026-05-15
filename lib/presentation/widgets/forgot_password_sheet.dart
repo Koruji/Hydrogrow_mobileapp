@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrogrow/core/theme/colors.dart';
+import 'package:hydrogrow/data/services/auth_service.dart';
 import 'package:hydrogrow/l10n/app_localizations.dart';
 
 void showForgotPasswordSheet(BuildContext context) {
@@ -22,8 +24,10 @@ class _ForgotPasswordSheetState extends State<_ForgotPasswordSheet>
     with SingleTickerProviderStateMixin {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
+  final _service = AuthService();
   bool _isLoading = false;
   bool _success = false;
+  String? _errorMessage;
 
   late final AnimationController _checkAnim;
   late final Animation<double> _checkScale;
@@ -47,14 +51,35 @@ class _ForgotPasswordSheetState extends State<_ForgotPasswordSheet>
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
-    setState(() => _isLoading = true);
-    await Future.delayed(const Duration(milliseconds: 1200));
-    if (!mounted) return;
     setState(() {
-      _isLoading = false;
-      _success = true;
+      _isLoading = true;
+      _errorMessage = null;
     });
-    _checkAnim.forward();
+    try {
+      await _service.forgotPassword(_emailController.text.trim());
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+        _success = true;
+      });
+      _checkAnim.forward();
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _isLoading = false;
+        _errorMessage = _parseError(e);
+      });
+    }
+  }
+
+  String _parseError(Object e) {
+    if (e is DioException) {
+      if (e.type == DioExceptionType.connectionError ||
+          e.type == DioExceptionType.connectionTimeout) {
+        return 'Impossible de joindre le serveur';
+      }
+    }
+    return 'Une erreur est survenue, veuillez réessayer';
   }
 
   @override
@@ -153,13 +178,22 @@ class _ForgotPasswordSheetState extends State<_ForgotPasswordSheet>
               if (value == null || value.isEmpty) {
                 return translate.connexion_error_mandatory;
               }
-              if (!value.contains('@')) {
+              final emailRegex = RegExp(r'^[\w\-.]+@[\w\-]+\.[a-zA-Z]{2,}$');
+              if (!emailRegex.hasMatch(value.trim())) {
                 return translate.connexion_error_invalid_email;
               }
               return null;
             },
           ),
         ),
+        if (_errorMessage != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
+              _errorMessage!,
+              style: TextStyle(color: colors.warning, fontSize: 13),
+            ),
+          ),
         const SizedBox(height: 20),
         SizedBox(
           width: double.infinity,

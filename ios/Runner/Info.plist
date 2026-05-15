@@ -43,8 +43,6 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Hydrogrow utilise votre position pour afficher la météo locale.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Hydrogrow utilise votre position pour afficher la météo locale.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

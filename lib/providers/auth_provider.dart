@@ -6,9 +6,13 @@ class AuthProvider extends ChangeNotifier {
   Map<String, dynamic>? get user => _user;
   bool get isLoggedIn => _user != null;
 
-  String get login => _user?['login'] ?? '';
+  String get username => _user?['username'] ?? _user?['login'] ?? '';
   String get email => _user?['email'] ?? '';
-  String get subscription => _user?['subscription'] ?? 'free';
+  String get subscription {
+    final sub = _user?['subscription'];
+    if (sub is Map) return sub['type'] as String? ?? 'freemium';
+    return sub as String? ?? 'freemium';
+  }
   String get language => _user?['language'] ?? 'fr';
   String get avatarShape => _user?['avatar_shape'] ?? 'circle';
   String get avatarUrl =>
@@ -17,13 +21,11 @@ class AuthProvider extends ChangeNotifier {
 
   void setUser(Map<String, dynamic> user) {
     _user = user;
-    print(user);
     notifyListeners();
   }
 
   void logout() {
     _user = null;
-    print(user);
     notifyListeners();
   }
 }

@@ -54,7 +54,7 @@ class _AccountPageState extends State<AccountPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              userProvider.login,
+                              userProvider.username,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,

@@ -59,9 +59,9 @@ class _LoginFormState extends State<LoginForm> {
     final login = _loginController.text.trim();
 
     if (widget.isLogin) {
-      final result = AuthController.login(
+      final result = await AuthController.login(
         context: context,
-        email: email,
+        identifier: email,
         password: password,
       );
       if (!mounted) return;
@@ -71,16 +71,16 @@ class _LoginFormState extends State<LoginForm> {
         setState(() => _errorMessage = result['error']);
       }
     } else {
-      final result = AuthController.register(
-        login: login,
+      final result = await AuthController.register(
+        username: login,
         email: email,
         password: password,
       );
       if (!mounted) return;
       if (result['success']) {
-        final loginResult = AuthController.login(
+        final loginResult = await AuthController.login(
           context: context,
-          email: email,
+          identifier: email,
           password: password,
         );
         if (!mounted) return;
@@ -204,7 +204,7 @@ class _LoginFormState extends State<LoginForm> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return translate.connexion_error_mandatory;
-              } else if (value.length < 6) {
+              } else if (value.length < 8) {
                 return translate.connexion_error_create_password;
               }
               return null;
